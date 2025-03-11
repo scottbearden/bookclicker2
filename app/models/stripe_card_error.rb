@@ -1,0 +1,3 @@
+class StripeCardError < ApplicationRecord
+  
+end

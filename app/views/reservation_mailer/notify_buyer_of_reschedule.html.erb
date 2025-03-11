@@ -1,0 +1,15 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  A booking request to <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> for a <%= @reservation.inv_type %> email<%= " on #{@date_was}" if @date_was %> has been rescheduled to <%= @reservation.date.pretty %>.  Here are more 
+  <%= @reservation.booking_details_info_link %>.
+</div>
+
+<%= render "book_info" %>
+
+<div class="space2"></div>

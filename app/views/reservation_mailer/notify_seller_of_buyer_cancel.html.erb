@@ -1,0 +1,27 @@
+<% offer_buyer_name = @book.pen_name.try(:author_name).presence %>
+<% list_name_here = @list.try(:adopted_pen_name).presence || @reservation.recorded_list_name %>
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= list_name_here %></div>
+<div class="space1"></div>
+<div class="text">
+  
+<% if @reservation.seller_accepted_at? %>
+    You were booked to send a promotion<%= " for #{offer_buyer_name}" if offer_buyer_name.present? %> on <%= @reservation.date.pretty %>.  The buyer has cancelled this promo and it has been removed from your <%= list_name_here %> calendar.  Below are the <%= @reservation.booking_details_info_link %> of the cancelled booking.
+  </div>
+<% else %>
+    You had a request to send a promotion<%= " for #{offer_buyer_name}" if offer_buyer_name.present? %> on <%= @reservation.date.pretty %>.  The buyer has cancelled this request.  Below are the <%= @reservation.booking_details_info_link %> of the cancelled request.
+  </div>
+<% end %>
+
+<div class="space2"></div>
+
+<div class='medium-text'>You Were Going To Send</div>
+<%= render "book_info" %>
+
+<div class="space2"></div>
+
+

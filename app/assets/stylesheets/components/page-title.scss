@@ -1,0 +1,51 @@
+.page-title-container {
+  width: 655px;
+  margin: 0 auto;
+  @include respond-to(small) {
+    width: 100%;
+  }
+  text-align: center;
+  
+  .page-title {
+    margin: 0 auto;
+    @include respond-to(small) {
+      width: 85%;
+    }
+
+    * {
+      font-family: 'Spring Market', 'Crete Round', serif;
+    }
+    
+    .page-title-title {
+      font-size: 50px;
+      line-height: 1.2em;
+      margin-bottom: 20px;
+      
+      @include respond-to(extra-small) {
+        font-size: 35px;
+      }
+    }
+    
+    .how-it-works-sign-up-container {
+      margin: 50px 0 85px 0;
+    }
+
+    .how-it-works-text {
+      p {
+        font-family: Verdana;
+        line-height: 1.9;
+        opacity: 0.9;
+      }
+      margin: 40px 0 70px;
+      font-size: 14px;
+      text-align: center;
+    }
+      
+    .page-title-subtitle {
+      margin-top: 10px;
+      color: $mailchimp-gray;
+      font-size: 22px;
+    }
+    
+  }
+}

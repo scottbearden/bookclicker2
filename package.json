@@ -1,0 +1,39 @@
+{
+  "name": "bookclicker",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "watchjs": "webpack --watch",
+    "buildjs": "webpack -p"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "create-react-class": "^15.6.3",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^4.3.4",
+    "rc-slider": "^7.0.2",
+    "react": "^15.5.3",
+    "react-datepicker": "^0.46.0",
+    "react-dom": "^15.5.3",
+    "react-numeric-input": "^2.1.0",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.1.1",
+    "react-select": "^1.0.0-rc.5",
+    "react-tappable": "^1.0.4",
+    "react-toggle": "^4.0.1",
+    "recharts": "^1.0.0-alpha.0",
+    "webpack": "3.5.2"
+  }
+}

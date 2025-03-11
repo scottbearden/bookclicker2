@@ -1,0 +1,22 @@
+<% list_name_here = @list.try(:adopted_pen_name).presence || @reservation.recorded_list_name %>
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= list_name_here %></div>
+<div class="space1"></div>
+<div class="text">
+  
+    A seller has cancelled a booking that you were going to receive.  The details of this booking are shown below.
+    
+</div>
+
+<div class="space2"></div>
+
+<div class='medium-text'>You Were Going To Receive</div>
+<%= render "book_info" %>
+
+<div class="space2"></div>
+
+

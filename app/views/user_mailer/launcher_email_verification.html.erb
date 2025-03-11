@@ -1,0 +1,31 @@
+<% if @user.first_name.present? %>
+  <div class="large-text">Hello <%= @user.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+
+<div class="space2"></div>
+<div class="text">
+  <% if !@has_received_this_email %>
+    <% if @user.assistant? %>
+      You have been invited to use Bookclicker as a virtual assistant.<br/>
+    <% else %>
+      Thank you for signing up to Bookclicker.<br/>
+    <% end %>
+    Please verify your address so we can activate your<%= @user.assistant? ? " virtual assistant" : "" %> account.
+  <% else %>
+    Your email address has been updated.  Please verify your email address to continue using Bookcliker!
+  <% end %>
+</div>
+<div class="space2"></div>
+
+<div class="bclick-email-actions">
+  <div class="bclick-email-action">
+    <a href="<%= @user.verify_email_link %>" class="bclick-mailer-notification-button">Verify Email</a>
+  </div>
+</div>
+
+<div class="space2"></div>
+<div class="small-text center">
+  If you didn’t create a Bookclicker account, feel free to ignore this email.
+</div>

@@ -1,0 +1,312 @@
+@mixin pay-action-container() {
+  button, input, a {
+    width: 320px;
+  }
+  @include respond-to(extra-small) {
+    button, input, a {
+      width: 100%;
+    }
+  }
+}
+
+#reservation-page, #clients-page {  
+  h2 {
+    margin-bottom: 30px;
+    color: $mailchimp-gray;
+  }
+  
+  .divider {
+    background-color: $ultra-light-gray-alt;
+  }
+
+  .reservation-info-header {
+    font-size: 27px;
+    @include respond-to(extra-small) {
+      font-size: 15px;
+    }
+    &.declined {
+      background-color: #334660 !important;
+    }
+    &.pending {
+      background-color: darken($mario-coin, 25%) !important;
+    }
+    &.paid {
+      background-color: $notifications-color !important;
+    }
+    &.cancelled {
+      background-color: $youtube-red !important;
+    }
+    text-align: left;
+  }
+  
+  .use-default-payment {
+    margin: 35px auto 0;
+    @include pay-action-container();
+    
+    .use-default-payment-logo {
+      margin: 10px auto;
+    }
+  }
+  
+  .use-manual-payment {
+    margin-bottom: 35px;
+    @include pay-action-container();
+  }
+
+  #default-source-errors, #one-time-source-errors, #card-errors {
+    height: 30px;
+    padding: 5px;
+    color: #eb1c26;
+  }
+  
+  #payment-form-container, .edit-card-form-container {
+    $stripe-payment-form-width: 515px;
+    margin-bottom: 30px;
+    h4 {
+      margin-bottom: 50px;
+    }
+    margin-top: 20px;
+    text-align: center;
+
+    #payment-form, .edit-card-form {
+      
+      border-top: 2px solid grey;
+      border-bottom: 2px solid grey;
+      padding: 2px 0 20px;
+      
+      .launch-stripe-js-button {
+        border-radius: 10px;
+        margin: 12px 0;
+        width: $stripe-payment-form-width;
+        @include respond-to(extra-small) {
+          width: 95%;
+        }
+      }
+      
+      .cancel-or-update {
+        margin-top: 5px;
+        .bclick-button {
+          @include respond-to(extra-small) {
+            min-width: 75px;
+          }
+        }
+      }
+      
+      .launch-stripe-js-button[disabled] {
+        cursor: default;
+        opacity: 0.6;
+      }
+      
+      .payment-form-info {
+        width: $stripe-payment-form-width;
+        @include respond-to(extra-small) {
+          width: 95%;
+        }
+        margin: 25px auto 10px;
+        @include clearfix();
+        .payment-form-info-item-container {
+          width: 33%;
+          &.left {
+            float: left;
+            text-align: left;
+          }
+          &.center {
+            float: left;
+            text-align: center;
+          }
+          &.right {
+            float: left;
+            text-align: right;
+            color: $notifications-color;
+          }
+          
+          @include respond-to(extra-small) {
+            width: 100%;
+            float: none;
+            text-align: center !important;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      
+      
+      #card-element, #card-cardholder-info, #card-agreement {
+        width: $stripe-payment-form-width;
+        padding: 12px 1px 12px 13px;
+        margin-top: 3px;
+        margin: 0 auto;
+        @include respond-to(extra-small) {
+          width: 90%;
+          * {
+            font-size: 10px;
+          }
+        }
+        background-color: #e9e9e9;
+      }
+
+      #card-agreement {
+        padding: 12px;
+        margin-bottom: 15px;
+      }
+      
+      #card-cardholder-info {
+        margin-bottom: 10px;
+        padding: 6px;
+        
+        input[type="text"]:not(:last-child) {
+          margin-bottom: 4px;
+        }
+        
+        .card-cardholder-info-group {
+          input[type="text"] {
+            display: inline-block;
+          }
+          
+          input.card-state {
+            width: calc(60% - 4px);
+            margin-right: 4px;
+          }
+          
+          input.card-zip {
+            width: 40%;
+          }
+          
+          .Select-control {
+            text-align: left;
+          }
+        }
+        
+        * {
+          font-family: sans-serif !important;
+          @include placeholder() {
+            font-family: sans-serif !important;
+          }
+        }
+        
+      }
+      
+    }
+  }
+  
+  @mixin eighty-percent-and-center() {
+    width: 97%;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  
+  .reservation-page-banner-container {
+    @include eighty-percent-and-center();
+    
+    img.powered-by-stripe-img {
+      width: 130px;
+      max-width: 130px;
+    }
+    margin: 15px auto 10px;
+    .reservation-page-banner {
+      text-align: center;
+      .connect-with-stripe-container {
+        .connect-with-stripe-notice {
+          margin: 14px 0;
+        }
+        font-size: 17px;
+        @include respond-to(extra-small) {
+          font-size: 13px;
+        }
+        margin-bottom: 28px;
+      }
+      
+      .info-page-accept-decline-buttons {
+        @include clearfix();
+        .info-page-accept-decline-error, .info-page-accept-decline-success  {
+          clear: both;
+          font-size: 18px;
+          padding-top: 9px;
+        }
+        .info-page-accept-decline-error {
+          color: $youtube-red;
+        }
+        .info-page-accept-decline-success {
+          color: $notifications-color;
+        }
+        .info-page-accept-decline-reply {
+          padding: 10px 0 12px;
+          clear: both;
+          textarea {
+            resize: none;
+          }
+        }
+        .info-page-accept-decline-action {
+          width: 33.3%;
+          padding: 2px 14px;
+          &.left {
+            padding-left: 7px;
+          }
+          &.middle {
+            padding: 2px 10px;
+          }
+          &.right {
+            padding-right: 7px;
+          }
+          float: left;
+          a, button, input {
+            width: 100%;
+            min-width: 92px;
+          }
+          a[disabled], button[disabled], input[disabled] {
+            opacity: 0.4;
+            cursor: default;
+            &.darken {
+              opacity: 1.0;
+            }
+          }
+          
+          
+        }
+      }
+      
+    }
+  }
+  
+  .reservation-info-container {
+    @include eighty-percent-and-center();
+    
+    .reservation-info {
+      
+      table {
+        
+        .reservation-email-hide-tiny {
+          @include respond-to(tiny) {
+            font-size: 10px;
+          }
+          @include respond-to(tiny-mobile) {
+            display: none;
+          }
+        }
+        
+        thead tr {
+          text-align: center;
+          background-color: $mailchimp-gray;
+          color: white;
+        }
+        
+        &.table-striped > tbody > tr:nth-of-type(even) {
+         background-color: rgba(48,116,140,0.1);
+        }
+        
+        &.table-striped > tbody > tr:nth-of-type(odd) {
+         background-color: white;
+        }
+        
+        thead tr {
+          text-align: center;
+          background-color: rgba(48,116,140, 0.8);
+          color: white;
+        }
+      }
+    }
+  }
+  
+  
+  
+}

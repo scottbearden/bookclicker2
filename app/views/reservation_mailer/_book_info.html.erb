@@ -1,0 +1,56 @@
+<ul>
+  
+  
+  <li><b>Date:</b>  <%= @reservation.date_pretty %></li>
+  <li><b>Type:</b>  <%= @reservation.inv_type.titleize %></li>
+  
+  <% if @book.author.present? %>
+    <li><b>Book Author:</b>  <%= @book.author.titleize %></li>
+  <% end %>
+  
+  <li><b>Book Title:</b>  <%= @book.title.try(:titleize) %></li>
+  
+  <% @book.book_links.each do |book_link| %>
+  <li>
+    <b>Link:</b>  <a class="email-book-link" target="_blank" href="<%= book_link.link_url %>">
+      <%= book_link.link_url %>
+    </a>
+  </li>
+  <% end %>
+  <% if @book.book_links.blank? %>
+  <li>
+    <b>Link:</b>  No link provided
+  </li>
+  <% end %>
+  
+  
+  <% if @reservation.try(:recorded_list_name).present? %>
+  <li>
+    <b>List:</b>  <%= @reservation.try(:recorded_list_name) %>
+  </li>
+  <% end %>
+  <% if @list.try(:active_member_count_delimited).present? %>
+  <li>
+    <b>List Size:</b>  <%= @list.try(:active_member_count_delimited) %>
+  </li>
+  <% end %>
+  
+  <% if @list.try(:Platform).present? %>
+  <li>
+    <b>List Provider:</b>  <%= @list.try(:Platform) %>
+  </li>
+  <% end %>
+  
+  <% if @list.try(:open_rate_percent) %>
+  <li>
+    <b>Open Rate:</b>  <%= @list.try(:open_rate_percent) %>
+  </li>
+  <% end %>
+  
+  <% if @list.try(:click_rate_percent) %>
+  <li>
+    <b>Click Rate:</b>  <%= @list.try(:click_rate_percent) %>
+  </li>
+  <% end %>
+  
+</ul>

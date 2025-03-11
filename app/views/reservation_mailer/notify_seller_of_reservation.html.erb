@@ -1,0 +1,54 @@
+<% @swap_offer_list = @reservation.swap_offer? ? @reservation.swap_offer_list : nil %>
+<% swap_offer_buyer_name = @book.pen_name.try(:author_name).presence %>
+
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hi <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hi,</div>
+<% end %>
+
+<div class='medium-text'>List: <%= @list.adopted_pen_name %></div>
+<% if @swap_offer_list.present? %>
+  <div class='medium-text'>List: <%= @swap_offer_list.adopted_pen_name %></div>
+<% end %>
+
+<div class="space1"></div>
+<div class="text">
+  You have received a request for a <b><%= @reservation.offer_types %></b> from <%= swap_offer_buyer_name %>.  
+  <% if @reservation.payment_offer? %>
+    The payment amount offered is $<%= @reservation.payment_offer_total %>.
+  <% end %>
+  Here are the <%= @reservation.booking_details_info_link %> of the request:
+</div>
+<div class="space2"></div>
+
+<div class='medium-text'>Their Request:</div>
+<%= render "book_info" %>
+<% if @reservation.swap_offer? %>
+  <div class="space2"></div>
+  <div class='medium-text'>Their<%= " Swap" if @reservation.payment_offer? %> Offer:</div>
+  <%= render "swap_list_info" %>
+<% end %>
+
+<div class="space2"></div>
+
+<% if @reservation.message.present? %>
+  <div class='medium-text'>
+    A message has been included:<br/>
+    <b><%= @reservation.message %></b>
+  </div>
+  <div class="space2"></div>
+<% end %>
+
+<div class="bclick-email-actions">
+  <div class="bclick-email-action">
+    <% if @reservation.payment_offer? %>
+    <a href="<%= @reservation.seller_accept_url + "?bc_token=#{@recipient.session_token}&auid=#{@seller.id}" %>" class="bclick-mailer-notification-button">Accept<%= " Paid" unless @reservation.zero_dollar_offer? %> Booking</a>
+    <% end %>
+    <% if @reservation.swap_offer? %>
+    <a href="<%= @reservation.seller_accept_swap_url + "?bc_token=#{@recipient.session_token}&auid=#{@seller.id}" %>" class="bclick-mailer-mailchimp-gray-button">View Swaps</a>
+    <% end %>
+    <a href="<%= @reservation.seller_decline_url + "?bc_token=#{@recipient.session_token}&auid=#{@seller.id}" %>" class="bclick-mailer-red-button">Decline</a>
+  </div>
+</div>
+<div class="space1"></div>

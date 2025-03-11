@@ -1,0 +1,2 @@
+class StripeRequiresActionEvent < ApplicationRecord
+end

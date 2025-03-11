@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Bookclicker</title>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag(source = "favicon.ico") %>
+    <link rel="preload" href="https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.eot" as="font" type="font/eot" crossorigin>
+    <link rel="preload" href="https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.woff" as="font" type="font/woff" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Crete+Round:400,400i" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%= stylesheet_link_tag 'application' %>
+    
+    <% if Rails.env.production? %>
+      <%= render "js/tracking" %>
+    <% end %>
+  </head>
+  
+  
+
+  <body class="<%= mobile_device? ? "mobile-device" : "" %>">
+    <div id="all-but-footer">
+      <%= render "nav/header" %>
+      <%= render "layouts/reusable_modal" %>
+      <%= render "layouts/flash_messages" %>
+      <div class="body">
+        <%= yield %>
+      </div>
+      <div id="footer-pusher"></div>
+    </div>
+    <%= render "nav/footer" %>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js'></script>
+    <%= javascript_include_tag 'application' %>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   
+    <script src="//cdn.jsdelivr.net/npm/jquery.ui.widget@1.10.3/jquery.ui.widget.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/2.12.2/load-image.all.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.8.0/js/canvas-to-blob.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.18.0/js/jquery.fileupload.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.18.0/js/jquery.fileupload-process.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.18.0/js/jquery.fileupload-validate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.18.0/js/jquery.fileupload-image.min.js"></script>
+    
+    
+    
+    
+  </body>
+</html>
+

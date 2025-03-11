@@ -1,0 +1,230 @@
+@mixin bclick-button () {
+  .bclick-button {
+    @include bclick-boilerplate;
+
+    &.bclick-solid-white-button {  @include bclick-solid-button(#ffffff, #000000);  }
+    &.bclick-hollow-white-button {  @include bclick-hollow-button(#ffffff);  }
+    &.bclick-white-border-button { @include bclick-hollow-button(#cdcdcd); }
+
+    &.bclick-solid-light-blue-button {  @include bclick-solid-button($light-blue-color, #ffffff);  }
+    &.bclick-hollow-light-blue-button {  @include bclick-hollow-button($light-blue-color);  }
+
+    &.bclick-solid-youtube-red-button { @include bclick-solid-button($youtube-red, #ffffff); }
+    &.bclick-hollow-youtube-red-button { @include bclick-hollow-button($youtube-red); }
+
+    &.bclick-solid-sky-blue-button {  @include bclick-solid-button($sky-blue-color, #ffffff);  }
+    &.bclick-hollow-sky-blue-button {  @include bclick-hollow-button($sky-blue-color);  }
+
+    &.bclick-solid-blue-button {  @include bclick-solid-button(#5c95b4, #ffffff);  }
+    &.bclick-hollow-blue-button {  @include bclick-hollow-button(#5c95b4);  }
+
+    &.bclick-solid-teal-button {  @include bclick-solid-button($teal-color, #ffffff);  }
+    &.bclick-hollow-teal-button {  @include bclick-hollow-button($teal-color);  }
+
+    &.bclick-solid-blue-teal-button {  @include bclick-solid-button($blue-teal-color, #ffffff);  }
+    &.bclick-hollow-blue-teal-button {  @include bclick-hollow-button($blue-teal-color);  }
+
+    &.bclick-solid-dark-teal-button {  @include bclick-solid-button($dark-teal-color, #ffffff);  }
+    &.bclick-hollow-dark-teal-button {  @include bclick-hollow-button($dark-teal-color);  }
+
+    &.bclick-solid-deep-blue-button {  @include bclick-solid-button($deep-blue-color, #ffffff);  }
+    &.bclick-hollow-deep-blue-button {  @include bclick-hollow-button($deep-blue-color);  }
+
+    &.bclick-solid-notification-button {  @include bclick-solid-button($notifications-color, #ffffff);  }
+    &.bclick-hollow-notification-button {  @include bclick-hollow-button($notifications-color);  }
+
+    &.bclick-solid-pink-button {  @include bclick-solid-button($pink-color, #ffffff);  }
+    &.bclick-hollow-pink-button {  @include bclick-hollow-button($pink-color);  }
+
+    &.bclick-solid-yellow-button { @include bclick-solid-button($nicegold, #ffffff); }
+    &.bclick-hollow-yellow-button { @include bclick-hollow-button($nicegoldbold); }
+
+    &.bclick-solid-light-red-button {  @include bclick-solid-button($light-red-color, #ffffff);  }
+    &.bclick-hollow-light-red-button {  @include bclick-hollow-button($light-red-color);  }
+
+    &.bclick-solid-dark-red-button {  @include bclick-solid-button($dark-red-color, #ffffff);  }
+    &.bclick-hollow-dark-red-button {  @include bclick-hollow-button($dark-red-color);  }
+
+    &.bclick-solid-robin-egg-blue-button {  @include bclick-solid-button($robin-egg-blue-color, #ffffff);  }
+    &.bclick-hollow-robin-egg-blue-button {  @include bclick-hollow-button($robin-egg-blue-color);  }
+
+    &.bclick-solid-light-grey-button {  @include bclick-solid-button($light-gray-color, #ffffff);  }
+    &.bclick-hollow-light-grey-button {  @include bclick-hollow-button($light-gray-color);  }
+
+    &.bclick-solid-ultra-light-grey-button {  @include bclick-solid-button($ultra-light-gray, #ffffff);  }
+    &.bclick-hollow-ultra-light-grey-button {  @include bclick-hollow-button($ultra-light-gray);  }
+
+    &.bclick-solid-burlywood-button { @include bclick-solid-button(burlywood, #ffffff); }
+    &.bclick-solid-black-button { @include bclick-solid-button(black, #ffffff); }
+    &.bclick-solid-mailchimp-gray-button { @include bclick-solid-button($mailchimp-gray, #ffffff); }
+    &.bclick-solid-purple-button { @include bclick-solid-button(purple, #ffffff); }
+
+    &.bclick-solid-inverse-grey-button {  @include bclick-solid-button(#eeeeee, #888d8e);  }
+    &.bclick-hollow-inverse-grey-button {  @include bclick-hollow-button(#eeeeee);  }
+    &.bclick-hollow-black-button {  @include bclick-hollow-button(#000000);  }
+    &.bclick-hollow-mailchimp-gray-button {  @include bclick-hollow-button($mailchimp-gray);  }
+
+    &.bclick-solid-grey-button {  @include bclick-solid-button(#c0c0c0, #ffffff);  }
+    &.bclick-hollow-grey-button {  @include bclick-hollow-button(#c0c0c0);  }
+
+    &.bclick-solid-aqua-button {  @include bclick-solid-button($aqua-color, #ffffff);  }
+    &.bclick-hollow-aqua-button {  @include bclick-hollow-button($aqua-color);  }
+
+    &.bclick-solid-notification-button-button {  @include bclick-solid-button($robin-egg-blue-color, #ffffff);  }
+    &.bclick-hollow-notification-button-button {  @include bclick-hollow-button($robin-egg-blue-color);  }
+
+    &.bclick-solid-dark-green-button-button {  @include bclick-solid-button($dark-green-color, #ffffff);  }
+    &.bclick-hollow-dark-green-button-button {  @include bclick-hollow-button($dark-green-color);  }
+
+    &.bclick-solid-light-green-button {  @include bclick-solid-button($light-green-color, #ffffff);  }
+    &.bclick-hollow-light-green-button {  @include bclick-hollow-button($light-green-color);  }
+
+    &.bclick-solid-dark-blue-button {  @include bclick-solid-button($link-color-v2, #ffffff);  }
+    &.bclick-hollow-dark-blue-button {  @include bclick-hollow-button($link-color-v2);  }
+
+    &.bclick-solid-deep-blue-button {  @include bclick-solid-button(#30748c, #ffffff);  }
+    &.bclick-hollow-deep-blue-button {  @include bclick-hollow-button(#30748c);  }
+
+    &.bclick-xsmall-button { @include bclick-xsmall-button; }
+    &.bclick-small-button { @include bclick-small-button; }
+    &.bclick-large-button { @include bclick-large-button; }
+
+    &.bclick-no-text-transform-button { text-transform: none; }
+
+    &:hover, &:active, &:focus {
+      text-decoration: none !important;
+    }
+
+    &.bclick-button-disabled {
+      background-color: #cdcdcd;
+
+      &:hover {
+        background-color: #cdcdcd;
+        border-color: #cdcdcd;
+      }
+    }
+  }
+}
+
+@mixin bclick-boilerplate () {
+  @include user-select(none);
+  border-radius: 20px;
+
+
+  min-width: 118px;
+  padding: 7px 18px 7px;
+  display: inline-block;
+  cursor: pointer;
+  white-space: nowrap;
+
+  font-size: 13px;
+  outline: none;
+  background-image: none;
+  border: 1px solid transparent;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.65;
+
+  @include respond-to(extra-small) {
+    white-space: normal;
+  }
+}
+
+@mixin bclick-solid-button ($background-color, $color) {
+  background-color: $background-color;
+  color: $color !important;
+  text-decoration: none;
+
+  &:hover {
+    background-color: darken($background-color, 12%);
+    border-color: darken($background-color, 12%);
+  }
+
+  &.no-hover-change:hover {
+    cursor: default;
+    background-color: darken($background-color, 0%);
+    border-color: darken($background-color, 0%);
+  }
+}
+
+@mixin bclick-hollow-button ($color) {
+  background-color: transparent;
+  border: 1px solid $color;
+  color: $color;
+
+  &:hover {
+    color: darken($color, 12%);
+    border-color: darken($color, 12%);
+  }
+
+  &.no-hover-change:hover {
+    cursor: default;
+    background-color: darken($color, 0%);
+    border-color: darken($color, 0%);
+  }
+}
+
+@mixin bclick-xsmall-button () {
+  padding: 8px;
+  font-size: 10px;
+  min-width: 34px;
+}
+
+@mixin bclick-small-button () {
+  padding-top: 2px;
+  padding-bottom: 1px;
+}
+
+@mixin bclick-large-button() {
+  padding-top: 12px;
+  padding-bottom: 11px;
+}
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select; // IE10+
+  user-select: $select;
+}
+
+@mixin booklauncher-special-orange-links-td {
+  font-size: 16px;
+  .bclick-button {
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 122px;
+    max-width: 122.1px;
+    @include respond-to(small) {
+      font-size: 10px;
+      min-width: 110px;
+      width: 110px;
+      white-space: nowrap;
+    }
+    @include respond-to(extra-small) {
+      font-size: 8px;
+      min-width: 50px;
+      width: 50px;
+      white-space: nowrap;
+    }
+    @include respond-to(tiny-mobile) {
+      font-size: 6px;
+      min-width: 43px;
+      width: 43px;
+    }
+  }
+  .bclick-hollow-robin-egg-blue-button {
+    color: $robin-egg-blue-color;
+    border-color: $robin-egg-blue-color;
+    border-width: 1.5px;
+    span {
+      color: $robin-egg-blue-color;
+      border-color: $robin-egg-blue-color;
+    }
+  }
+  .bclick-solid-robin-egg-blue-button {
+    span {
+      color: white;
+    }
+  }
+}

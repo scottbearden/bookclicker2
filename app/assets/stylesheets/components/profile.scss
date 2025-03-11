@@ -1,0 +1,275 @@
+$account-item-height: 108px;
+#profile-page {
+  margin-bottom: 35px;
+  
+  
+  
+  .profile-two-forms-container {
+
+    @include respond-not-to(small) {
+      margin-top: 44px;
+    }
+
+    #list-subscriptions-manager {
+      height: auto !important;
+      .list-subscription-wrapper {
+
+        .list-subscription {
+          margin-top: 10px;
+          padding: 8px;
+
+          .to-the-right {
+            float: right;
+            text-align: center;
+          }
+
+          .list-subscription-list-name {
+            font-size: 18px;
+            display: inline-block;
+            .list-subscribed-since {
+              font-size: 13px;
+              display: inline;
+              margin-left: 14px;
+              @include respond-to(extra-small) {
+                display: none;
+              }
+            }
+            @include respond-to(extra-small) {
+              font-size: 11px;
+            }
+          }
+
+          .react-toggle {
+            margin-right: 5px;
+          }
+
+          .list-subscription-list-size {
+            font-size: 13px;
+            margin-top: 3px;
+          }
+        }
+      }
+    }
+
+    .auto-subscribe-form {
+      
+      .email-notifications-togglers {
+        text-align: center;
+        .email-notifications-toggler:first-child {
+          margin-bottom: 20px;
+        }
+      }
+      
+
+      .centerlabel {
+        width: 100%;
+        padding-left: 8px;
+        margin-top: 23px;
+      }
+
+      #auto-subscribe-email {
+        float: left;
+        width: 80%;
+        @include respond-to(extra-small) {
+          font-size: 11px;
+          padding-left: 10px;
+        }
+      }
+
+      #auto-subscribe-email-button {
+        float: left;
+        width: 20%;
+        height: 50px;
+        min-width: 0px;
+        border-radius: 0px;
+        padding: 0;
+        @include respond-to(extra-small) {
+          font-size: 10px;
+        }
+      }
+
+      .auto-subscribe-message {
+        margin-top: 4px;
+        padding-left: 8px;
+        &.error {
+          color: red;
+        }
+        &.success {
+          color: $notifications-color
+        }
+      }
+
+      margin: 0 auto;
+      @include clearfix();
+      .auto-subscribe-input-container {
+        float: left;
+        width: 50%;
+
+        .auto-subscribe-input {
+          height: 30px;
+          width: 60px;
+          margin: 0 auto;
+
+          @include grey-checkbox(17px);
+          input {
+            display: inline-block;
+          }
+
+          div.auto-subscribe-input-label {
+            display: inline-block;
+            font-size: 20px;
+            vertical-align: -1px;
+            margin-left: 9px;
+          }
+
+        }
+      }
+    }
+
+    @include respond-not-to(small) {
+      @include clearfix();
+      max-width: 1200px;
+    }
+    @include respond-to(small) {
+      form {
+        margin-bottom: 40px;
+      }
+    }
+    margin: 0 auto;
+    
+    .profile-form-container {
+      @include respond-to(small) {
+        margin-top: 34px;
+      }
+
+      @include respond-not-to(small) {
+        float: left;
+        width: 50%;
+        &.thirds {
+          width: 33.3%;
+        }
+      }
+
+      &.alone-center {
+        float: none;
+        text-align: center;
+        margin: 0 auto;
+      }
+      
+      .va-invite-send {
+        border-radius: 3px;
+        width: 100%;
+        &[disabled] {
+          cursor: default;
+          background-color: lighten($mailchimp-gray, 14%);
+        }
+      }
+      
+      padding: 15px;
+      .profile-form-header {
+        text-align: center;
+        font-size: 35px;
+        font-family: 'Spring Market', Verdana, sans-serif;
+        margin-bottom: 27px;
+        .profile-form-subheader {
+          margin-top: 2px;
+          font-size: 15px;
+        }
+      }
+      
+      .country-select, .assistant-select {
+        margin: 40px auto 0;
+        width: 380px;
+        @include respond-to(tiny) {
+          width: 100%;
+        }
+        .Select {
+          text-align: center;
+        }
+        .Select:not(.is-disabled) .Select-control {
+          cursor: pointer;
+        }
+        
+      }
+      
+      .assistant-select {
+        margin: 20px auto 0;
+        input {
+          text-align: center;
+        }
+        
+        &.assistant-select-submit {
+          text-align: center;
+          margin: 28px auto 86px;
+        }
+      }
+      
+      .assistant-select-response {
+        font-size: 14px;
+        margin-top: 10px;
+        text-align: center;
+      }
+      
+      .assistant-select-payment-request {
+        text-align: center;
+        background-color: $cool-gray;
+        border-radius: 4px;
+        padding: 4px 4px;
+        button, a {
+          margin: 6px;
+          line-height: 12px;
+        }
+        label {
+          padding-top: 5px;
+          display: block;
+          font-size: 13px;
+        }
+        margin: 5px auto;
+      }
+      
+      form {
+        .profile-input {
+          
+          height: $account-item-height;
+          padding: 5px 10px;
+          margin-bottom: 5px;
+          input {
+            width: 100%;
+            height: 50px;
+            padding: 5px 0 5px 20px;
+            background-color: $cool-gray;
+            @include placeholder() {
+              color: $semi-light-gray-color;
+            };
+            border: none;
+          }
+          
+        }
+        
+        .profile-input.profile-input-auto-height {
+          height: auto;
+        }
+        
+        .profile-submit {
+          margin-top: 14px;
+          text-align: center;
+          width: 100%;
+        }
+      }
+      
+      @include respond-not-to(small) {
+        form {
+          .profile-inputs-two-together {
+            @include clearfix();
+            .profile-input {
+              width: 50%;
+              float: left;
+            }
+          }
+        }
+      }
+      
+    }
+  }  
+  
+}

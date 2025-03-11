@@ -1,0 +1,125 @@
+@mixin filter ($value) {
+	-webkit-filter: $value;
+	-moz-filter: $value;
+	-o-filter: $value;
+	-ms-filter: $value;
+	filter: $value;
+}
+
+@mixin transform ($transforms) {
+	-moz-transform: $transforms;
+	-o-transform: $transforms;
+	-ms-transform: $transforms;
+	-webkit-transform: $transforms;
+	transform: $transforms;
+}
+
+@mixin transform-origin ($origin) {
+	-moz-transform-origin: $origin;
+	-o-transform-origin: $origin;
+	-ms-transform-origin: $origin;
+	-webkit-transform-origin: $origin;
+	transform-origin: $origin;
+}
+
+@mixin transition ($value...) {
+	-webkit-transition: $value;
+	-moz-transition: $value;
+	-ms-transition: $value;
+	-o-transition: $value;
+	transition: $value;
+}
+
+@mixin transition-delay ($value) {
+	-webkit-transition-delay: $value;
+	-moz-transition-delay: $value;
+	-ms-transition-delay: $value;
+	-o-transition-delay: $value;
+	transition-delay: $value;
+}
+
+@mixin animation ($value...) {
+	-webkit-animation: #{$value};
+	-moz-animation: #{$value};
+	-ms-animation: #{$value};
+	-o-animation: #{$value};
+	animation: #{$value};
+}
+
+@mixin animation-name ($name...) {
+	-webkit-animation-name: $name;
+	-moz-animation-name: $name;
+	-o-animation-name: $name;
+	animation-name: $name;
+}
+
+@mixin animation-delay ($delay...) {
+	-webkit-animation-delay: $delay;
+	-moz-animation-delay: $delay;
+	-o-animation-delay: $delay;
+	animation-delay: $delay;
+}
+
+@mixin animation-duration ($duration...) {
+	-webkit-animation-duration: $duration;
+	-moz-animation-duration: $duration;
+	-o-animation-duration: $duration;
+	animation-duration: $duration;
+}
+
+@mixin animation-fill-mode ($mode...) {
+	-webkit-animation-fill-mode: $mode;
+	-moz-animation-fill-mode: $mode;
+	-o-animation-fill-mode: $mode;
+	animation-fill-mode: $mode;
+}
+
+@mixin animation-timing-function ($function...) {
+	-webkit-animation-timing-function: $function;
+	-moz-animation-timing-function: $function;
+	-o-animation-timing-function: $function;
+	animation-timing-function: $function;
+}
+
+
+@mixin keyframes($name) {
+
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+
+	@-o-keyframes #{$name} {
+		@content;
+	}
+
+	@keyframes #{$name} {
+		@content;
+	}
+
+}
+
+@mixin backface-visibility($value) {
+	-webkit-backface-visibility: $value;
+	-moz-backface-visibility: $value;
+	-ms-backface-visibility: $value;
+	backface-visibility: $value;
+}
+
+@mixin placeholder () {
+	&::-webkit-input-placeholder { /* WebKit browsers */
+		@content;
+	}
+	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		@content;
+	}
+	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+		@content;
+	}
+	&:-ms-input-placeholder { /* Internet Explorer 10+ */
+		@content;
+	}
+}

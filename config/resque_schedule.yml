@@ -1,0 +1,9 @@
+retrieve_seller_email_campaigns:
+  cron: "10,25,40,55 * * * *"
+  class: "RetrieveSellerEmailCampaignsJob"
+  description: "Retreive seller email campaigns via api calls so that sellers can confirm their promo was sent"
+
+process_list_subscriptions:
+  cron: "22 * * * *"
+  class: "ProcessListSubscriptionsJob"
+  description: "Pick up all unprocessed list subscriptions and subscribe or unsubscribe accordingly"

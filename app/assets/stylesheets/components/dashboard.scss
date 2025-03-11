@@ -1,0 +1,292 @@
+
+#dashboard-app {
+  #dashboard {
+    @include respond-not-to(medium) {
+      padding: 0 50px;
+      div {
+        color: $mailchimp-gray;
+      }
+    }
+    
+    .dashboard-intro-wrapper {
+      * {
+        text-shadow: none;
+      }
+      
+      @include respond-not-to(small) {
+        @include clearfix();
+      }
+      
+      .dashboard-intro {
+        @include respond-not-to(small) {
+          float: left;
+          width: 50%;
+        }
+
+        * {
+          font-family: 'Spring Market', Verdana;
+        }
+        
+        .dashboard-intro-greeting {
+          font-family: 'Spring Market', Verdana !important;
+          font-size: 65px;
+          margin-bottom: 20px;
+        }
+        .dashboard-intro-text {
+          font-size: 22px;
+        }
+      }
+    }
+    
+    .dashboard-activity-wrapper {
+      
+      margin-top: 30px;
+      @include respond-not-to(small) {
+        @include clearfix();
+      }
+      
+      .dashboard-activity {
+
+        @include respond-not-to(small) {
+          float: left;
+          width: 50%;
+          &.left {
+            padding-right: 30px;
+          }
+          &.right {
+            padding-left: 30px;
+          }
+        }
+        
+        .dashboard-activity-header {
+          font-family: 'Spring Market', Verdana !important;
+          text-shadow: none;
+          font-size: 46px;
+          margin-bottom: 25px;
+        }
+        .dashboard-activity-content {
+          *:not(.glyphicon) {
+            font-family: Verdana !important;
+          }
+          
+          .dashboard-activity-section {
+            margin-bottom: 65px;
+
+            .dashboard-activity-section-content {
+              * {
+                text-shadow: none;
+                letter-spacing: 1.15px;
+              }
+
+              .todays-promos-list {
+                .todays-promos-list-header {
+                  margin-bottom: 12px;
+                  @include respond-to(extra-small) {
+                    font-size: 11px;
+                  }
+                }
+                .todays-promos-list-promos {
+                  margin-bottom: 30px;
+                  .todays-promos-list-promo {
+                    height: 52px;
+                  }
+                }
+
+              }
+            }
+
+            .dashboard-activity-section-header {
+              font-size: 15px;
+              margin-bottom: 15px;
+            }
+
+          }
+          table {
+            width: 100%;
+            tr {
+              
+              height: 40px;
+              
+              &.dashboard-promo-feed-tr {
+                height: 54px;
+              }
+
+              &.no-text-shadow *:not(a) {
+                text-shadow: none !important;
+              }
+
+              font-size: 13px;
+              @include respond-to(small) {
+                font-size: 11px;
+              }
+              @include respond-to(extra-small) {
+                font-size: 9px;
+              }
+              
+              &.space-tr {
+                height: 4px;
+              }
+              &.space-tr:last-child {
+                height: 0px;
+              }
+              vertical-align: top;
+
+              td {
+                
+                &.centerify {
+                  text-align: center;
+                }
+                
+                &.stat {
+                  width: 110px;
+                  vertical-align: middle;
+                }
+
+                &.nudge-img-up {
+                  img {
+                    position: relative;
+                    bottom: 3px;
+                  }
+                }
+                &.name {
+                  min-width: 206px;
+                  vertical-align: middle;
+                  @include respond-to(medium) {
+                    min-width: 170px;
+                  }
+                  @include respond-to(extra-small) {
+                    min-width: 120px;
+                  }
+         
+                }
+                &.name-only {
+                  min-width: 276px;
+                  max-width: 276px;
+                  vertical-align: middle;
+                  @include respond-to(medium) {
+                    min-width: 216px;
+                    max-width: 216px;
+                  }
+                  @include respond-to(extra-small) {
+                    min-width: 170px;
+                    max-width: 170px;
+                  }
+                }
+                
+                &.promo-sent-link.fat {
+                  
+                  .bclick-button {
+                    position: relative;
+                    height: 33px;
+                    span {
+                      @include align-center();
+                      @include respond-to(extra-small) {
+                        font-size: 8px;
+                      }
+                    }
+                  }
+                  
+                }
+                                
+                &.calendar-link, &.launch-link, &.promo-sent-link, &.pending-promo-link {
+                  vertical-align: middle;
+                  text-align: center;
+                  // min-width: 200px;
+                  .Tappable-inactive, .Tappable-active {
+                    margin: 0 6px 0 7px;
+                  }
+
+                  @include booklauncher-special-orange-links-td();
+                  .bclick-button {
+                    font-size: 8px;
+                    letter-spacing: 1.3px;
+                    line-height: 11px;
+                    min-width: 80px;
+                    @include respond-to(extra-small) {
+                      min-width: 74px;
+                    }
+                  }
+                }
+                
+                &.pending-promo-link {
+                  padding-top: 10px;
+                  a {
+                    display: block;
+                    margin: 0 auto 11px;
+                  }
+                }
+                
+                &.calendar-link {
+                  .bclick-button {
+                    @include respond-to(extra-small) {
+                      min-width: 0;
+                    }
+                  }
+                }
+                
+              }
+
+              &.earnings-summary {
+                td {
+                  text-shadow: none;
+                  font-family: Verdana;
+                  font-size: 13px;
+                  letter-spacing: 1.15px;
+                  min-width: 110px;
+                  @include respond-to(extra-small) {
+                    font-size: 11px;
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#reusableModal {
+  .not-sent-confirmation-options {
+    
+    .bclick-button {
+      border-radius: 4px;
+      min-width: 170px;
+      width: 170px;
+      &[disabled] {
+        opacity: 0.7;
+      }
+    }
+    
+    .not-sent-confirmation-modal-label {
+      margin-top: 10px;
+      font-size: 11.5px;
+      padding: 4px;
+      text-shadow: none;
+    }
+    
+    .not-sent-confirmation-options-options {
+      @include clearfix();
+      
+      .not-sent-confirmation-options-option {
+        margin-bottom: 20px;
+        float: left;
+        width: 33.3%;
+        &.half {
+          width: 50.0%;
+        }
+        text-align: center;
+        
+        @include respond-to(extra-small) {
+          float: none;
+          width: 100%;
+          &.half {
+            width: 100%;
+          }
+        }
+      }
+      
+    }
+  }
+}

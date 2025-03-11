@@ -1,0 +1,33 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  Your swap request to <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> for a <%= @reservation.inv_type %> email on <%= @reservation.date.pretty %> has been accepted.  Since this is a swap, both bookings are immediately considered paid and confirmed. Here are the <%= @reservation.booking_details_info_link %> of the promo that you requested and here are the <%= @reservation.swap_reservation.booking_details_info_link %> of the promo that you are expected to send in exchange.
+</div>
+
+<div class="space2"></div>
+
+<% if @reservation.swap_reservation.message.present? %>
+  <div class='medium-text'>
+    A message has been included:<br/>
+    <b><%= @reservation.swap_reservation.message %></b>
+  </div>
+  <div class="space2"></div>
+<% end %>
+
+<% if @swap_reservation && @swap_book && @swap_list  %>
+  <div class='medium-text'>You Are Sending</div>
+  <%= render "swap_book_info" %>
+  <div class="space2"></div>
+<% end %>
+
+<div class='medium-text'>You Are Receiving</div>
+<%= render "book_info" %>
+
+<div class="space2"></div>
+
+

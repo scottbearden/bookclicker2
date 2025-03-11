@@ -1,0 +1,14 @@
+<div class="large-text">CONFIRMATION OF PAYMENT</div>
+<div class="space1"></div>
+<div class="text">
+  <b>The buyer was successfully charged $<%= @payment.amount/100 %>, and this booking is now paid.  Payment goes directly to the seller's Stripe account</b>.
+</div>
+<br/>
+<div class="text">
+ Here is a link to the booking: <%= @reservation.booking_details_info_link %>
+</div>
+<div class="space2"></div>
+
+<%= render "book_info" %>
+
+<div class="space2"></div>

@@ -1,0 +1,182 @@
+#integrations-page {
+  
+  width: 95%;
+  max-width: 900px;
+  margin: 0 auto;
+  
+  .page-title {
+    margin-bottom: 20px;
+  }
+  
+  
+  .integrations-content {
+
+    .integrations-content-row {
+      
+      &.new-integration-alone {
+        .integration-status {
+          display: none;
+        }
+      }
+      
+      @include respond-not-to(small) {
+        @include clearfix();
+      }
+      
+      .integration-box {
+        min-height: 153px;
+        
+        select {
+          text-align: center;
+          text-align-last: center;
+          /* webkit*/
+        }
+        option {
+          text-align: center;
+          /* reset to left*/
+        }
+        
+        .integrator {
+          @include respond-to(small) {
+            border-bottom: 1px solid $cool-gray;
+          }
+          
+          padding-bottom: 20px;
+          &.api-key-integrator {
+            padding-bottom: 8px
+          }
+        }
+        
+        padding: 0 30px;
+        
+        margin: 12px 0;
+        text-align: center;
+        
+        .integration-box-header {
+          font-size: 20px;
+          @include respond-to(small) {
+            font-size: 15px;
+          }
+          padding: 3px;
+        }
+        
+        .create-mailchimp-oauth {
+          .create-mailchimp-oauth-link-container {
+            max-width: 320px;
+            margin: 0 auto;
+          }
+        }
+        
+        @include respond-not-to(small) {
+          float: left;
+          width: 50%;
+        }
+        
+        .integration-action {
+          
+          .integration-api-input-container {
+            padding: 8px;
+            label {
+              padding: 5px 0 0 8px;
+            }
+            
+            .create-mailchimp-oauth {
+              margin-top: 0px !important;
+              .create-mailchimp-oauth-link-container {
+                padding: 0 !important;
+              }
+            }
+            
+            button {
+              margin-bottom: 7px;
+            }
+                        
+            .integration-error {
+              color: red;
+              margin-top: 2px;
+              margin-left: 5px;
+              font-size: 10px;
+              display: inline-block;
+            }
+            
+            input, select {
+              margin: 3px 0 1px;
+              height: 55px !important;
+            }
+            
+            max-width: 304px;
+            margin: 0 auto;
+            text-align: left;
+          }
+        }
+        
+        
+        
+        .integration-status {
+          padding: 8px;
+          padding-bottom: 0px;
+          
+          
+          &.wide-only {
+            @include respond-to(small) {
+              display: none;
+            }
+          }
+        }
+      }
+      
+    }
+    
+  }
+  
+  
+  
+  
+}
+
+
+.modal {
+  
+  .promo-settle-section-note {
+    color: #CD201F;
+    text-align: center;
+    margin: 0 20px;
+  }
+  
+  .promo-settle-group {
+    
+    ul {
+      margin-bottom: 20px;
+      padding-left: 25px;
+      li {
+        list-style: none;
+      }
+    }
+    
+    padding: 9px;
+    @include respond-to(extra-small) {
+      padding: 4px;
+    }
+    
+    .promo-settle-header {
+      padding-left: 23px;
+      margin-bottom: 14px;
+      text-decoration: underline;
+    }
+    
+    h5 {
+      display: inline-block;
+    }
+    
+    .promo-settle-all-btn {
+      display: inline-block;
+      vertical-align: 3px;
+      margin-left: 10px;
+    }
+    
+    .promo-settle-one-btn {
+      margin: 3px 0 7px;
+      padding: 0 3px;
+    }
+  }
+}

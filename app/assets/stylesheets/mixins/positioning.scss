@@ -1,0 +1,54 @@
+@mixin align-center() {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include transform(translate(-50%, -50%));
+}
+
+@mixin align-bottom-left() {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin align-bottom-right() {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin align-bottom-center() {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  @include transform(translate(-50%, 0));
+}
+
+@mixin align-middle-left() {
+  position: absolute;
+  top: 50%;
+  @include transform(translate(0, -50%));
+}
+
+@mixin align-middle-right() {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  @include transform(translate(0, -50%));
+}
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+@mixin not_clearfix() {
+  &::after {
+    display: block;
+    content: none;
+    clear: none;
+  }
+}

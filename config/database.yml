@@ -1,0 +1,22 @@
+default: &default
+    adapter: mysql2
+    encoding: utf8
+    database: bookclicker
+    pool: 10
+    username: root
+    password:
+    port: 3306
+    timeout: 5000
+    strict: false
+
+development:
+  <<: *default
+  host: localhost
+  
+production:
+  <<: *default
+  host: <%= Figaro.env.database_host %>
+  username: <%= Figaro.env.database_username %>
+  password: <%= Figaro.env.database_password %>
+  
+

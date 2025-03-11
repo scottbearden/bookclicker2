@@ -1,0 +1,54 @@
+#unverified-page {
+  @include respond-not-to(extra-small) {
+    max-width: 800px;
+    padding: 0 40px;
+    margin: 0 auto;
+  }
+
+  .page-title-container {
+  	.page-title-small-title {
+      font-size: 30px;
+    }
+  }
+  
+  
+	.user-info-form-container {
+	  padding: 15px;
+	  .profile-form-header {
+	    text-align: center;
+      font-size: 35px;
+      font-family: 'Spring Market', Verdana, sans-serif;
+	    margin-bottom: 20px
+	  }
+	  
+	  form {
+	    .profile-input {
+
+	      height: $account-item-height;
+	      padding: 5px 10px;
+	      margin-bottom: 5px;
+	      input {
+	        width: 100%;
+	        height: 50px;
+	        padding: 5px 0 5px 20px;
+	        background-color: $cool-gray;
+	        @include placeholder() {
+	          color: $semi-light-gray-color;
+	        };
+	        border: none;
+	      }
+	    }
+      
+      .profile-input.profile-input-auto-height {
+        height: auto;
+      }
+	    
+	    .profile-submit {
+	      margin-top: 14px;
+	      text-align: center;
+	      width: 100%;
+	    }
+	  }
+	}
+
+}

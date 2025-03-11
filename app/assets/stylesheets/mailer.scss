@@ -1,0 +1,140 @@
+@import "mixins/colors";
+$inner-padding: 10px;
+
+.bclick-email-container {
+  background-color: #e9e9e9;
+  padding: 3px 25px 20px;
+  text-align: center;
+  
+  .connect-with-stripe-link {
+    text-align: center;
+    padding: 5px;
+    margin: 24px 0;
+  }
+  
+  .powered-by-stripe-logo {
+    text-align: center;
+    padding: 3px;
+    margin: 10px 0;
+  }
+  
+  .bclick-header {
+    background-color: inherit;
+    .bclick-header-logo-wrapper {
+    }
+  }
+  
+  .bclick-content {
+    padding: $inner-padding;
+    text-align: left;
+    background-color: white;
+    
+    .text {
+      font-size: 17px;
+      padding: 3px;
+    }
+    .small-text {
+      font-size: 13px;
+      padding: 3px;
+    }
+    .large-text {
+      font-size: 20px;
+      padding: 3px;
+      font-weight: 700;
+      font-family: Times;
+    }
+    
+    .medium-text {
+      font-size: 16px;
+      padding: 3px;
+      font-weight: 400;
+    }
+    
+    .data-was-pulled {
+      text-align: center;
+      font-weight: 700;
+    }
+    
+    ul {
+      padding: 0 $inner-padding + 2px;
+      li {
+        margin: 4px 9px;
+        p {
+          font-size: 15px;
+        }
+      }
+    } 
+    
+    .email-book-link {
+    }
+    
+    .bclick-email-actions {
+      text-align: center;
+    }
+  }
+}
+
+.space1 {
+  margin-bottom: 10px;
+}
+
+.space2 {
+  margin-bottom: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.email-footer {
+  font-size:12px;
+  line-height:20px;
+  margin: 0 0 16px;
+  margin-top: 16px;
+  .email-footer-site-url {
+    color: #439fe0;
+    font-weight: bold;
+    text-decoration: none;
+    word-break: break-word;
+  }
+  
+  .email-footer-address {
+    color:#989ea6;
+    font-weight:normal;
+    text-decoration:none;
+    word-break:break-word;
+  }
+}
+
+@mixin mailer-button($color) {
+  background-color: $color;
+  border: solid 1px $color;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 13px 7px;
+  color: white;
+  padding: 12px 25px;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.bclick-mailer-orange-button {
+  @include mailer-button($robin-egg-blue-color);
+}
+
+.bclick-mailer-red-button {
+  @include mailer-button($dark-red-color);
+}
+
+.bclick-mailer-notification-button {
+  @include mailer-button($notifications-color);
+}
+
+.bclick-mailer-mailchimp-gray-button {
+  @include mailer-button($mailchimp-gray);
+}
+

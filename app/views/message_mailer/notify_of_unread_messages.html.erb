@@ -1,0 +1,26 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>Subject: <%= @message_stats.subject %></div>
+<div class="space1"></div>
+
+<div class="text">
+  <% if @message_stats.number_unread == 1 %>
+    You've received a new message from <%= @message_stats.from %>.  This message is for <%= @message_stats.to %>.
+  <% else %>
+    You have <%= @message_stats.number_unread %> new messages for <%= @message_stats.to %> from <%= @message_stats.from %>.
+  <% end %> To view this conversation click the link below.
+</div>
+
+<div class="space2"></div>
+
+<div class="bclick-email-actions">
+  <div class="bclick-email-action">
+    <a href="<%= @view_conversation_link %>" class="bclick-mailer-notification-button">View Conversation</a>
+  </div>
+</div>
+
+
+<div class="space2"></div>

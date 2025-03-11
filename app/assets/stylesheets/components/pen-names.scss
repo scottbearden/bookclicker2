@@ -1,0 +1,305 @@
+$pill-height: 75px;
+
+#pen-names-page, #clients-page {
+  
+  .page-title {
+    margin-bottom: 34px;
+  }
+  
+  margin: 0 auto;
+  width: 90%;
+  
+  table {
+    margin-bottom: 0px !important;
+  }
+  
+  
+  #pen-names-page-content, #clients-page-content {
+    margin-top: 30px;
+    
+    
+    .new-pen-name-validation-error {
+      color: $youtube-red;
+      padding: 0 30px;
+      margin-top: 1px;
+      text-align: center;
+    }
+    
+    .pen-name-header {
+      font-family: 'Spring Market', Verdana, sans-serif;
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      margin-top: 24px;
+      @include respond-to(extra-small) {
+        font-size: 20px;
+      }
+    }
+    .enter-amazon-profile-text {
+      text-align: center;
+      font-size: 17px;
+      margin-top: 12px;
+      &.smaller {
+        font-size: 14px;
+      }
+    }
+    
+    .pen-name-pill-wrapper {
+      background-color: #fff;
+      
+      &.doing-stuff {
+        background-color: $ultra-light-gray-alt;
+        input, button, a {
+          cursor: default;
+        }
+      }
+      
+      border: 0.5px solid #5D5C5D;
+      width: 100%;
+      border-radius: 3px;
+      box-shadow: 1px 1px 14px #888888;
+      &.no-shadow {
+        box-shadow: none;
+      }
+      margin-bottom: 41px;
+      
+      .pen-name-pill-content {
+        @include clearfix();
+        
+        &.card-info-row {
+//          color: #4a90e2;
+        }
+        
+        &.card-address-row {
+          color: $gray-color;
+        }
+        
+        .pen-name-pill-users {
+          padding: 10px;
+          .pen-name-pill-user {
+            height: 34px;
+            width: 100%;
+            position: relative;
+            margin:20px 0;
+            
+            .pen-name-user-name-email {
+              position: absolute;
+              left: 20px;
+              top: 8px;
+              @include respond-to(extra-small) {
+                max-width: 240px;
+                font-size: 11px;
+                top: 9px;
+              }
+            }
+            .pen-name-user-remove {
+              position: absolute;
+              right: 20px;
+              top: 0px;
+              button {
+                border-radius: 3px;
+                padding: 4px;
+              }
+              @include respond-to(extra-small) {
+                button {
+                  min-width: 80px;
+                  width: 80px;
+                  padding: 2px;
+                  font-size: 11px;
+                }
+                right: 10px;
+                top: 5px;
+              }
+            }
+          }
+        }
+        
+        .pen-name-pill-item {
+          position: relative;
+          width: 33.3%;
+          
+          float: left;
+          height: $pill-height;
+          @include respond-to(extra-small) {
+            
+            &.then-45 {
+              width: 33.3%;
+              .bclick-button {
+                min-width: 0;
+                width: 80px;
+                font-size: 9.5px;
+              }
+            }
+            
+            &.blank-third {
+              width: 10%;
+            }
+            &.center-input {
+              width: 80%;
+            }
+            
+            height: $pill-height - 12px;
+          }
+          
+          @include respond-to(tiny-mobile) {
+            
+            &.then-45 {
+              .bclick-button {
+                width: 60px;
+                font-size: 8px;
+              }
+            }
+            
+          }
+          
+          &.more-height {
+            height: $pill-height + 38px;
+          }
+          
+          .pen-name-pill-item-content {
+            width: 100%;
+            font-size: 20px;
+            @include respond-to(extra-small) {
+              font-size: 12px;
+            }
+            text-align: center;
+          	position: absolute;
+            padding: 0 8px;
+            &.left {
+              text-align: left;
+              padding-left: 35px;
+              @include respond-to(extra-small) {
+                padding-left: 10px;
+              }
+            }
+            
+            &.has-checkbox {
+              @include grey-checkbox(24px);
+            }
+            
+          	top: 50%;
+          	@include transform(translate(0, -50%));
+            
+            .verified {
+              color: $notifications-color;
+            }
+            
+            .glyphicon {
+              vertical-align: -1px;
+            }
+            
+            .verified-or-not-glyphicon {
+              font-size: 27px;
+              position: absolute;
+              top: 11px;
+              right: -28px;
+              @include respond-to(extra-small) {
+                font-size: 18px;
+                /* top: 11px; */
+                top: 40px;
+                right: calc(50% - 8px);
+              }
+        
+              &.glyphicon-ok-circle {
+                color: $notifications-color;
+              }
+        
+              &.glyphicon-remove-circle {
+                color: $youtube-red;
+              }
+            }
+            
+            .amazon-logo {
+              width: 89px;
+              position: relative;
+              top: 3px;
+              @include respond-to(extra-small) {
+                width: 72px;
+                top: 2px;
+              }
+              right: -6px;
+            }
+            
+            input[type="text"], select {
+              @include placeholder() {
+                color: #999;
+              }
+              
+              height: 46px;
+              font-size: 16px;
+              padding-left: 20px;
+              padding-right: 17px;
+              @include respond-to(extra-small) {
+                text-align: center;
+                height: 30px;
+                font-size: 11px;
+                padding-left: 4px;
+                padding-right: 3px;
+              }
+              
+              
+            }
+            
+            input[type="submit"] {
+              @include respond-to(extra-small) {
+                min-width: 63px;
+                font-size: 12px;
+                padding: 5px;
+              }
+            }
+            
+            select {
+              text-align: center;
+              text-align-last: center;
+              /* webkit*/
+            }
+            option {
+              text-align: left;
+              /* reset to left*/
+            }
+            
+            .new-author-profile-url-input, .new-author-profile-url-prompt {
+              display: inline-block;
+            }
+            
+            a {
+              cursor: pointer;
+            }
+
+            button[disabled] {
+              background-color: lightgrey;
+              border-color: lightgrey;
+            }
+          }
+          
+        }
+      }
+      
+    }
+    
+    .pen-name-pill-wrapper.new {
+      
+      .pen-name-header {
+        margin-bottom: 24px;
+      }
+      
+      &.open .pen-name-header {
+        margin-bottom: 57px;
+      }
+      
+      background: $cool-gray;
+      .pen-name-pill-item-content {
+        font-size: 16px;
+        &.big {
+          font-size: 19px;
+        }
+      }
+      
+      &:not(.open) {
+        cursor: pointer;
+      };
+    }
+    
+  }
+  
+}

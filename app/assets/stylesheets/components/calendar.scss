@@ -1,0 +1,905 @@
+
+.modal {
+  
+  
+  .calendar-day-bookings-container {
+    min-height: 100px;
+    
+    .loading-calendar {
+      text-align: center;
+      padding: 40px;
+      img {
+        width: 30px;
+      }
+    }
+
+    .calendar-day-bookings {
+      .calendar-day-nothing {
+        font-size: 17px;
+        padding-top: 20px;
+        padding-bottom: 15px;
+        font-style: oblique;
+        text-align: center;
+      }
+    }
+    
+    $cal-day-bookings-padding: 8px;
+    
+    .calendar-day-bookings-inv-type-header {
+      padding: $cal-day-bookings-padding $cal-day-bookings-padding 4px $cal-day-bookings-padding;
+      font-size: 15px;
+    }
+    
+    .calendar-day-bookings-error {
+      color: red;
+      width: 80%;
+      text-align: center;
+      padding: $cal-day-bookings-padding $cal-day-bookings-padding 0;
+    }
+    
+    .calendar-day-bookings-form {
+      @include clearfix();
+      
+      
+      .calendar-day-bookings-form-link-wrapper {
+        float: left;
+        width: 20%;
+        padding: $cal-day-bookings-padding;
+        @include respond-to(tiny) {
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+        
+//        text-align: center;
+        a {
+          min-width: 0;
+          width: 100%;
+          
+          border-radius:4px;
+          @include respond-to(extra-small) {
+            width: 70px;
+            font-size: 10px;
+          }
+          
+          @include respond-to(tiny) {
+            width: 50px;
+          }
+          
+          padding: 0;
+          line-height: 36px;
+          box-shadow: 2px 2px 8px #888888;
+        }
+        
+        a[disabled] {
+          color: lightgrey;
+          cursor: default;
+          border-color: lightgrey;
+        }
+        
+      }
+      
+      .calendar-day-bookings-form-input-wrapper {
+        float: left;
+        width: 40%;
+        height: 55px;
+        padding: $cal-day-bookings-padding;
+        @include respond-to(extra-small) {
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+        
+        input {
+          width: 100%;
+          height: 100%;
+          padding: 5px 0 5px 10px;
+          background-color: $ultra-light-gray-alt;
+          @include placeholder() {
+            color: $semi-light-gray-color;
+          };
+          border: none;
+          @include respond-to(extra-small) {
+            font-size: 11px;
+          }
+          
+          @include respond-to(tiny) {
+            font-size: 10px;
+          }
+          
+        }
+        
+        &.email-error {
+          input {
+            outline: none !important;
+            border:1px solid red;
+            box-shadow: 0 0 5px darkred;
+            @include placeholder() {
+              color: grey;
+            }
+          }
+        }
+        
+        &.external {
+          input {
+            color: $mailchimp-gray;
+            font-weight: 600;
+          }
+          input[disabled] {
+            color: $mailchimp-gray !important;
+            -webkit-text-fill-color: $mailchimp-gray;
+            -webkit-opacity: 0.5;
+            @include placeholder() {
+              color: $ultra-light-gray-alt;
+            }
+          }
+          
+          &.send-confirmed input[disabled] {
+            color: $mailchimp-gray !important;
+            -webkit-text-fill-color: $mailchimp-gray;
+            -webkit-opacity: 0.9;
+          }
+        }
+        &.system-accepted {
+          input {
+            cursor: pointer;
+            color: blue;
+          }
+          input[disabled] {
+            color: blue !important;
+            -webkit-text-fill-color: blue;
+            -webkit-opacity: 1;
+          }
+          input.empty {
+            color: lightgrey !important;
+            -webkit-text-fill-color: lightgrey;
+          }
+        }
+        &.system-pending {
+          input {
+            color: red;
+            font-weight: 600;
+          }
+          input[disabled] {
+            color: red !important;
+            -webkit-text-fill-color: red;
+            -webkit-opacity: 1;
+          }
+          input.empty {
+            color: lightgrey !important;
+            -webkit-text-fill-color: lightgrey;
+          }
+        }
+        
+      
+      }
+      
+    }
+    
+    
+  
+  }
+  
+  
+  
+  .modal-header {
+    text-align: center;
+    button.close {
+      position:relative;
+      z-index: 130;
+      margin-top: 5px;
+      display: inline-block;
+    }
+    .modal-title {
+      font-size: 25px;
+      display: inline-block;
+    }
+  }
+
+  a.external-reservation-form-link[disabled], a.one-day-inventory-form-link[disabled] {
+    cursor: default;
+    color: $cool-gray;
+    border-color: $cool-gray;
+    &:hover, &:active {
+      border-color: $cool-gray;
+      color: $cool-gray;
+      background-color: white;
+    };
+  }
+
+  a.one-day-inventory-form-link {
+    margin-left: 12px;
+  }
+  
+  .one-day-inventory-input {
+    .mention-input {
+      border: 1px solid lightgrey;
+      width: 50px;
+      height: 33px;
+    }
+    
+    input[type="checkbox"] {
+      margin-top: 10px;
+    }
+    
+    .react-numeric-input {
+      margin-top: 3px;
+    }
+    
+  }
+  
+  .inventory-change-error {
+    color: red;
+    margin: 7px 0 4px;
+    text-shadow: none;
+    font-size: 12px;
+    @include respond-to(extra-small) {
+      font-size: 11px;
+    }
+    @include respond-to(tiny) {
+      font-size: 10px;
+    }
+  }
+  
+  
+  .modal-body {
+    
+    .calendar-date-info-block {
+      text-align: center;
+      .calendar-date-header {
+        font-size: 20px;
+        padding-left: 10px;
+      }
+
+      .lightgrey {
+        color: lightgrey;
+      }
+      
+      &.calendar-date-info-block-left {
+        text-align: left;
+      }
+            
+      p {
+        text-align: left;
+        padding: 0 10px;
+      }
+      
+      &:not(:last-child) {
+        margin-bottom: 31px;
+      }
+      
+      &.booking {
+        margin-bottom: 2px;
+        @include respond-to(extra-small) {
+          ul {
+            padding-left: 20px;
+          }
+        }
+      }
+
+      &.just-header {
+        margin-bottom: 10px;
+      }
+      
+      .calendar-date-reservation-button {
+        margin: 10px 10px 0 10px;
+        box-shadow: 3px 3px 10px #888888;
+        @include respond-to(extra-small) {
+          min-width: 0;
+          height: 30px;
+          line-height: 14px;
+        }
+      }
+      
+    }
+    
+  }
+
+  .modal-footer {
+    .justify {
+      text-align: justify;
+      @include respond-to(tiny) {
+        font-size: 11px;
+      }
+    }
+    .big {
+      font-size: 20px;
+    }
+  }
+}
+
+.reserve-form {
+  display: inline-block;
+  margin: 10px 10px;
+  .reserve-form-submit {
+    border-radius: 2px;
+    box-shadow: 3px 3px 10px #888888;
+  }
+  
+}
+
+
+.zabuto-calendar-container {
+}
+
+#calendar-page, #booking-calendar-page {
+  
+
+  .loading-calendar {
+    width: 80%;
+    margin: 40px auto;
+    text-align: center;
+    img {
+      width: 40px;
+      margin-bottom: 20px;
+    }
+  }
+  .page-title-subtitle {
+    color: black !important;
+    font-size: 16px !important;
+  }
+  
+  td.dow-clickable:not(.event-styled) {
+    cursor: default !important;
+  }
+  
+  .calendar-legend-container {
+    margin: 35px auto 40px;
+    width: 700px;
+    text-align: center;
+    
+    .calendar-legend {
+      @include clearfix();
+      .calendar-legend-item-container {
+        float: left;
+        width: 16.6%;
+        padding: 10px;
+        .calendar-legend-item {
+          .calendar-legend-item-badge {
+            min-width: 100px;
+            width: 100px;
+          }
+        }
+      }
+    }
+    
+    .calendar-legend-2 {
+      .calendar-legend-item-container {
+        display: inline-block;
+        padding: 10px;
+        width: 25%;
+        .calendar-legend-item {
+          .calendar-legend-item-badge {
+            min-width: 165px;
+            width: 165px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.day {
+  @include respond-to(small) {
+    min-width: 70px !important;
+    width: 70px !important;
+  }
+  @include respond-to(extra-small) {
+    min-width: 33px !important;
+    width: 33px !important;
+    padding: 3px !important;
+  }
+  border-radius: 3px !important;
+  &.unclickable {
+    cursor: default;
+  }
+  &.past {
+    opacity: 0.5;
+  }
+}
+
+#booking-calendar-page, #calendar-page {
+  
+  .calendar-dow-header {
+    height: 40px;
+  }
+  
+  .calendar-month-header, .calendar-dow-header {
+    th {
+      vertical-align: middle;
+    }
+  }
+  
+  .calendar-dow td {
+    padding: 7px;
+    @include respond-not-to(extra-small) {
+      padding: 9px 7px;
+    }
+  }
+  
+  .set-your-inventory-wrapper {
+    text-align: center;
+    margin: 5px auto 23px;
+    .set-your-inventory {
+      border-radius: 3px;
+    }
+  }
+  td.dow-clickable {
+    cursor: default !important;
+    
+    .day {
+      width: 84%;
+      margin: 0 auto;
+      @include respond-not-to(extra-small) {
+        height: 45px;
+        border-radius: 14px !important;
+        line-height: 27px;
+        font-size: 19px;
+      }
+    }
+  }
+  
+  .badge-today {
+    padding: 3px 4px;
+    border-radius: 4px;
+    @include respond-not-to(extra-small) {
+      padding: 1px 12px 3px;
+      font-size: 19.5px;
+      @include respond-to(small) {
+        position: relative;
+        left: -7px;
+        top: -1px;
+      }
+    }
+  }
+
+  .tooltip {
+    
+    .zabuto-day-tooltip-list-item {
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+    .zabuto-day-tooltip-header {
+      font-size: 18px;
+      margin-top: 7px;
+    }
+    .zabuto-day-tooltip-list {
+      margin: 10px 0 20px 0;
+      font-size: 12px;
+    }
+
+  }
+}
+
+#calendar-page {
+  .page-title {
+    margin-bottom: 10px;
+  }
+}
+
+#booking-calendar-page {
+  .page-title {
+    margin-bottom: 12px;
+  }
+}
+
+#reusableModal {
+  top: 100px;
+  
+  
+  .modal-title {
+    
+    .calendar-modal-title-date {
+      display: inline-block;
+      min-width: 300px;
+      @include respond-to(extra-small) {
+        min-width: 175px;
+        font-size: 14px;
+      }
+    }
+    
+    span.next-previous-day-icon {
+      font-size: 20px;
+      @include respond-to(extra-small) {
+        font-size: 17px;
+      }
+    }
+    .next-day-link {
+      cursor: pointer;
+      margin-left: 20px;
+    }
+    .previous-day-link {
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    
+  }
+  .calendar-available-inventory-modal {
+    text-align: left;
+    #reusableModalTitle {
+      display: inline-block;
+    }
+  }
+  
+  .booking-form {
+    .booking-form-title {
+      margin-top: 15px;
+      font-size: 30px;
+      @include respond-to(extra-small) {
+        font-size: 20px;
+      }
+      &.swap {
+        font-size: 26px;
+        @include respond-to(extra-small) {
+          font-size: 16px;
+        }
+        @include respond-to(tiny) {
+          font-size: 14px;
+        }
+      }
+
+    }
+    
+    &.respond-booking-form {
+      text-align: center;
+      .booking-form-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+        
+      }
+      
+      .respond-button-edit-button {
+        width: 155px;
+      }
+      
+      .payment-or-swap-container {
+        height: auto !important;
+        .offer-container {
+          
+          .react-datepicker__input-container input {
+            text-align: center;
+            margin: 8px auto;
+          }
+          
+          input[type="date"] {
+            width: 55%;
+            margin: 8px auto;
+          }
+          
+          .offer-type.big {
+            font-size: 20px;
+          }
+          
+          input[type='checkbox'], input[type='checkbox']:after {
+            cursor: default !important;
+          }
+          
+          &.not-offered {
+            @include respond-to(extra-small) {
+              display: none;
+            }
+            .offer-type {
+              color: lightgrey;
+            }
+            
+          }
+        }
+      }
+      
+      .respond-error {
+        margin: 2px auto 10px;
+      }
+      
+      .respond-buttons {
+        position: relative;
+        @include clearfix();
+        margin-top: 40px;
+        .respond-button {
+          float: left;
+          width: 50%;
+          text-align: center;
+        }
+        .respond-button.center {
+          float: none;
+          width: 100%;
+          .bclick-button {
+          }
+        }
+        
+        &.phone {
+          .respond-button {
+            width: 100%;
+          }
+        }
+        
+        .respond-button.disabled {
+          a, input {
+            background-color: lighten($mailchimp-gray, 37%);
+            cursor: default;
+          }
+        }
+      }
+      
+    }
+    
+    
+    .book-add-container {
+      width: 100%;
+      @include respond-to(extra-small) {
+        width: 100%;
+      }
+      margin: 7px auto 30px;
+
+      .book-add-form {
+        @include clearfix();
+
+        .book-add-input {
+          float: left;
+          
+          .Select-control {
+            text-align: left;
+          }
+          
+          .Select-value-label {
+            position: relative;
+            top: 2px;
+          }
+        
+          input, a, .Select-control {
+            width: 100%;
+            background-color: $cool-gray;
+            @include placeholder() {
+              color: $semi-light-gray-color;
+            };
+            border: none;
+            font-size: 13px;
+          }
+        
+        }
+        
+        .book-add-input.book-name {
+          width: 55%;
+          @include respond-to(extra-small) {
+            width: 100%;
+            margin-bottom: 11px;
+          }
+        }
+        
+        .book-add-input.pen-name {
+          width: 25%;
+          @include respond-to(extra-small) {
+            width: 68%;
+          }
+        }
+        
+        .book-add-input.space {
+          width: 2%;
+        }
+        
+        .book-add-input.submit {
+          width: 16%;
+          @include respond-to(extra-small) {
+            width: 30%;
+          }
+          a {
+            cursor: pointer;
+            border-radius: 4px;
+            min-width: 0;
+          }
+          a[disabled] {
+            background-color: lighten($cool-gray, 4%);
+            color: lighten($mailchimp-gray, 8%);
+            cursor: default;
+          }
+        }
+      }
+    }
+    
+    
+    
+    .book-select-container {
+      margin: 25px auto 15px;
+      width: 100%;
+      @include respond-to(extra-small) {
+        width: 100%;
+      }
+      .book-select-header {
+        font-size: 17px;
+        text-shadow: none;
+        margin-bottom: 4px;
+      }
+    }
+
+    .payment-or-swap-container {
+      height: 200px;
+      @include clearfix();
+
+      .offer-container {
+        
+        float: left;
+        width: 50%;
+        &.width-100 {
+          width: 100%;
+        }
+        
+        input[type="checkbox"] {
+          margin: 8px auto !important;
+        }
+        
+        @include respond-to(extra-small) {
+          width: 100%;
+          margin: 20px 0;
+          &:not(:first-child) {
+            border-top: 1px solid lightgrey;
+            padding-top: 40px;
+          };
+        }
+        text-align: center;
+
+        input[type="checkbox"] {
+          margin-right: 10px;
+        }
+
+        @include grey-checkbox(18px);
+      }
+
+      &.just-swap-open, &.just-swap {
+        .offer-container {
+          width: 100%;
+          padding-top: 4px;
+        }
+      }
+
+      &.just-swap {
+        height: 100px;
+        .offer-container {
+          text-align: left;
+          border: none;
+          span {
+            font-size: 17px;
+            @include respond-to(extra-small) {
+              font-size: 13px;
+            }
+          }
+        }
+        
+      }
+
+      .payment-offer-content {
+        
+        .rc-slider {
+          width: 84%;
+          margin: 35px auto 10px;
+          .rc-slider-mark-text {
+            position: absolute;
+            @include transform(translate(-34%, 15px));
+            @include respond-to(extra-small) {
+              font-size: 10px;
+            }
+          }
+        }
+        
+        .base-price {
+          margin-top: 18px;
+          @include respond-to(extra-small) {
+            margin-top: 24px;
+          }
+          cursor: pointer;
+          color: lightgrey;
+        }
+        
+        .payment-offer-slider-total {
+          margin-top: 20px;
+          display: block;
+          font-size: 24px;
+        }
+        
+        &.disabled {
+          .payment-offer-slider-total {
+            color: lightgrey;
+          }
+        }
+        
+
+      }
+
+      .Select {
+        margin-top: 14px;
+      }
+
+      .swap-offer-content {
+        .buyer-swap-list-message {
+          margin-top: 5px;
+        }
+        
+        textarea {
+          resize: none;
+        }
+        
+        .react-datepicker__input-container {
+          width: 200px;
+        }
+        
+        .swap-cancel-note {
+          padding: 2px 8px 6px;
+          font-size: 12px;
+        }
+        
+        &.fixed-100 {
+          height: 148px;
+          padding: 20px 0;
+        }
+        
+        .refund-amount {
+          display: block;
+          font-size: 20px;
+        }
+      }
+
+      .swap-offer-list-inv-type {
+        @include clearfix();
+        margin-top: 20px;
+        .offer-in-exchange-message {
+          font-size: 18px;
+          text-shadow: none;
+          margin-bottom: 7px;
+        }
+        .swap-offer-list-inv-type-1 {
+          float: left;
+          text-align: center;
+          .buyer-swap-inv-type-label {
+            @include respond-to(extra-small) {
+              font-size: 10px;
+            }
+          }
+        }
+
+      }
+      
+
+    }
+
+    .reservation-message-container {
+      margin-top: 7px;
+      @include clearfix();
+      textarea {
+        width: 50%;
+        float: left;
+        resize: none;
+      }
+      .auto-subscribe-toggle {
+        width: 50%;
+        float: left;
+        text-align: center;
+      }
+    }
+
+    .submit-container {
+      margin: 47px 0 30px;
+      input, a {
+        border-radius: 4px;
+      }
+      .submit-error {
+        margin-top: 7px;
+        color: red;
+        @include respond-to(extra-small) {
+          font-size: 11px;
+        }
+        
+        @include respond-to(tiny) {
+          font-size: 10px;
+        }
+      }
+      .submit-error:after {
+        opacity: 0.0;
+        content: '-';
+      }
+    }
+  }
+  
+  .booking-form-title-stats {
+    font-size: 14px;
+  }
+
+  
+}
+
+

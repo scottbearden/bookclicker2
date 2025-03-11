@@ -1,0 +1,71 @@
+
+
+#clients-page {
+  
+  
+  
+  .clients-empty {
+    min-height: 350px;
+    text-align: center;
+    .error { 
+      color: $mailchimp-gray;
+    }
+  }
+  
+  .payment-request-intro {
+    margin-top: 4px;
+  }
+  
+  .client-manager-pay-toggle-block {
+    font-size: 13px;
+    color: $youtube-red;
+    @include respond-to(extra-small) {
+      font-size: 12px;
+    }
+  }
+  
+  h4 {
+    text-align: center;
+  }
+  
+  .assistant-payment-request-form {
+    max-width: 700px;
+    @include clearfix();
+    margin: 10px auto 30px;
+    @include respond-to(extra-small) {
+      width: 80%;
+    }
+    
+    .payment-request-api-response {
+      text-align: center;
+      margin: 7px;
+    }
+    
+    .assistant-payment-request-form-input {
+      padding: 0 10px;
+      float: left;
+      width: 50.0%;
+      @include respond-to(extra-small) {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .bclick-button {
+        border-radius: 3px;
+        line-height: 11px;
+      }
+      
+      label {
+        margin-left: 5px;
+      }
+      
+      .payment-request-status {
+        padding: 6px;
+      }
+      
+      
+      
+    }
+  }
+  
+  
+}

@@ -1,0 +1,29 @@
+<ul>
+  
+  <% if @reservation.swap_offer_inv_types.present? %>
+    <li><b>Type:</b>  <%= @reservation.swap_offer_inv_types.map(&:capitalize).join(", ") %></li>
+  <% end %>
+  
+  <li><b>List:</b>  <%= @swap_offer_list.try(:adopted_pen_name) %></li>
+  
+  <li>
+    <b>List Size:</b>  <%= @swap_offer_list.try(:active_member_count_delimited) %>
+  </li>
+  
+  <li>
+    <b>List Provider:</b>  <%= @swap_offer_list.try(:Platform) %>
+  </li>
+  
+  <% if @swap_offer_list.try(:open_rate_percent).present? %>
+  <li>
+    <b>Open Rate:</b>  <%= @swap_offer_list.try(:open_rate_percent) %>
+  </li>
+  <% end %>
+  
+  <% if @swap_offer_list.try(:click_rate_percent).present? %>
+  <li>
+    <b>Click Rate:</b>  <%= @swap_offer_list.try(:click_rate_percent) %>
+  </li>
+  <% end %>
+  
+</ul>

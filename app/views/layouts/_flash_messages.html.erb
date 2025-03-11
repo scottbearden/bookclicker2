@@ -1,0 +1,8 @@
+<% flash.each do |type, message| %>
+  <div class="flash-messages alert <%= ALERT_CSS_CLASSES[type] %> fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <div class="flash-messages-content">
+      <div class="flash-message"><%= message.html_safe %></div>
+    </div>
+  </div>
+<% end %>

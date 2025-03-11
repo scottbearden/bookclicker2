@@ -1,0 +1,9 @@
+<% if current_assistant_or_member_user.present? %>
+  <nav id="header-nav" class="user">
+    <%= render "nav/user_header" %>
+  </nav>
+<% else %>
+  <nav id="header-nav" class="visitor">
+    <%= render "nav/visitor_header" %>
+  </nav>
+<% end %>

@@ -1,0 +1,260 @@
+$conversations-padding: 5px;
+
+@mixin conversation-action-btn() {
+  .btn {
+    width: 65px;
+    height: 29px;
+    line-height: 27px;
+    margin-right: 4px;
+    @include respond-to(tiny) {
+      width: 50px;
+    }  
+  }
+}
+
+#reusableModal {
+  #MessagerModal {
+    .messager-modal-title {
+      text-align: center;
+    }
+
+    .go-to-conversation {
+      p {
+        font-size: 17px;
+        padding: 5px;
+        margin: 45px 0 35px;
+        text-align: center;
+        color: $mailchimp-gray;
+      }
+    }
+
+    .messager-input {
+      margin-top: 10px;
+      label {
+        padding: 3px;
+      }
+      textarea {
+        resize: none;
+      }
+    }
+  }
+
+  
+}
+
+#conversations-page {
+
+
+  .ConversationManager {
+    display: inline-block;
+    vertical-align: bottom;
+    @include conversation-action-btn();
+  }
+
+  
+  #conversations-page-title-wrapper {
+    width: 100%;
+
+    #conversations-page-title {
+      font-size: 54px;
+      font-family: 'Spring Market', Verdana, sans-serif;
+    }
+    #conversations-page-subject {
+      font-size: 19px;
+    }
+    #conversations-page-interlocutor {
+      font-size: 13px;
+      color: $mailchimp-gray;
+    }
+    @include respond-to(small) {
+      text-align: center;
+    }
+
+  }
+
+
+  
+  #conversations-page-content {
+    margin: 10px 0 20px;
+    #conversation-starter-prompt {
+      padding-left: 8px;
+      font-size: 14px;
+      text-shadow: none;
+      a {
+        text-shadow: none;
+      }
+      img {
+        vertical-align: -6px;
+      }
+      @include respond-to(extra-small) {
+        font-size: 12px;
+      }
+    }
+  }
+
+  #conversations-page-nav {
+    position: relative;
+  }
+
+
+  .conversations-send-to-trash {
+    display: inline-block;
+    margin: 15px 0;
+    &:not(.index-view) {
+      position: relative;
+      bottom: 2px;
+    }
+
+    .btn {
+
+      &.trashed {
+        background-color: $light-red-color;
+      }
+      &.space-left {
+        margin-left: 8px;
+      }
+    }
+
+    &.index-view {
+
+      vertical-align: 0px;
+      margin: 0;
+      button {
+        height: 22px;
+      }
+
+    }
+
+    .tooltip-inner {
+      max-width: 130px;
+      width: 130px; 
+      color: white !important;
+    }
+  }
+  
+  #conversations-page-conversations {
+
+    .width-25 {
+      width: 25%;
+      max-width: 0;
+      vertical-align: middle;
+      &.overflow-hidden {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      @include respond-to(extra-small) {
+        font-size: 10px;
+      }
+    }
+
+    .width-10 {
+      width: 15%;
+      max-width: 0;
+    }
+
+    .show-line-breaks {
+      white-space: pre-line;
+    }
+
+    tr.me {
+      // background-color: $pink-color;
+      background-color: lighten($sky-blue-color, 35%);
+    }
+
+    tr.not-me {
+      // background-color: $sky-blue-color;
+      background-color: $cool-gray;
+    }
+
+    tr.link:hover {
+      cursor: pointer;
+      background-color: $cool-gray;
+    }
+
+    .read * {
+      text-shadow: none;
+      font-weight: normal;
+    }
+
+    .unread * {
+      text-shadow: none;
+      font-weight: 800;
+    }
+
+    .min-100 {
+      min-width: 100px;
+    }
+
+    .max-100 {
+      width: 100px;
+      max-width: 100px;
+    }
+
+    #reply-messager {
+      text-align: center;
+
+      .reply-messager-form-toggle {
+        float: left;
+      }
+    }
+
+    .conversation-actions {
+      @include conversation-action-btn();
+      text-align: right;
+    }
+
+    .reply-form-input {
+      textarea {
+        resize: none;
+        width: 100%;
+        border-radius: 1px;
+      }
+    }
+
+    .reply-form-input {
+      margin-top: 10px;
+    }
+  }
+  
+  
+  #conversations-page-nav-box-select {
+    display: inline-block;
+    margin: 0;
+
+
+    &.up {
+
+      font-size: 22px;
+    }
+
+    float: right;
+    margin-top: 14px;
+
+    &.index-view {
+      @include respond-to(extra-small) {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 14px;
+      }
+    }
+
+    .mailbox-box {
+      font-family: 'Spring Market', Verdana, sans-serif;
+      margin: 0 5px;
+      text-shadow: none;
+      font-weight: 300;
+      font-size: 25px;
+      &:hover {
+        text-decoration: none;
+      }
+      &.bold {
+        font-weight: 900;
+        font-size: 30px;
+      }
+    }
+    
+  }
+      
+  
+}

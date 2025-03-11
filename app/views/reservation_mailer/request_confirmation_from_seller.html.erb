@@ -1,0 +1,22 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hi <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hi,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  <%= @buyer_author_name %> has requested that you confirm that their promo has been sent.  Here are more <%= @reservation.booking_details_info_link %>.  Use the link below to review and confirm this promo.
+</div>
+
+
+<div class="space2"></div>
+<%= render "book_info" %>
+
+<div class="space2"></div>
+
+<div class="bclick-email-actions">
+  <div class="bclick-email-action">
+    <a href="<%= @reservation.confirm_promos_link + "&bc_token=#{@recipient.session_token}&auid=#{@seller.id}" %>" class="bclick-mailer-notification-button">Confirm Promo</a>
+  </div>
+</div>

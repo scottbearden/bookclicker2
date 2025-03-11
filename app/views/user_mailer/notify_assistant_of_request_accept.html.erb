@@ -1,0 +1,19 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hi <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+
+<div class="space2"></div>
+<div class="text">
+  Your request on <%= @payment_request.created_at_pretty %> to <%= @member.assisting_display_name %> for a weekly payment of $<%= @payment_request.pay_amount %> has been accepted.  Payment to your connected Stripe account has begun.  You can manange your payment plans on your <a href="<%= SITE_URL + "/clients?bc_token=#{@recipient.session_token}&auid=#{@member.id}" %>">clients page</a>.
+</div>
+
+<div class="space2"></div>
+
+<div class="text">
+  Bookclicker
+</div>
+
+
+

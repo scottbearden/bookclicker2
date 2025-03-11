@@ -1,0 +1,16 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hi <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>Pen Name: <%= @pen_name.author_name %></div>
+<div class="space1"></div>
+<div class="text">
+  <% if @pen_name_request.granted? %>
+    Your request to Bookclicker to use the pen name <%= @pen_name.author_name %> has been accepted.  You may now <%= @pen_name.promo_service_only? ? "sell" : "buy and sell"%> promo with this name.  Review your current pen names and promo services on your <a href="<%= SITE_URL %>/pen_names?bc_token=<%= @recipient.session_token %>&auid=<%= nil %>" target="_blank">pen names page</a>
+  <% elsif @pen_name_request.denied? %>
+    Your request to Bookclicker to use the pen name <%= @pen_name.author_name %> has been denied by the owner.  If this is your pen name or you disagree with the decision you may dispute this decision by sending an email to disputes@bookclicker.com.
+  <% end %>
+</div>
+
+<div class="space2"></div>

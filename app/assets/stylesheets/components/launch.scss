@@ -1,0 +1,87 @@
+#LaunchPage {
+  min-height: 500px;
+}
+
+#launch-page-container {
+  
+  .page-title {
+    @include respond-to(extra-small) {
+      width: 100% !important;
+    }
+  }
+  
+  .Select-control {
+    cursor: pointer;
+  }
+  
+  #launch-page-content {
+    margin-top: 55px;
+    @include clearfix();
+    
+    .my-books-show {
+      margin: 0;
+      float: left;
+      width: 35%;
+      @include respond-to(small) {
+        display: none;
+      }
+    }
+    
+    .cancel-link {
+      padding: 0 5px;
+      text-shadow: 0 0 1.6px rgba(0,0,0,0.3);
+      color: $youtube-red;
+    }
+    
+    #booklauncher-table {
+      width: 65%;
+      float: left;
+      padding: 15px 0 0 35px;
+      @include respond-to(small) {
+        width: 100%;
+        padding-left: 0;
+      }
+      
+      table {
+        th, td {
+          width: 20%;
+          text-align: center;
+          
+          .pending-robin-egg-blue {
+            color: $robin-egg-blue-color;
+          }
+          @include respond-to(tiny) {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    
+    #booklauncher-chart {
+      width: 95%;
+      float: left;
+      @include respond-not-to(small) {
+        margin-top: 40px;
+      }
+
+      @include respond-to(small) {
+        width: 90%;
+      }
+      @include respond-to(extra-small) {
+        width: 85%;
+      }
+    }
+    
+    #booklauncher-marketplace {
+      clear: left;
+      position: relative;
+      top: 90px;
+      .page-title-title {
+        font-size: 30px;
+      }
+    }
+    
+    
+    
+  }
+}

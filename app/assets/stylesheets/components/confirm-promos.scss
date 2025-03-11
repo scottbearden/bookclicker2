@@ -1,0 +1,194 @@
+#confirm-promos-page {
+  
+  #confirm-promos-selects-wrapper {
+    margin-top: 52px;
+    @include respond-to(extra-small) {
+      margin-top: 32px;
+    }
+  }
+  
+  .confirm-promos-empty {
+    min-height: 350px;
+    text-align: center;
+    .error { 
+      color: $mailchimp-gray;
+    }
+  }
+
+  hr {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: 0;
+    border-top: 2px solid #eeeeee;
+  }
+
+
+}
+
+.confirm-promo-select-wrapper {
+  
+  .confirm-promo-add-preview-link-input-container {
+    input[type="text"] {
+      margin-top: 10px;
+      background-color: $cool-gray;
+      @include placeholder() {
+        color: $semi-light-gray-color;
+      };
+      border: none;
+    }
+  }
+  
+  .confirm-promo-select-title {
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 20px;
+    @include respond-to(extra-small) {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+  }
+  .confirm-promo-float-flex {
+    @include clearfix();
+    .confirm-promo-float-flex-info-col {
+      float: left;
+      width: 40%;
+      @include respond-to(extra-small) {
+        float: none;
+        width: 100%;
+      }
+      padding: 8px;
+
+      .reservation-info {
+        td {
+          width: 50%;
+          font-size: 12px;
+          padding: 5px;
+          @include respond-to(extra-small) {
+            font-size: 10px;
+            padding: 3px;
+          }
+        }
+      }
+
+    }
+
+    .confirm-promo-float-flex-select-col {
+      float: left;
+      width: 60%;
+      @include respond-to(extra-small) {
+        float: none;
+        width: 100%;
+      }
+      padding: 8px;
+      
+      .error-confirming-promo {
+        clear: left;
+        padding-left: 5px;
+        color: red;
+      }
+
+      .save-button-wrapper {
+        padding: 17px 1px 10px;
+        .bclick-button {
+          text-shadow: none !important;
+          border-radius: 3px;
+          &[disabled] {
+            cursor: default;
+          }
+        }
+        
+        .opacity-6 {
+          opacity: 0.8;
+        }
+      }
+      
+
+      .confirm-promo-float-flex-select-wrapper {
+        max-width: 550px;
+        margin: 0 auto;
+        @include respond-to(small) {
+          width: 100%;
+        }
+      }
+
+      .confirm-promo-select-header {
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 14px;
+      }
+
+      .Select {
+        
+        &:not(.is-disabled) {
+          .Select-control:hover {
+            cursor: pointer;
+          }
+        }
+
+        &.is-disabled {
+          span.subject {
+            color: grey;
+          }
+        }
+
+        .campaign-option-label {
+          .campaign-preview {
+            span {
+              vertical-align: -3px;
+              position: relative;
+              left: 10px;
+            }
+          }
+          
+          span.subject {
+            font-size: 20px;
+          }
+          &.load-more {
+            text-align: center;
+            padding: 10px;
+          }
+        }
+
+        .Select-option {
+          
+        }
+      }
+    }
+  }
+
+}
+
+.modal {
+  .confirm-promo-select-wrapper {
+    
+    .confirm-promo-select-header {
+      font-size: 15px !important;
+      .promo-confirmed-notice {
+        color: $teal-color;
+      }
+      .promo-confirmed-error {
+        color: $youtube-red;
+      }
+    }
+    
+    .save-button-wrapper {
+      .bclick-button {
+        min-width: 0;
+        @include respond-to(extra-small) {
+          font-size: 11px;
+        }
+      }
+      
+      .opacity-6 {
+        opacity: 0.8;
+      }
+    }
+    
+    @include respond-not-to(extra-small) {
+      .confirm-promo-float-flex-info-col, .confirm-promo-float-flex-select-col {
+        width: 50%;
+      }
+    }
+    
+  }
+}

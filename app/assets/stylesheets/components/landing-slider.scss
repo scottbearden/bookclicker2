@@ -1,0 +1,182 @@
+$desktop-pricing-height: 80px;
+$mobile-pricing-height: 45px;
+
+#landing-slider {
+  
+  min-height: 500px;
+  
+  margin-top: 50px;
+  @include respond-to(extra-small) {
+    margin-top: 30px;
+  }
+  
+  @include rc-slider-custom(250px, 170px);
+  
+  .landing-slider-page-container {
+
+    min-height: 640px;
+    padding-top: 10px;
+  
+    .landing-slider-page-title {
+      margin-top: 35px;
+      font-size: 35px;
+      text-align: center;
+    }
+  
+    .pricing-content {
+      width: 920px;
+      @include respond-to(small) {
+        width: 100%;
+      }
+    
+      margin: 0 auto;
+    
+      .pricing-flyer-container {
+        width: 100%;
+        max-width: 590px;
+        margin: 0 auto;
+        text-align: center;
+        
+        padding: 20px;
+        @include respond-to(extra-small) {
+          padding: 10px;
+        }
+      
+        .pricing-flyer {
+                
+          border: 1px solid $cool-gray;
+          &.pricing-flyer-highlighted {
+            border: 1px solid $robin-egg-blue-color;
+          }
+        
+          .pricing-flyer-header-container {
+            font-size: 18px;
+            background-color: $cool-gray;
+            color: #696969;
+            height: 80px;
+            position: relative;
+            .pricing-flyer-header {
+              @include align-center();
+            }
+          }
+          
+          &.pricing-flyer-highlighted {
+            .pricing-flyer-header-container {
+              background-color: $robin-egg-blue-color;
+              color: white;
+            }
+          }
+        
+          .pricing-flyer-body-container {
+            margin: 38px 0;
+            @include respond-to(extra-small) {
+              margin-bottom: 18px;
+            }
+          
+            .pricing-flyer-body {
+              .pricing-flyer-point {
+                height: 90px;
+                margin-top: 10px;
+                
+                .pricing-flyer-point-title {
+                  font-size: 14px;
+                }
+                
+                .pricing-flyer-point-caption-container {
+                  padding: 20px;
+                  font-size: 13px;
+                  .pricing-flyer-point-caption {
+                    text-shadow: none;
+                  }
+                  @include respond-to(extra-small) {
+                    padding: 8px;
+                    font-size: 13.5px;
+                  }
+                }
+              }
+            
+              .pricing-choose {
+                margin: 25px 0;
+                a {
+                  color: $gray-color;
+                  min-width: 138px;
+                  @include respond-to(extra-small) {
+                    @include bclick-xsmall-button;
+                  }
+                }
+              }
+            
+              .pricing-price-container {
+                margin: 0 auto;
+                @include clearfix();
+
+                .pricing-price-per-month-container {
+                  float: left;
+                  width: 45%;
+                  height: $desktop-pricing-height;
+                  @include respond-to(extra-small) {
+                    height: $mobile-pricing-height;
+                  }
+                  position: relative;
+                  text-align: left;
+                  .pricing-price-per-month {
+                    text-shadow: none;
+                    position: absolute;
+                    bottom: 14px;
+                    left: 0px;
+                    padding: 3px;
+                    font-size: 14px;
+                    @include respond-to(extra-small) {
+                      bottom: 0px;
+                      font-size: 13px;
+                    }
+                  
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .benefits-content {
+      width: 580px;
+      @include respond-to(extra-small) {
+        width: 300px; 
+      }
+      margin: 0 auto;
+      @include clearfix();
+    
+      .benefit-container {
+        float: left;
+        width: 33.3%;
+        height: 200px;
+        text-align: center;
+      
+        .benefit {
+          padding: 10px;
+          @include respond-to(extra-small) {
+            padding: 5px; 
+          }
+        
+          .benefit-logo-container {
+            margin: 20px 0;
+            @include respond-to(extra-small) {
+              margin: 10px 0;
+            }
+          }
+        
+          .benefit-blurb-container {
+            p {
+              text-shadow: none;
+            }
+            @include respond-to(extra-small) {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

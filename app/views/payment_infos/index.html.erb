@@ -1,0 +1,6 @@
+<div id="PaymentInfoPage"
+  data-customer="<%= @customer.to_json %>"
+  data-has_stripe_account="<%= @has_stripe_account.to_json %>"
+  data-connect_with_stripe_link="<%= @connect_with_stripe_link %>"
+  data-stripe_setup_intent="<%= @setup_intent.as_json(only: [:client_secret, :id]).to_json %>"
+></div>

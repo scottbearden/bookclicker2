@@ -1,0 +1,469 @@
+$desktop-price-width: 69px;
+$mobile-price-width: 65px;
+
+#my-lists-page {
+  
+  margin: 0 auto;
+  margin-bottom: 33px;
+  
+  .page-title {
+    margin-bottom: 10px;
+    .page-title-subtitle {
+      @include respond-to(extra-small) {
+        font-size: 13px;
+      }
+    }
+  }
+  
+  #my-lists-page-content {
+    padding-top: 30px;
+    width: 100%;
+    text-align: center;
+    
+    table {
+      td {
+        vertical-align: middle;
+      }
+    }
+
+    thead {
+      background-color: $mailchimp-gray;
+      font-size: 14px;
+      color: white;
+      tr {
+        background-color: $mailchimp-gray;
+      }
+    }
+    
+    tbody {
+      tr {
+        min-height: 40px;
+        height: 55px;
+        font-size: 18px;
+        span.not-phone {
+          font-size: 18px;
+          
+        }
+        .list-name {
+          @include respond-to(extra-small) {
+            font-size: 11px;
+          }
+          input {
+            width: 90%;
+          }
+        }
+      }
+      tr:hover {
+        background-color: $light-gray-color;
+      };
+    }
+    #my-lists-index {
+      
+      .my-lists-index-link-to-selections {
+        text-align: center;
+        padding-bottom: 10px;
+        margin: 10px;
+        a {
+          border-radius: 3px;
+          min-width: 140px;
+        }
+        @include respond-to(extra-small) {
+          text-align: center;
+        }
+      }
+      
+      .my-lists-select-submit {
+        input[type="submit"] {
+          border-radius: 3px;
+          @include respond-to(extra-small) {
+            min-width: 80px;
+          }
+        }
+      }
+      
+      .my-lists-row {
+        
+        td {
+          word-wrap: break-word;
+        }
+        
+        td.my-list-row-platform {
+          width: 125px;
+          @include respond-to(extra-small) {
+            width: 80px;
+          }
+        }
+        
+        td.my-list-row-narrow {
+          width: 95px;
+          @include respond-to(extra-small) {
+            width: 70px;
+          }
+        }
+        
+        td.my-list-row-squinch {
+          @include respond-to(tiny) {
+            width: 94px;
+          }
+          @include respond-to(tiny-mobile) {
+            width: 82px;
+          }
+        }
+        
+        td.my-lists-select-checkbox-container {
+          @include grey-checkbox(20px);
+          width: 90px;
+          @include respond-to(extra-small) {
+            width: 50px;
+            @include grey-checkbox(14px);
+            
+          }
+        }
+
+        &.my-lists-row-selecting {
+          // .my-lists-row-action-td {
+          //   display: none;
+          // }
+          
+          .list-select-pen-name-input {
+            padding: 4px;
+            text-align: center;
+            &.success {
+              transition: background-color 0.5s ease;
+              background-color: $light-green-color;
+            }
+            &.error {
+              transition: background-color 0.5s ease;
+              background-color: $light-red-color;
+            }
+          }
+        }
+
+        .my-lists-row-action-td {
+          width: 136px;
+          @include respond-to(extra-small) {
+            width: 70px;
+          }
+          padding-left:0;
+          padding-right:0;
+        }
+        
+        .Select {
+          cursor: pointer;
+          .Select-value, .Select-placeholder, .Select-option, .Select-value-label {
+            text-align: left;
+            padding-left: 15px;
+            font-size: 11px;
+          }
+          .Select-value {
+            padding-left: 0px;
+          }
+        }
+        
+        .my-lists-row-link {
+          min-width: 93px;
+          width: 70px;
+          padding: 3px;
+          span.not-phone {
+            font-size: 16px;
+          }
+          
+          border-radius: 5px;
+          
+          @include respond-to(extra-small) {
+            min-width: 37px;
+            width: 34px;
+            margin: 0;
+          }
+        }
+      }
+    }
+    
+    .my-lists-show {
+      
+      .my-lists-show-cutoff-date {
+        input[type="text"] {
+          text-align: center;
+        }
+        .my-lists-show-cutoff-date-error {
+          font-size: 13px;
+          color: $youtube-red;
+          margin-top: 8px;
+        }
+      }
+      
+      .my-lists-show-container {
+        margin-top: 30px;
+        
+        .my-lists-show-content {
+          
+          .my-lists-show-inventory {
+            
+            
+            .inventory-checkboxes-inv-type, .inventory-day-box {
+              vertical-align: middle;
+              @include respond-to(extra-small) {
+                font-size: 10px;
+                padding: 3px 2px;
+              }
+              
+            }
+            
+            .inventory-day-box {
+              @include grey-checkbox(20px);
+              @include respond-to(extra-small) {
+                @include grey-checkbox(13px);
+                input[type="number"] {
+                  font-size: 12px;
+                  line-height: 13px;
+                  width: 30px;
+                  height: 22px;
+                }
+              }
+            }
+            
+            .inventory-day-header {
+              @include respond-to(extra-small) {
+                font-size: 9px;
+                padding: 5px 0;
+              }
+            }
+            .my-lists-show-inventory-caption {
+              font-size: 15px;
+              padding: 12px 2px;
+              margin-top: 10px;
+              text-align: left;
+            }
+
+            .mention-input {
+              width: 50px;
+              @include respond-to(extra-small) {
+                width: 35px;
+              }
+              @include respond-to(tiny-mobile) {
+                width: 28px;
+              }
+              margin: 0 auto;
+              height: 33px;
+              text-align: center;
+              font-weight: 700;
+
+            }
+            
+            .react-numeric-input {
+              @include respond-to(extra-small) {
+                b {
+                  width: 17px !important;
+                  font-size: 6px;
+                }
+              }
+              
+              @include respond-to(tiny-mobile) {
+                b {
+                  width: 12px !important;
+                  font-size: 6px;
+                }
+              }
+              
+            }
+            .mention-input[disabled] {
+              color: lightgrey;
+            }
+          }
+          
+          .my-lists-show-submit {
+            text-align: left;
+            @include respond-to(extra-small) {
+              text-align: center;
+            }
+            input, button, a {
+              border-radius: 1px;
+              margin-right: 10px;
+            }
+          }
+          
+          .my-lists-show-header {
+            position: relative;
+            height: 58px;
+            width: 100%;
+            
+            .my-lists-show-name {
+              @include align-center();
+              font-size: 30px;
+              @include respond-to(extra-small) {
+                font-size: 20px;
+              }
+              @include respond-to(tiny-mobile) {
+                font-size: 16px;
+              }
+              color: $gray-color;
+            }
+          
+          }
+          
+          .my-lists-show-set-up, .my-lists-show-cutoff-date {
+            margin: 10px auto;
+            .my-lists-show-cutoff-date-input {
+              text-align: center;
+              margin: 0 auto;
+              input.mobile-device {
+                width: 200px;
+                margin: 0 auto;
+                text-align: center
+              }
+            }
+            
+            label { 
+              font-size: 28px; 
+              @include respond-to(extra-small) {
+                font-size: 19px;
+              }
+              margin-bottom: 12px;
+            }
+            
+            .my-lists-show-genres {
+              margin: 35px auto 35px;
+              .genre-select-wrapper {
+                
+                .Select {
+                  width: 840px;
+                  @include respond-to(small) {
+                    width: 100%;
+                  }
+                  margin: 0 auto;
+                }
+                
+                .genre-select-warning {
+                  margin-bottom: 2px;
+                  color: red;
+                }
+                
+              }
+            }
+
+            .my-lists-show-prices {
+              & > .my-lists-show-inventory-caption {
+                float: left;
+                width: 100%;
+              }
+              width: 50%;
+              margin: 0 auto;
+              @include respond-to(extra-small) {
+                width: 100%;
+              }
+              @include clearfix();
+              
+              .my-lists-show-price-container {
+                float: left;
+                width: 33%;
+                
+                .my-lists-show-price-content {
+                  margin: 30px auto;
+                  
+                  .my-lists-show-price-title {
+                    font-size: 18px;
+                    margin-bottom: 8px;
+                    @include respond-to(extra-small) {
+                      font-size: 11px;
+                    }
+                    
+                  }
+                  
+                  .my-lists-show-price-input {
+                    position: relative;
+                    
+                    .price-dollar-sign {
+                      position: absolute;
+                      left: -15px;
+                      font-size: 28px;
+                      @include respond-to(extra-small) {
+                        font-size: 14px;
+                        left: -11px;
+                        top: 5px;
+                      }
+                    }
+                    
+                    width: $desktop-price-width;
+                    @include respond-to(extra-small) {
+                      width: $mobile-price-width;
+                    }
+                    input {
+                      width: $desktop-price-width;
+                      @include respond-to(extra-small) {
+                        width: $mobile-price-width;
+                      }
+                      line-height: 40px;
+                      font-size: 30px;
+                      @include respond-to(extra-small) {
+                        font-size: 15px;
+                        line-height: 25px;
+                        padding: 7px 2px 4px;
+                      }
+                      text-align: center;
+                    }
+                    margin: 0 auto;
+                  }
+                                    
+                  .my-lists-show-price-clear {
+                    width: $desktop-price-width;
+                    margin: 3px auto;
+                    
+                    @include grey-checkbox(17px);
+                    input[type="checkbox"] {
+                      margin-top: 15px;
+                      margin-bottom: 8px;
+                    }
+
+                    .my-lists-show-price-clear-button {
+                      border-radius: 1px;
+                      line-height: 8px;
+                      width: $desktop-price-width;
+                      @include respond-to(extra-small) {
+                        width: $mobile-price-width;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#pen-name-form-wrapper {
+
+  #pen-name-form-instructions {
+    margin: 10px 0 24px;
+    font-size: 20px;
+  }
+
+  #pen-name-form-disclaimer {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .pen-name-active-lists-wrapper {
+    .my-lists-pen-name-input-wrapper {
+      margin: 13px 0 20px;
+
+      span.list-name {
+        display: inline-block;
+        width: 180px;
+        margin-bottom: 7px;
+      }
+    }
+  }
+
+  .pen-name-submit-wrapper {
+    text-align:center;
+    margin: 25px 0 25px;
+    input[type="submit"] {
+      border-radius: 3px;
+    }
+   }
+
+}

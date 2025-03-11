@@ -1,0 +1,39 @@
+<div id="visitor-header-nav-content">
+  <div class="header-nav-item-container">
+    <span style="opacity: 0; cursor: default" class="header-nav-item bclick-button bclick-solid-robin-egg-blue-button bclick-no-text-transform-button">
+      HOME
+    </span>
+  </div>
+  
+  <div class="header-nav-item-container">
+    <div class="header-nav-item header-nav-logo">
+      <a href="/benefits">
+        <%= image_tag(LOGO_URL) %>
+      </a>
+    </div>
+  </div>
+  
+  <div class="header-nav-item-container">
+    <% if request.path.match(/^\/login/) %>
+      <a class="header-nav-item header-nav-sign-in-up bclick-button bclick-solid-robin-egg-blue-button bclick-no-text-transform-button"
+        href="<%= SIGN_UP_PATH %>">
+        SIGN UP
+      </a>
+    <% elsif request.path.match(/^\/sign_up/) %>
+      <a class="header-nav-item header-nav-sign-in-up bclick-button bclick-hollow-robin-egg-blue-button bclick-no-text-transform-button"
+        href="/login">
+        SIGN IN
+      </a>
+    <% else %>
+      <a class="header-nav-item header-nav-sign-in-up bclick-button bclick-hollow-robin-egg-blue-button bclick-no-text-transform-button"
+        href="/login">
+        SIGN IN
+      </a>
+      <a class="header-nav-item desktop header-nav-sign-in-up bclick-button bclick-solid-robin-egg-blue-button bclick-no-text-transform-button"
+        href="<%= SIGN_UP_PATH %>"
+        style="margin-right: 20px;">
+        SIGN UP
+      </a>
+    <% end %>
+  </div>
+</div>

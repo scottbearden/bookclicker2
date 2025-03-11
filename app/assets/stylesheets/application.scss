@@ -1,0 +1,209 @@
+@import "./font-families";
+@import "rc-slider";
+@import "react-datepicker.min";
+@import "react-select.min";
+@import "zabuto_calendar.min";
+@import "font-awesome";
+@import "react-toggle";
+@import "mixins/*";
+@import "components/*";
+
+html, body {
+  height: 100%;
+}
+
+body {
+
+  #tos * {
+    line-height: 130%
+  }
+
+  .big-img-container {
+    text-align: center;
+    img {
+      width: 220px;
+    }
+  }
+  
+  &.modal-open {
+    overflow: hidden;
+  }
+  
+  .modal {
+    .modal-header {
+      button.close {
+        font-size: 30px;
+      }
+    }
+    
+    .modal-body {
+      &.minimal-padding {
+        padding: 2px;
+      }
+    }
+    
+    &.modal-wide {
+      @media (min-width: 768px) {
+        .modal-dialog {
+          width: 900px !important;
+        }
+      }
+    }
+  }
+  
+  &.mobile-device {
+    .tooltip {
+      opacity: 0 !important;
+    }
+  }
+  
+  * {
+    font-family: 'Crete Round', serif;
+    .glyphicon {
+       font-family:'Glyphicons Halflings' !important;
+    }
+  }
+  
+  * {
+    text-shadow: 0 0 1.6px rgba(0,0,0,0.3);
+  }
+  
+  input, label, span, textarea, .Select-placeholder {
+    text-shadow: none;
+  }
+  
+  .strong {
+    font-weight: 600;
+  }
+  
+  .body, nav.visitor {
+    padding: 35px 55px;
+    @include respond-to(small) {
+      padding: 15px 25px;
+    }
+    @include respond-to(extra-small) {
+      padding: 15px 15px;
+    }
+  }
+  
+  .tooltip-inner {
+      max-width: 300px;
+      width: 350px; 
+      color: white !important;
+  }
+  
+  .space1 {
+    margin-bottom: 10px;
+  }
+  
+  .space2 {
+    margin-bottom: 20px;
+  }
+  
+  .space1-2 {
+    margin-bottom: 5px;
+  }
+  
+  @include respond-to(medium) {
+    .wide-desktop {
+      display: none !important;
+    }
+  }
+  
+  @include respond-not-to(medium) {
+    .not-wide-desktop {
+      display: none !important;
+    }
+  }
+  
+  @include respond-to(small) {
+    .desktop {
+      display: none !important;
+    }
+  }
+  
+  @include respond-not-to(small) {
+    .not-desktop {
+      display: none !important;
+    }
+  }
+  
+  @include respond-to(extra-small) {
+    .not-phone {
+      display: none !important;
+    }
+  }
+  
+  @include respond-to(tiny-mobile) {
+    .not-tiny-phone {
+      display: none !important;
+    }
+  }
+  
+  @include respond-not-to(extra-small) {
+    .phone {
+      display: none !important;
+    }
+  }
+  
+  .modal-body {
+    .flash-messages.alert {
+      margin: 20px 0;
+      .flash-message {
+        font-size: 16px;
+        @include respond-to(extra-small) {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  
+  #all-but-footer > .flash-messages {
+    // margin-top: 35px !important;
+  }
+  
+  .flash-messages {
+    position: relative;
+    text-align: center;
+    button.close {
+      position: absolute;
+      right: 10px;
+      z-index: 100;
+    }
+    
+    .flash-messages-content {
+      position: relative;
+      min-height: 57px;
+      @include respond-to(extra-small) {
+        width: 100%;
+        min-height: 48px;
+      }
+      margin: 0 auto;
+      .flash-message {
+        @include align-center();
+        width: 100%;
+        z-index: 12;
+        @include respond-to(extra-small) {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  
+  @include bclick-button;
+  
+  button:focus {
+    outline: none;
+  }
+  
+  .hide-mobile {
+    @include respond-to(extra-small) {
+      display: none;
+    }
+  }
+  
+  .ghost {
+    opacity: 0.5;
+  }
+
+}

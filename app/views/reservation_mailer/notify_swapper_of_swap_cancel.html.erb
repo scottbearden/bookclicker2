@@ -1,0 +1,33 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  Your swap with <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> that was scheduled for <%= @reservation.date.pretty %> has been cancelled by the other author.  Below are the <%= @reservation.booking_details_info_link %> of the cancelled swap.
+</div>
+
+<div class="space2"></div>
+
+<% if @reservation.seller_cancelled_reason.present? %>
+  <div class='medium-text'>
+    A message has been included:<br/>
+    <b><%= @reservation.seller_cancelled_reason %></b>
+  </div>
+  <div class="space2"></div>
+<% end %>
+
+<% if @swap_reservation && @swap_book && @swap_list  %>
+  <div class='medium-text'>You Were Going To Send</div>
+  <%= render "swap_book_info" %>
+  <div class="space2"></div>
+<% end %>
+
+<div class='medium-text'>You Were Going To Receive</div>
+<%= render "book_info" %>
+
+<div class="space2"></div>
+
+

@@ -1,0 +1,5 @@
+<div id="BookingCalendarPage" 
+  data-list="<%= @list.to_json %>"
+  data-current_member_user="<%= current_member_user.as_json(only: [:auto_subscribe_on_booking]).to_json %>"
+  data-reservation="<%= @reservation.to_json %>"
+  data-inv_types="<%= @inv_types.to_json %>"></div>

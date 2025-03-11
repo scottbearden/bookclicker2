@@ -1,0 +1,24 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  A request to <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> for a <%= @reservation.inv_type %> email on <%= @reservation.date.pretty %> has been declined.  Here are the <%= @reservation.booking_details_info_link %> of this request.
+</div>
+
+<div class="space2"></div>
+
+<% if @reservation.reply_message.present? %>
+  <div class='medium-text'>
+    Reply from seller:<br/>
+    <b><%= @reservation.reply_message %></b>
+  </div>
+  <div class="space2"></div>
+<% end %>
+
+<%= render "book_info" %>
+
+<div class="space2"></div>

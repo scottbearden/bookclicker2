@@ -1,0 +1,319 @@
+$row-padding: 4px 0 8px 0;
+$filepicker-height: 40px;
+$header-height: 37px;
+
+
+
+
+
+.my-books-index {
+  
+  .new-book-td {
+    text-align: center;
+    padding: 13px !important;
+    a {
+      @include respond-to(extra-small) {
+        padding: 4px;
+      }
+    }
+  }
+  
+  thead td.my-books-row-td.td-title div {
+    margin-left: 10px;
+  }
+
+  tbody td.my-books-row-td.td-title div {
+    margin-left: 5px;
+  }
+
+  td.my-books-row-td {
+    vertical-align: middle !important;
+  
+    padding: 18px 0px !important;
+  
+    width: 8.1%;
+  
+    &.td-title {
+      width: 46.5%;
+    }
+    
+    &.delete-book {
+      text-align: center;
+      @include respond-to(extra-small) {
+        width: 10%;
+      }
+      @include respond-to(tiny) {
+        width: 7%; 
+      }
+
+      .red {
+        color: red;
+      }
+      .grey {
+        color: lightgrey;
+      }
+    }
+    &.centerify {
+      text-align: center;
+    }
+  
+  
+    @include respond-to(extra-small) {
+      padding: 11px !important;
+      font-size: 10px;
+    }
+    
+    &.edit-book {
+      width: 11.1%;
+      padding: 4px !important;
+      .glyphicon {
+        margin: 10px;
+      }
+      
+      @include respond-to(extra-small) {
+        width: 15.1%;
+        .glyphicon {
+          margin: 7px !important;
+        }
+      }
+      
+      @include respond-to(tiny-mobile) {
+        width: 20.1%;
+      }
+    }
+    
+  }
+  
+  thead {
+    background-color: $mailchimp-gray;
+    td {
+      padding: 0px !important;
+    }
+    font-size: 14px;
+    color: white;
+  }
+
+  tbody {
+    tr.book-row-new-book {
+      border-top: 2px solid $mailchimp-gray !important;
+    }
+    tr:hover {
+      background-color: $cool-gray;
+    };
+
+    td a {
+      cursor: pointer;
+    }
+        
+    td {
+      vertical-align: middle;
+      & a { vertical-align: middle; }
+      @include respond-to(extra-small) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+
+.my-books-show {
+  width: 700px;
+  @include respond-to(small) {
+    width: 80%;
+  }
+  @include respond-to(tiny) {
+    width: 100%;
+  }
+  margin: 0 auto;
+  
+  @include grey-checkbox(20px);
+  
+  .my-books-show-container {
+    
+
+    
+    .my-books-show-content {
+      
+      .Select {
+        cursor: pointer;
+        .Select-value {
+          padding-left: 10px !important;
+        }
+        .Select-control {
+          background-color: $ultra-light-gray-alt;
+          cursor: pointer;
+        }
+      }
+      
+      .my-books-show-form-container {
+        form {
+          margin-bottom: 40px;
+        }
+        .my-books-fields-container {
+          
+          input, textarea {
+            border-radius: 4px;
+          }
+          
+          .react-datepicker__input-container {
+            width: 100%;
+          }
+          
+          .my-books-show-submit {
+            text-align: left;
+            padding: $row-padding;
+            min-height: 55px;
+            input, button, a {
+              border-radius: 1px;
+              margin-right: 10px;
+            }
+            .my-books-show-submit-button-wrapper {
+              float: left;
+            }
+            
+            @include respond-to(extra-small) {
+              width: 100%;
+              margin: 0 auto;
+              text-align: center;
+              .my-books-show-submit-button-wrapper {
+                width: 50%;
+                @include respond-to(tiny) {
+                  width: 100%;
+                }
+                input, button, a {
+                  width: 100%;
+                }
+              }
+              
+            }
+          }
+          
+          .my-books-images {
+            padding: $row-padding;
+            padding-top: 20px;
+            margin: 0 auto;
+            @include clearfix();
+            
+            .my-books-images-uploading {
+              float: left;
+              width: 77%;
+              padding: 0 20px 0 0;
+              .fileuploader {
+                margin-bottom: 15px;
+                margin-top: 2px;
+                label {
+                  display: block;
+                  border: 2px solid black;
+                  border-radius: 7px;
+                }
+                height: $filepicker-height;
+              }
+            }
+            
+            .my-books-images-img {
+              float: left;
+              width: 23%;
+              margin-bottom: 10px;
+              min-height: 163px;
+              height: $filepicker-height;
+              position: relative;
+              .my-books-images-img-placeholder {
+                position: absolute;
+                display: block;
+                text-align: center;
+                z-index: -3;
+                color: $cool-gray;
+                @include align-center();
+              }
+              img {
+                width: 100%;
+              }
+            }
+            
+          }
+          
+          .my-books-input, .my-books-links {
+            .my-books-input-label {
+              text-align: left;
+              font-size: 15px;
+              color: $robin-egg-blue-color;
+              margin-bottom: 5px;
+              margin-top: 4px;
+            }
+
+            &.half {
+              display: inline-block;
+              width: 50%;
+            }
+            
+            input {
+              height: 34px;
+            }
+            
+            padding: $row-padding;
+            input, textarea {
+              width: 100%;
+              padding: 5px 0 5px 10px;
+              background-color:	$ultra-light-gray-alt;
+              @include placeholder() {
+                color: $semi-light-gray-color;
+              };
+              border: 1px solid $light-gray-color;
+            }
+            &.tall {
+              textarea { 
+                height: 105px;
+                resize: none;
+                padding-top: 13px;
+                padding-right: 10px;
+              }
+            }
+            
+          }
+          
+          .my-books-links {
+            text-align: left;
+            
+            .my-books-add-link {
+              button {
+                line-height: 14px;
+                border-radius: 3px;
+              }
+            }
+            
+            .my-books-link {
+              margin-bottom: 17px;
+              
+              $book-link-items-height: 28px;
+              position: relative;
+              
+              .my-books-link-remove {
+                position: absolute;
+                height: $book-link-items-height;
+                right: 7px;
+                top: 9px;
+                color: $youtube-red;
+                
+                .glyphicon {
+                  cursor: pointer;
+                  text-decoration: none;
+                }
+                
+              }
+              .my-books-link-url-input {
+                height: $book-link-items-height;
+                width: 100%;
+                @include respond-to(extra-small) {
+                  font-size: 10px;
+                }
+              }
+              
+            }
+            
+          }
+        }
+      }
+      
+    }
+  }
+}

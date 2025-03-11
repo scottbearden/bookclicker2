@@ -1,0 +1,8 @@
+class StripeWebhookEvent < ApplicationRecord
+  
+  
+  
+  
+  
+  
+end

@@ -1,0 +1,60 @@
+<div id="conversations-page">
+  
+  <div id="conversations-page-content">
+     
+    <div id="conversations-page-nav">
+
+      <div id="conversations-page-title-wrapper">
+
+        <div id="conversations-page-subject">
+          subject: <i><%= @conversation.subject.presence || "No subject" %></i>
+          <br>
+          <div id="conversations-page-interlocutor">
+            <% pen_names = ConversationUserPenName.get_pen_names(@conversation, current_member_user) %>
+            chatting with 
+            <% if pen_names.them.try(:author_profile_url).blank? %>
+              <i><%= pen_names.them.try(:author_name) || "?" %></i>
+            <% else %>
+              <a target="_blank" href="<%= pen_names.them.author_profile_url %>"><%= pen_names.them.author_name %></a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="ConversationManager" 
+        data-conversation="<%= @conversation.as_json(methods: [:is_trashed]).to_json %>">
+
+        <div class="conversations-send-to-trash">
+          <button class="btn btn-default btn-xs">...</button>
+        </div>
+
+        <div class="conversations-send-to-trash">
+          <button class="btn btn-default btn-xs">...</button>
+        </div>
+
+      </div>
+
+      <div id="conversations-page-nav-box-select" class="up">
+
+        <a class="mailbox-box" href="<%= conversations_path(box: 'inbox') %>">
+
+          <span style="font-size: 16px;" class="glyphicon glyphicon-envelope"></span> Inbox
+
+        </a>
+      </div>
+
+    </div>
+
+    <div id="ConversationsTable" 
+     data-receipts="<%= @receiptsJson.to_json %>"
+     data-conversation="<%= @conversation.to_json %>"
+     data-me_pen_name="<%= pen_names.me.try(:author_name) || 'null' %>"
+     data-them_pen_name="<%= pen_names.them.try(:author_name) || 'null' %>"
+     data-current_member_user_id="<%= current_member_user.id %>">
+
+    </div>
+
+    
+  </div>
+  
+</div>

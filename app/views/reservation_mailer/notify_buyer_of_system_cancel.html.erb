@@ -1,0 +1,17 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  A booking request to <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> for a <a target="_blank" href="<%= SITE_URL %>/reservations/<%= @reservation.try(:id) %>/info"><%= @reservation.inv_type %></a> email on <%= @reservation.date.pretty %> <%= @reservation.value_text %> has been automatically cancelled.  Our system automatically cancels requests whenever the seller does not respond within <%= SELLER_RESPONSE_DAY_LIMIT %> days
+  <% if @reservation.payment_offer? %>
+    or whenever the buyer does not pay an invoice within <%= BUYER_PAYMENT_HOUR_LIMIT %> hours
+  <% end %>.
+</div>
+
+<%= render "book_info" %>
+
+<div class="space2"></div>

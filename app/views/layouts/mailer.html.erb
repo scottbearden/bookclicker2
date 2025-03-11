@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <%= stylesheet_link_tag 'mailer' %>
+  </head>
+  <body>
+    <div class="bclick-email-container">
+      <div class="bclick-header">
+        <div class="bclick-header-logo-wrapper">
+          <img width="190px" src="https://s3.ca-central-1.amazonaws.com/bookclicker/logo2-transparent.png"/>
+        </div>
+      </div>
+      <div class="bclick-content">
+        <%= yield %>
+      </div>
+      
+      <p class="email-footer">
+        Sent by <a class="email-footer-site-url" href="<%= SITE_URL %>" target="_blank">
+          <b>Bookclicker</b>
+        </a>
+      </p>
+    </div>
+  </body>
+</html>

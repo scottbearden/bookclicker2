@@ -1,0 +1,93 @@
+
+<div id="conversations-page">
+  
+  <div id="conversations-page-title-wrapper">
+    <div id="conversations-page-title" class="text-center">
+      Messages
+    </div>
+  </div>
+
+  
+  <div id="conversations-page-content">
+
+    <div id="conversations-page-nav">
+    
+      <div id="conversations-page-nav-box-select" class="index-view">
+
+        <a class="mailbox-box <%= "bold" if @box == 'inbox' %>" href="<%= conversations_path(box: 'inbox') %>">Inbox</a>
+        <a class="mailbox-box <%= "bold" if @box == 'sentbox' %>" href="<%= conversations_path(box: 'sentbox') %>">Sent</a>
+        <a class="mailbox-box <%= "bold" if @box == 'trash' %>" href="<%= conversations_path(box: 'trash') %>">Trash</a>
+      </div>
+
+    </div>
+    
+    <table id="conversations-page-conversations" class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            Subject
+          </th>
+          <th>
+            Whom
+          </th>
+          <th>
+            Time
+          </th>
+          <th>
+          </th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        
+        <% @conversations and @conversations.each do |conversation| %>
+          <% receipts = conversation.receipts_for(current_member_user) %>
+          <% last_receipt = (receipts.inbox.last || receipts.last) %>
+
+          <% pen_names = ConversationUserPenName.get_pen_names(conversation, current_member_user) %>
+
+          <tr class="<%= last_receipt.is_unread? ? 'unread' : 'read' %>">
+            <td class="width-25 overflow-hidden">
+              <%= link_to(conversation.subject.truncate(55, omission: '...', separator: /\s/), conversation_path(conversation.id)) if conversation %>
+            </td>
+            <td class="width-25 overflow-hidden">
+              <%= link_to(pen_names.them.try(:author_name), conversation_path(conversation.id)) if pen_names.them %>
+            </td>
+            <td class="width-25 overflow-hidden">
+              <%= local_time(last_receipt.created_at) if last_receipt.created_at %>
+            </td>
+            <td class="conversation-actions text-center">
+              <%= link_to "View", conversation_path(conversation.id), class: 'btn btn-xs btn-default not-phone' %>
+
+              <% conversation.is_trashed = @box == 'trash' %>
+
+              <div class="ConversationManager" 
+                data-conversation="<%= conversation.as_json(methods: [:is_trashed]).to_json %>"
+                data-index_view="true">
+
+                <div class="conversations-send-to-trash index-view">
+                   <button class="btn btn-default btn-xs">
+                      ...
+                  </button>
+              </div>
+              
+            </td>
+          </tr>
+
+        <% end %>
+
+        <% if @conversations.blank? %>
+          <td colspan="100%">Your <%= @box %> is empty</td>
+        <% end %>
+        
+      </tbody>
+      
+    </table>
+
+    <div id="conversation-starter-prompt">
+      To start a new conversation, find the <img src="https://s3.ca-central-1.amazonaws.com/bookclicker/chat-bubble-logo-icon-74378.png" width="25px;"> icon beside each list on the <a href="/marketplace">marketplace page</a>
+    </div>
+    
+  </div>
+  
+</div>

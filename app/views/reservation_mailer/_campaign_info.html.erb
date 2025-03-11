@@ -1,0 +1,13 @@
+<ul>
+
+  <li><b>Email Subject:</b> <%= @campaign.subject %></li>
+  <li><b>Number of Emails:</b> <%= @campaign.emails_sent %></li>
+  <li><b>Sent On:</b> <%= @campaign.sent_on.pretty %></li>
+  <% if @campaign.open_rate.to_f > 0.0 %>
+    <li><b>Open Rate:</b> <%= (@campaign.open_rate * 100.0).round(1) %>%</li>
+  <% end %>
+  <% if @campaign.click_rate.to_f > 0.0 %>
+    <li><b>Click Rate:</b> <%= (@campaign.click_rate * 100.0).round(1) %>%</li>
+  <% end %>
+
+</ul>

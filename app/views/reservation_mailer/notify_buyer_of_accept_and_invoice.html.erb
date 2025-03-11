@@ -1,0 +1,32 @@
+<% if @recipient.first_name.present? %>
+  <div class="large-text">Hello <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+<div class='medium-text'>List: <%= @reservation.recorded_list_name %></div>
+<div class="space1"></div>
+<div class="text">
+  A booking request to <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> for a <%= @reservation.inv_type %> email on <%= @reservation.date.pretty %> for $<%= @reservation.payment_offer_total %> has been accepted.  You have <%= BUYER_PAYMENT_HOUR_LIMIT %> hours to pay for this spot or it will be cancelled. Below is a link to our Stripe payment page.   Here are the <a target="_blank" href="<%= @reservation.buyer_payment_page_link + "?bc_token=#{@recipient.session_token}" %>&auid=<%= @buyer.id %>">details</a> of this booking.
+</div>
+<div class="space2"></div>
+
+<% if @reservation.reply_message.present? %>
+  <div class='medium-text'>
+    Reply from seller:<br/>
+    <b><%= @reservation.reply_message %></b>
+  </div>
+  <div class="space2"></div>
+<% end %>
+
+<div class="bclick-email-actions">
+  <div class="bclick-email-action">
+    <a href="<%= @reservation.buyer_payment_page_link %>?bc_token=<%= @recipient.session_token %>&auid=<%= @buyer.id %>" class="bclick-mailer-notification-button">Make Payment</a>
+  </div>
+</div>
+<div class="powered-by-stripe-logo">
+  <img src="<%= POWERED_BY_STRIPE_LOGO %>"/>
+</div>
+
+<%= render "book_info" %>
+
+<div class="space2"></div>

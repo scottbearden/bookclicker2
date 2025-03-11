@@ -1,0 +1,79 @@
+$desktop-rc-slider-height: 40px;
+$desktop-rc-slider-width: 104px;
+$desktop-rc-slider-border-radius: 20px;
+
+$mobile-rc-slider-height: 40px;
+$mobile-rc-slider-width: 84px;
+$mobile-rc-slider-border-radius: 20px;
+
+@mixin rc-slider-custom($desktop-rc-slider-track-width, $mobile-rc-slider-track-width) {
+  .rc-slider {
+    margin: 0 auto 10px;
+    height: $desktop-rc-slider-height + 15px;
+    width: $desktop-rc-slider-track-width;
+  
+    .rc-slider-track {
+      background-color: rgba(0,0,0,0);
+    }
+  
+    .rc-slider-step {
+      display: none;
+    }
+  
+    .rc-slider-handle {
+      margin-left: -($desktop-rc-slider-width/2);
+    
+      margin-top: 0px;
+      width: $desktop-rc-slider-width;
+      height: $desktop-rc-slider-height;
+      cursor: pointer;
+      border-radius: $desktop-rc-slider-border-radius;
+      border: solid 2px $robin-egg-blue-color;
+      background-color: $robin-egg-blue-color;
+    }
+  
+    .rc-slider-rail {
+      background-color: $ultra-light-gray-alt;
+      height: $desktop-rc-slider-height;
+      width: $desktop-rc-slider-track-width + $desktop-rc-slider-width;
+      border-radius: $desktop-rc-slider-border-radius;
+      @include transform(translate(-1*$desktop-rc-slider-width/2,0));
+    }
+    
+    .rc-slider-mark {
+      top: 16px;
+      .rc-slider-mark-text strong {
+        font-size: 12px;
+      }
+    }
+  
+    @include respond-to(extra-small) {
+      height: $mobile-rc-slider-height + 15px;
+      width: $mobile-rc-slider-track-width;
+    
+      .rc-slider-handle {
+        margin-left: -($mobile-rc-slider-width/2);
+        width: $mobile-rc-slider-width;
+        height: $mobile-rc-slider-height;
+        border-radius: $mobile-rc-slider-border-radius;
+      }
+    
+      .rc-slider-rail {
+        height: $mobile-rc-slider-height;
+        width: $mobile-rc-slider-track-width + $mobile-rc-slider-width;
+        border-radius: $mobile-rc-slider-border-radius;
+        @include transform(translate(-1*$mobile-rc-slider-width/2,0));
+      }
+    
+      .rc-slider-mark {
+        top: 16px;
+        .rc-slider-mark-text strong {
+          font-size: 10px;
+        }
+      }
+    
+    }
+  
+  }
+  
+}

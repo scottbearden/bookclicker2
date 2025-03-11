@@ -1,0 +1,63 @@
+<%  manual_booking = @reservation.is_a?(ExternalReservation) %>
+
+<% if manual_booking && @reservation.book_owner_name.present? %>
+  <div class="large-text">Hi <%= @reservation.book_owner_name.titleize %>,</div>
+<% elsif @recipient.first_name.present? %>
+  <div class="large-text">Hi <%= @recipient.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hi,</div>
+<% end %>
+<div class="space1"></div>
+<div class="text">
+   The promo you booked from <%= @list.pen_name.try(:author_name) || @reservation.recorded_list_name %> on <%= @reservation.date.pretty %> was sent.
+   Here are the <%= @reservation.try(:booking_details_info_link).presence || "details" %> we have for your promo.
+
+<div class="space1"></div>
+
+   <ul>
+   <li><b>List:</b> <%= @reservation.recorded_list_name %></li>
+   
+   <% if @reservation.payment_offer_accepted? && @reservation.paid? %>
+      <li><b>Amount paid:</b> <%= "$#{@reservation.payment_offer_total}" %></li>
+   <% end %>
+   
+   <% if @campaign.sent_at_pretty.present? %>
+     <li><b>Time sent:</b> <%= @campaign.sent_at_pretty %></li>
+   <% elsif @campaign.sent_on.present? %>
+     <li><b>Date sent:</b> <%= @campaign.sent_on.pretty %></li>
+   <% end %>
+   
+   <% if @list.active_member_count_delimited.present? %>
+     <li><b>List size:</b> <%= @list.active_member_count_delimited %></li>
+   <% end %>
+   <% if @campaign.emails_sent_delimited.present? %>
+     <li><b>Promo sent to:</b> <%= @campaign.emails_sent_delimited %></li>
+   <% end %>
+   <% if @campaign.num_opens.present? %>
+     <li><b>Opens so far:</b> <%= @campaign.num_opens %></li>
+   <% end %>
+   <% if @campaign.num_clicks.present? %>
+     <li><b>Clicks so far:</b> <%= @campaign.num_clicks %></li>
+   <% end %>
+   <% if @campaign.preview_url.present? %>
+     <li><b>View email:</b> <%= @campaign.preview_url %></li>
+   <% end %>
+   </ul>
+   
+   <br/>
+   <% if @list.convertkit? %>
+     <div class='small-text data-was-pulled'>Because this email was sent using <i>ConvertKit</i>, we are unable to provide statistics on the performance of this promo or confirm with ConvertKit that it has been sent. This is a limitation of the ConvertKit API.</div>
+   <% else %>
+     <div class='small-text data-was-pulled'>This data was pulled from <i><%= @list.Platform %></i></div>
+   <% end %>
+   
+   <div class="space2"></div>
+   
+   <% if manual_booking && @recipient.id.nil? %>
+     <div class="large-text" style="text-align: center; margin: 4px auto;">For access to our author promo marketplace, create your free Bookclicker account <a href="https://www.bookclicker.com/sign_up">here</a>.</div>
+   <% else %>
+     <div class='small-text' style="text-align: center; margin: 4px auto;"> You can turn off email notifications on your Bookclicker profile page.</div>
+   <% end %>
+   
+</div>
+

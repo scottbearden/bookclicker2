@@ -1,0 +1,26 @@
+<div id="ReservationPage" 
+  
+  data-reservation="<%= @reservation.as_json(methods: Reservation::INFO_JSON_METHODS).to_json %>"
+  data-book="<%= @book.as_json(Book::JSON_WITH_LINKS).to_json %>"
+  data-list="<%= @list.as_json(except: [:user_id], methods: [:active_member_count_delimited, :open_rate_percent, :click_rate_percent, :Platform]).to_json %>"
+  data-buyer="<%= @buyer.as_json(only: [:email], methods: [:full_name]).to_json %>"
+  data-confirmed_campaign="<%= @confirmed_campaign.to_json %>"
+
+  data-swap_reservation="<%= @swap_reservation.as_json(methods: Reservation::INFO_JSON_METHODS).to_json %>"
+  data-swap_list="<%= @swap_list.as_json(except: [:user_id], methods: [:active_member_count_delimited, :open_rate_percent, :click_rate_percent, :Platform]).to_json %>"
+  data-swap_buyer="<%= @swap_buyer.as_json(only: [:email], methods: [:full_name]).to_json %>"
+    
+  data-just_buyer_side="<%= @just_buyer_side.to_json %>"
+  data-stripe_directive="<%= @stripe_directive.try(:to_json) %>"
+
+  data-customer="<%= @customer.to_json %>"
+
+  data-payment_intent="<%= @payment_intent.as_json(only: [:client_secret, :id]).to_json %>"
+  data-seller_stripe_acct_id="<%= @seller_stripe_acct_id %>"
+  data-cloned_payment_method="<%= @cloned_payment_method %>"
+  
+  data-refund_directive="<%= @refund_directive.to_json %>"
+  data-accept_decline_directive="<%= @accept_decline_directive.to_json %>"
+
+  data-title="<%= @title %>">
+</div>

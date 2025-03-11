@@ -1,0 +1,33 @@
+
+
+#stripe-payment-account-info {
+  margin-bottom: 45px;
+  
+  .stripe-account-connected {
+    color: green;
+    font-size: 13px;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .stripe-account-not-connected {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.default-select {
+  .default-select-checkbox {
+    @include grey-checkbox(20px);
+  }
+}
+
+.delete-source {
+  .delete-source-button {
+    .bclick-button {
+      border-radius: 4px;
+      min-width: 95px;
+      width: 95px;
+    }
+  }
+}

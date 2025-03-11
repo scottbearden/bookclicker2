@@ -1,0 +1,153 @@
+#header-nav {
+  position: relative;
+  z-index: 12000;
+}
+
+.dropdown-menu {
+  &.unhinged {
+    left: inherit !important;
+  }
+  
+  @include respond-to(extra-small) {
+    li {
+      font-size: 17px;
+    }
+  }
+}
+
+$user-navbar-height-desktop: 60px;
+$user-navbar-height-mobile: 35px;
+#header-nav.user {
+  margin: 0 auto;
+
+  height: $user-navbar-height-desktop;
+  @include respond-to(extra-small) {
+    height: $user-navbar-height-mobile;
+  }
+  
+  background-color:#F2F2F2;
+  a {
+    color: black;
+    font-size: 1.9em;
+    font-family: 'Spring Market', Verdana;
+    @include respond-to(small) {
+      font-size: 1.3em;
+    }
+    @include respond-to(extra-small) {
+      font-size: 1.2em;
+    }
+  }
+  
+  #user-header-nav-content {
+    height: inherit;
+    position: relative;
+    .user-header-nav-item {
+      #go-pro-link {
+        @include respond-to(small) {
+          min-width: 80px;
+        }
+      }
+      
+      .assisting-active {
+        background-color: $cool-gray;
+      }
+      
+      display: inline-block;
+      vertical-align: middle;
+      @include respond-to(extra-small) {
+        vertical-align: baseline;
+      }
+      a {
+        cursor: pointer;
+      }
+      
+      #user-header-nav-launches-toggle {
+        @include respond-to(tiny) {
+          display: none;
+        }
+      }
+      
+      #user-header-nav-account-toggle {
+        span.glyphicon-chevron-down {
+          vertical-align: -3px;
+          @include respond-to(extra-small) {
+            vertical-align: 0px;
+          }
+        }
+      }
+    }
+    #user-header-nav-left-side {
+      position: absolute;
+      @include align-middle-left();
+      .user-header-nav-item {
+        margin: 0px 8px 0 24px;
+        @include respond-to(extra-small) {
+           margin-left: 6px;
+        }
+      }
+    }
+    #user-header-nav-right-side {
+      position: absolute;
+      @include align-middle-right();
+      right: 20px;
+      @include respond-to(extra-small) {
+        right: 12px;
+      }
+      .user-header-nav-item {
+        margin: 0px 24px 0 8px;
+        @include respond-to(extra-small) {
+           margin-right: 6px;
+           vertical-align: 2px;
+        }
+      }
+      
+    }
+    .logo {
+      height: $user-navbar-height-desktop - 15px;
+      @include respond-to(extra-small) {
+        height: $user-navbar-height-mobile - 15px;
+        margin-left: 2px;
+      }
+    }
+  }
+  
+}
+
+#header-nav.visitor {
+  height: 135px;
+  @include respond-to(extra-small) {
+    height: 65px;
+  }
+  
+  #visitor-header-nav-content {
+    margin: 0 auto;
+    @include clearfix();
+    
+    .header-nav-item-container {
+      float: left;
+      width: 33.3%;
+      position: relative;
+      
+      .header-nav-item {
+        @include respond-to(extra-small) {
+          font-size: 10px;
+        }
+        &.header-nav-logo {
+          text-align: center;
+          @include respond-to(extra-small) {
+            img {
+              width: 40px;
+            }
+          }
+        }
+        
+        &.header-nav-sign-in-up {
+          margin-top: 2px;
+          float: right;
+        }
+        
+      }
+    }
+  }
+}
+

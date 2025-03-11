@@ -1,0 +1,318 @@
+$search-border-radius: 30px;
+$search-input-height: 55px;
+$mobile-search-border-radius: 30px;
+$mobile-search-input-height: 30px;
+$mp-search-container-width: 600px;
+
+#marketplace {
+  min-height: 900px;
+  width: 95%;
+  margin: 0 auto;
+  text-align: center;
+  
+  .marketplace-book-title {
+    font-size: 16px;
+    color: $mailchimp-gray;
+  }
+
+  .marketplace-filter-header {
+    font-family: 'Spring Market', Verdana, sans-serif;
+    font-size: 40px;
+  }
+  
+  .marketplace-pre-results {
+    width: 100%;
+    @include clearfix();
+    .marketplace-pre-results-item {
+      float: left;
+      width: 100%;
+      height: 60px;
+      @include respond-to(extra-small) {
+        height: 52px;
+      }
+      position: relative;
+      & > div.marketplace-book-title {
+        position: absolute;
+        @include align-middle-left();
+        left: 4px;
+      }
+      & > div.marketplace-pagination-links {
+        position: absolute;
+        @include align-center();
+      }
+    }
+  }
+  
+  .marketplace-genre-container {
+    width: $mp-search-container-width;
+    @include respond-to(small) {
+      width: 100%;
+    }
+    .genre-select-warning {
+      margin: 6px;
+      color: red;
+    }
+    margin: 30px auto 2px;
+    padding: 5px 0;
+    .genre-select-wrapper {
+      label {
+        font-size: 24px;
+      }
+      #list-genre-select {
+        font-size: 20px;
+      }
+      
+      .date-selectors {
+        @include clearfix();
+        .date-selector {
+          
+          .small-date-selector-label {
+            position: relative;
+            font-size: 12px;
+            @include respond-to(tiny-mobile) {
+              font-size: 9px;
+            }
+            width: 100%;
+            text-align: left;
+            padding-left: 6px;
+            .small-date-selector-clear {
+              font-size: 12px;
+              @include respond-to(tiny-mobile) {
+                font-size: 9px;
+              }
+              cursor: pointer;
+              position: absolute;
+              right: 5px;
+              &.mobile {
+                position: relative;
+                left: 5px;
+              }
+            }
+          }
+          float: left;
+          width: 50%;
+          padding: 8px 0;
+          &.left {
+            padding-right: 8px;
+            padding-left: 0;
+          }
+          
+          &.right {
+            padding-right: 0;
+            padding-left: 8px;
+          }
+          
+          .react-datepicker__input-container, input[type="date"] {
+            width: 100%;
+            text-align: center;
+            input {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .marketplace-search-container {
+    padding-top: 20px;
+    width: $mp-search-container-width;
+    margin: 23px auto 10px auto;
+    @include respond-to(small) {
+      width: 560px;
+    }
+    
+    @include respond-to(extra-small) {
+      width: 305px;
+    }
+    
+    @include respond-to(tiny) {
+      width: 280px;
+    }
+        
+    .marketplace-search-content {
+      width: 100%;
+      .marketplace-search-input-container {
+        position: relative;
+        #marketplace-search-input {
+          height: $search-input-height;
+          padding-left: 50px;
+          @include respond-to(extra-small) {
+            height: $mobile-search-input-height;
+            font-size: 14px;
+            padding-left: 37px;
+          }
+          width: 100%;
+          border-radius: $search-border-radius;
+          @include respond-to(extra-small) {
+            border-radius: $mobile-search-border-radius;
+          }
+          border-style:solid;
+          border:none;
+          border-width:1px;
+          border:1px solid #cccccc;
+          font-size: 20px;
+          &:focus{
+              outline: none;
+          }
+        }
+        
+        #marketplace-search-submit {
+          @include align-middle-right();
+          border-radius: $search-border-radius;
+          @include respond-to(extra-small) {
+            border-radius: $mobile-search-border-radius;
+          }
+          height: $search-input-height;
+          @include respond-to(extra-small) {
+            height: $mobile-search-input-height;
+          }
+          border:none;
+          letter-spacing: 3px;
+          font-size: 0.8em;
+          @include respond-to(extra-small) {
+            min-width: 80px;
+            padding: 7px;
+          }
+        }
+        
+        span.glyphicon-search {
+          @include align-middle-left();
+          left: 15px;
+          font-size: 25px;
+          @include respond-to(extra-small) {
+            font-size: 15px;
+          }
+          color: $light-gray-color;
+        }
+      }
+    }
+  }
+  
+  .marketplace-results {
+    table {
+      
+      td { width: 10%;}
+      td.narrow {
+        width: 4% ;
+      }
+      td.med-narrow {
+        width: 7%;
+      }
+      
+      td .thumbs-up-filter-stuff {
+        @include grey-checkbox(13px);
+        input[type="checkbox"] {
+          display: block;
+          margin: 6px auto 1px;
+        }
+      }
+      
+      tr.marketplace-results-header-row {
+        font-size: 16px;
+        background-color: lightgrey;
+      }
+      
+      tr.marketplace-results-row {
+        td {
+          vertical-align: middle;
+          @include respond-to(tiny) {
+            font-size:10px;
+          }
+        }
+
+        .amazon-verified-link {
+          display: block;
+        }
+
+        .tooltip-inner {
+          width: 130px;
+          max-width: 130px !important;
+        }
+      }
+      
+      .marketplace-results-actions {
+        
+        a.bclick-button {
+          min-width: 70px;
+          width: 70px;
+          border-radius: 5px;
+          
+          &.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+          }
+        }
+        
+        .thumbs-up-down-rating-wrapper {
+          margin: 0 auto;
+          
+          @include respond-not-to(extra-small) {
+            width: 30px;
+          }
+          .thumbs-up-down-rating {
+            cursor: pointer;
+            &.is-list-rating {
+              a.glyphicon-thumbs-up {
+                color: green;
+                font-weight: 700;
+                text-shadow: 0 0 1.6px green;
+              }
+              a.glyphicon-thumbs-down {
+                color: $youtube-red;
+                font-weight: 700;
+                text-shadow: 0 0 1.6px $youtube-red;
+              }
+            }
+            
+            
+          }
+          
+          .glyphicon-thumbs-down {
+            transform: rotateY(-180deg);
+          }
+        }
+        
+        @include respond-to(extra-small) {
+          padding: 5px;
+          margin-right: 3px;
+          a.bclick-button {
+            min-width: 50px;
+            width: 50px;
+            padding: 2px;
+          }
+        }
+        
+        @include respond-to(tiny) {
+          a.bclick-button {
+            font-size: 12px;
+            min-width: 40px;
+            width: 40px;
+            padding: 2px;
+          }
+        }
+      }
+      
+      .marketplace-results-order-toggle {
+        position: relative;
+        span {
+          position: absolute;
+          right: -22px;
+          top: 2px;
+        }
+      }
+      
+      .marketplace-results-order-toggle:hover {
+        cursor:pointer;
+      }
+    }
+  }
+  
+  .marketplace-pagination-links {
+    font-size: 16px;
+    a { 
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  }
+}

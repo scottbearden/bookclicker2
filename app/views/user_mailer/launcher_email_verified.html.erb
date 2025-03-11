@@ -1,0 +1,20 @@
+<% if @user.first_name.present? %>
+  <div class="large-text">Hello <%= @user.first_name.titleize %>,</div>
+<% else %>
+  <div class="large-text">Hello,</div>
+<% end %>
+
+<div class="space2"></div>
+<div class="text">
+  Welcome to Bookclicker, our marketplace for professional authors to plan better book launches.<br/>
+  You can start by setting up your books and mailing lists.<br/>
+  We’ll graph your sending volume and give you an estimated prediction of the book’s peak rank on Amazon.<br/>
+  We hope the data is useful to you in planning book launches.<br/>
+</div>
+<div class="space2"></div>
+<div class="text">
+  Bookclicker
+</div>
+
+
+

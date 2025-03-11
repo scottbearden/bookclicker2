@@ -1,0 +1,110 @@
+<div id="user-header-nav-content">
+  <div id="user-header-nav-left-side">
+    
+      <div class="user-header-nav-item">
+        <a href="/dashboard">
+          <img class="logo" src="<%= LOGO_URL %>"/>
+        </a>
+      </div>
+      
+    <% if current_member_user.present? %>
+      <div class="user-header-nav-item">
+        <a href="/my_lists" class="not-phone" id="user-header-nav-my-lists-toggle">My Lists</a>
+        <a href="/my_lists" class="phone" id="user-header-nav-my-lists-toggle">Lists</a>
+      </div>
+      <div class="user-header-nav-item<%= " not-tiny-phone" if current_assistant_user.present? %>">
+        <a href="/pen_names" class="not-phone" id="user-header-nav-my-books-toggle">Pen Names</a>
+        <a href="/pen_names" class="phone" id="user-header-nav-my-books-toggle">Names</a>
+      </div>
+      <div class="user-header-nav-item">
+        <a href="<%= marketplace_path %>" id="user-header-nav-marketplace-toggle">MarketPlace</a>
+      </div>
+
+      <div class="user-header-nav-item not-phone">
+         <a href="/confirm_promos">Confirm Promos</a>
+      </div>
+    
+      <% if current_member_user.upcoming_book_id %>
+      <% launch_ctr_url = "/my_books/#{current_member_user.upcoming_book_id}/launch"%>
+      <div class="user-header-nav-item not-tiny-phone">
+         <a href="<%= launch_ctr_url %>" class="not-phone">Launch Center</a>
+         <a href="<%= launch_ctr_url %>" class="phone">Launch</a>
+      </div>
+      <% end %>
+
+    <% end %>
+    
+  </div>
+  
+  <div id="user-header-nav-right-side">
+    
+    
+    <% if current_assistant_user && current_assistant_user.assisted_users.present? %>
+    
+    
+    <div class="user-header-nav-item">
+      <a id="user-header-nav-impersonate-toggle">
+        <%= current_member_user.present? ? current_member_user.assisting_display_name : "Select User" %>
+        &nbsp;<span id="user-header-nav-impersonate-toggle-chevron" class="glyphicon glyphicon-chevron-down"></span>
+      </a>
+      <ul class="dropdown-menu nav-dropdown-target" id="user-header-nav-impersonate-toggle-target">
+        
+        <% current_assistant_user.assisted_users.includes(:pen_names_used).each do |assisted_user| %>
+        
+          <li class="<%= "assisting-active" if current_member_user.present? && assisted_user.id == current_member_user.id %>">
+            <a href="/assist/<%= assisted_user.id %>">
+              <%= assisted_user.assisting_display_name %>
+            </a>
+          </li>
+        
+        <% end %>
+        
+        <li role="separator" class="divider"></li>
+        <li><a href="/clients">Manage Clients</a></li>
+        
+      </ul>
+    </div>
+    <% elsif current_assistant_user %>
+    
+      <div class="user-header-nav-item">
+        <a href="/clients">
+          You Aren't Connected To Any Users
+        </a>
+      </div>
+    
+    <% end %>
+    
+    
+    <div class="user-header-nav-item">
+      <a id="user-header-nav-account-toggle">
+        Account&nbsp;<span id="user-header-nav-account-toggle-chevron" class="glyphicon glyphicon-chevron-down"></span>
+      </a>
+      <ul class="dropdown-menu <%= "pull-right" %> nav-dropdown-target" id="user-header-nav-account-toggle-target">
+        
+        <% if current_member_user.present? %>
+          <li><a href="/dashboard">Dashboard</a></li>
+        <% end %>
+
+        <% if current_member_user.present? %>
+          <li><a href="/conversations">Messages<%= " (#{current_member_user.unread_conversations_count})" %></a></li>
+        <% end %>
+
+        
+        <li><a href="/profile">Profile</a></li>
+        
+        <% if !current_assistant_user.present? %>
+          <li><a href="/integrations">Integrations</a></li>
+          <li><a href="/payment_infos">Payment Info</a></li>
+        <% end %>
+        
+        <% if current_assistant_user.present? %>
+          <li><a href="/clients">Clients</a></li>
+        <% end %>
+        
+        <li role="separator" class="divider"></li>
+        <li><a href="/sign_out">Sign Out</a></li>
+      </ul>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,99 @@
+$external-reservation-input-padding: 5px;
+$external-reservation-input-height: 30px;
+
+.external-reservation-form-component {
+  position: relative;
+  text-align: left;
+  min-height: 37px;
+  .external-reservation-form-list-name {
+    position: absolute;
+    display: inline-block;
+    right: 9px;
+    top: 9px;
+    @include respond-to(extra-small) {
+      display: none;
+    }
+  }
+  
+  .external-reservation-form-container {
+    text-align: center;
+    
+    .external-reservation-form-inputs {
+      @include clearfix();
+      .external-reservation-form-inputs-col {
+        float:left;
+        width: 50%;
+        padding: $external-reservation-input-padding;
+        &.warning-col {
+          padding-top: 0;
+          padding-bottom: 0;
+          height: 20px;
+          width: 100%;
+        }
+        .external-reservation-form-text-input {
+
+          transition: opacity 0.25s ease-in-out;
+          transition: height 0.25s ease-in-out;
+          transition: margin-bottom 0.25s ease-in-out;
+
+          
+          input {
+            width: 100%;
+            height: $external-reservation-input-height;
+            padding: 2px 0 2px 12px;
+            background-color: $cool-gray;
+            @include placeholder() {
+              color: $semi-light-gray-color;
+            };
+            border: none;
+          }
+        }
+        
+        .external-reservation-form-select-input {
+
+          select {
+            height: $external-reservation-input-height;
+          }
+        }
+
+        .external-reservation-unavailable-warning {
+          font-size: 11px;
+          text-align: left;
+          padding: 0 2px;
+        }
+      }
+
+      .one-day-inventory-input {
+        margin: 5px 0;
+        padding: 5px;
+        float: left;
+        width: 33%;
+        @include respond-to(extra-small) {
+          font-size: 11px;
+        }
+        input {
+          text-align: center;
+        }
+        
+        @include grey-checkbox(18px);
+
+        input[type="number"] {
+          width: 44px;
+          margin-top: 5px;
+        }
+
+      }
+      
+    }
+    
+    .external-reservation-form-text-submit {
+      margin-top: 11px;
+      input {
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
+    
+  }
+}
+

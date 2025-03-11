@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Crete Round Regular';
+  src: font-url('CreteRound-Regular.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Crete Round Italic';
+  src: font-url('CreteRound-Italic.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Moderne Sans';
+  src: font-url('moderne-sans.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spring Market';
+  src: url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.ttf') format('truetype');
+  src: url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.eot') format('eot');
+  src: url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.woff') format('woff');
+
+}
+
+@font-face {
+  font-family: 'Spring Market';
+  src: url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.eot') format('eot');
+  src: url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.woff2') format('woff2'),
+       url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.woff') format('woff'),
+       url('https://bookclicker.s3.ca-central-1.amazonaws.com/SpringMarket.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

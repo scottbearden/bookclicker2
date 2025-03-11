@@ -1,0 +1,37 @@
+
+.create-mailchimp-oauth {
+  
+  margin: 10px 0 0px 0;
+    
+  .create-mailchimp-oauth-link-container {
+    padding: $row-padding; //from create-account.scss
+    width: 100%;
+    .create-mailchimp-oauth-link {
+      border-radius: 3px;
+      width: 100%;
+      border: 2px solid $mailchimp-gray;
+      font-size: 15px;
+      font-family: "Open Sans",Verdana,Arial,Helvetica,sans-serif;
+      color: $mailchimp-gray;
+      background-color: white;
+      
+      .create-mailchimp-oauth-logo-container {
+        
+        display: inline-block;
+        margin-right: 12px;
+        
+        .create-mailchimp-oauth-logo {
+          img {height: 36px;}
+        }
+        
+        &.empty {
+          height: 36px;
+          vertical-align: middle;
+        }
+        
+      }
+    }
+  }
+   
+  
+}
