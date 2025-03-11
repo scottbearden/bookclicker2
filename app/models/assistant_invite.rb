@@ -1,7 +1,7 @@
 class AssistantInvite < ApplicationRecord
   
-  belongs_to :member_user, -> { full_member }, class_name: User, foreign_key: :member_user_id
-  belongs_to :assistant_user, -> { assistant }, class_name: User, foreign_key: :assistant_user_id
+  belongs_to :member_user, -> { full_member }, class_name: 'User', foreign_key: :member_user_id
+  belongs_to :assistant_user, -> { assistant }, class_name: 'User', foreign_key: :assistant_user_id
   
   validates :invitee_email, :pen_name, presence: true
   validates_format_of :invitee_email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
@@ -15,7 +15,7 @@ class AssistantInvite < ApplicationRecord
   after_create :send_invite
   
   def send_invite
-    InviteAssistantJob.delay.perform(self.id)
+    InviteAssistantJob.perform_async(self.id)
   end
   
   def unique_invitation

@@ -1,10 +1,10 @@
 class Api::UsersController < Api::BaseController
 
-  before_filter :require_current_assistant_or_member_user
-  before_filter :block_assistant, only: [:destroy_member]
+  before_action :require_current_assistant_or_member_user
+  before_action :block_assistant, only: [:destroy_member]
   
   def send_verification_email
-    EmailVerificationJob.delay.perform(current_assistant_or_member_user.id)
+    EmailVerificationJob.perform_async(current_assistant_or_member_user.id)
     render json: { success: true}, status: :ok
   end
 
@@ -38,7 +38,7 @@ class Api::UsersController < Api::BaseController
   def show
     render json: {
       user: current_assistant_or_member_user.as_json(only: [:auto_subscribe_on_booking]),
-      lists: current_member_user.lists.active.includes(:inventories).as_json(except: [:user_id], methods: [:inv_types]),
+      lists: current_member_user.lists.status_active.includes(:inventories).as_json(except: [:user_id], methods: [:inv_types]),
       books: current_member_user.books.includes(:book_links, :pen_name).as_json(Book::JSON_WITH_LINKS),
       pen_names: current_member_user.pen_names_used.not_promo_service.as_json(except: [:user_id])
     }

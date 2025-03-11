@@ -1,6 +1,7 @@
 class EmailVerificationJob
+  include Sidekiq::Worker
   
-  def self.perform(user_id, previous_email = nil)
+  def perform(user_id, previous_email = nil)
     sleep(2.0)
     user = User.find(user_id)
     return nil if Email.banned?(user.email)

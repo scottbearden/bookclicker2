@@ -4,7 +4,8 @@ class ApiKey < ApplicationRecord
   
   validate :key_or_token
 
-  enum status: { "active" => 1, "inactive" => 0 }
+  include StatusEnum
+
   PLATFORMS.each do |pform|
     scope pform.to_sym, -> { where(platform: pform) }
     define_method("#{pform}?") do 
@@ -12,9 +13,9 @@ class ApiKey < ApplicationRecord
     end
   end
   
-  attr_encrypted :key, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
-  attr_encrypted :token, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
-  attr_encrypted :secret, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
+  attr_encrypted :key, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
+  attr_encrypted :token, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
+  attr_encrypted :secret, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
 
   validate :valid_platform
   validate :not_duplicate
@@ -26,13 +27,13 @@ class ApiKey < ApplicationRecord
   before_destroy :deactivate_mailing_lists
   
   def update_mailing_lists
-    MailingListsUpdatorJob.delay.perform_for_single_api_key(self.id, true)
+    MailingListsUpdatorJob.perform_async('perform_for_single_api_key', self.id, true)
   end
   
   def deactivate_mailing_lists
-    self.lists.update_all(status: "inactive")
+    self.lists.update_all(status: ApiKey.statuses[:inactive])
   end
-    
+  
   def key_or_token
     if key.blank? && token.blank?
       errors.add(:base, "Api credentials are invalid")

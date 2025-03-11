@@ -9,17 +9,17 @@ $mp-search-container-width: 600px;
   width: 95%;
   margin: 0 auto;
   text-align: center;
-  
+
   .marketplace-book-title {
     font-size: 16px;
     color: $mailchimp-gray;
   }
 
   .marketplace-filter-header {
-    font-family: 'Spring Market', Verdana, sans-serif;
+    font-family: "Spring Market", Verdana, sans-serif;
     font-size: 40px;
   }
-  
+
   .marketplace-pre-results {
     width: 100%;
     @include clearfix();
@@ -42,7 +42,7 @@ $mp-search-container-width: 600px;
       }
     }
   }
-  
+
   .marketplace-genre-container {
     width: $mp-search-container-width;
     @include respond-to(small) {
@@ -61,11 +61,10 @@ $mp-search-container-width: 600px;
       #list-genre-select {
         font-size: 20px;
       }
-      
+
       .date-selectors {
         @include clearfix();
         .date-selector {
-          
           .small-date-selector-label {
             position: relative;
             font-size: 12px;
@@ -96,24 +95,16 @@ $mp-search-container-width: 600px;
             padding-right: 8px;
             padding-left: 0;
           }
-          
+
           &.right {
             padding-right: 0;
             padding-left: 8px;
-          }
-          
-          .react-datepicker__input-container, input[type="date"] {
-            width: 100%;
-            text-align: center;
-            input {
-              text-align: center;
-            }
           }
         }
       }
     }
   }
-  
+
   .marketplace-search-container {
     padding-top: 20px;
     width: $mp-search-container-width;
@@ -121,15 +112,15 @@ $mp-search-container-width: 600px;
     @include respond-to(small) {
       width: 560px;
     }
-    
+
     @include respond-to(extra-small) {
       width: 305px;
     }
-    
+
     @include respond-to(tiny) {
       width: 280px;
     }
-        
+
     .marketplace-search-content {
       width: 100%;
       .marketplace-search-input-container {
@@ -147,16 +138,16 @@ $mp-search-container-width: 600px;
           @include respond-to(extra-small) {
             border-radius: $mobile-search-border-radius;
           }
-          border-style:solid;
-          border:none;
-          border-width:1px;
-          border:1px solid #cccccc;
+          border-style: solid;
+          border: none;
+          border-width: 1px;
+          border: 1px solid #cccccc;
           font-size: 20px;
-          &:focus{
-              outline: none;
+          &:focus {
+            outline: none;
           }
         }
-        
+
         #marketplace-search-submit {
           @include align-middle-right();
           border-radius: $search-border-radius;
@@ -167,7 +158,7 @@ $mp-search-container-width: 600px;
           @include respond-to(extra-small) {
             height: $mobile-search-input-height;
           }
-          border:none;
+          border: none;
           letter-spacing: 3px;
           font-size: 0.8em;
           @include respond-to(extra-small) {
@@ -175,7 +166,7 @@ $mp-search-container-width: 600px;
             padding: 7px;
           }
         }
-        
+
         span.glyphicon-search {
           @include align-middle-left();
           left: 15px;
@@ -188,18 +179,19 @@ $mp-search-container-width: 600px;
       }
     }
   }
-  
+
   .marketplace-results {
     table {
-      
-      td { width: 10%;}
+      td {
+        width: 10%;
+      }
       td.narrow {
-        width: 4% ;
+        width: 4%;
       }
       td.med-narrow {
         width: 7%;
       }
-      
+
       td .thumbs-up-filter-stuff {
         @include grey-checkbox(13px);
         input[type="checkbox"] {
@@ -207,17 +199,17 @@ $mp-search-container-width: 600px;
           margin: 6px auto 1px;
         }
       }
-      
+
       tr.marketplace-results-header-row {
         font-size: 16px;
         background-color: lightgrey;
       }
-      
+
       tr.marketplace-results-row {
         td {
           vertical-align: middle;
           @include respond-to(tiny) {
-            font-size:10px;
+            font-size: 10px;
           }
         }
 
@@ -230,23 +222,22 @@ $mp-search-container-width: 600px;
           max-width: 130px !important;
         }
       }
-      
+
       .marketplace-results-actions {
-        
         a.bclick-button {
           min-width: 70px;
           width: 70px;
           border-radius: 5px;
-          
+
           &.disabled {
             opacity: 0.4;
             pointer-events: none;
           }
         }
-        
+
         .thumbs-up-down-rating-wrapper {
           margin: 0 auto;
-          
+
           @include respond-not-to(extra-small) {
             width: 30px;
           }
@@ -264,15 +255,13 @@ $mp-search-container-width: 600px;
                 text-shadow: 0 0 1.6px $youtube-red;
               }
             }
-            
-            
           }
-          
+
           .glyphicon-thumbs-down {
             transform: rotateY(-180deg);
           }
         }
-        
+
         @include respond-to(extra-small) {
           padding: 5px;
           margin-right: 3px;
@@ -282,7 +271,7 @@ $mp-search-container-width: 600px;
             padding: 2px;
           }
         }
-        
+
         @include respond-to(tiny) {
           a.bclick-button {
             font-size: 12px;
@@ -292,7 +281,7 @@ $mp-search-container-width: 600px;
           }
         }
       }
-      
+
       .marketplace-results-order-toggle {
         position: relative;
         span {
@@ -301,16 +290,16 @@ $mp-search-container-width: 600px;
           top: 2px;
         }
       }
-      
+
       .marketplace-results-order-toggle:hover {
-        cursor:pointer;
+        cursor: pointer;
       }
     }
   }
-  
+
   .marketplace-pagination-links {
     font-size: 16px;
-    a { 
+    a {
       margin: 0 10px;
       cursor: pointer;
     }

@@ -1,6 +1,6 @@
 class Api::UserEventsController < Api::BaseController
   
-  before_filter :require_current_assistant_or_member_user
+  before_action :require_current_assistant_or_member_user
   
   def create
     if current_assistant_or_member_user.user_events.create(event_params)

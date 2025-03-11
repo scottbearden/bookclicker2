@@ -3,7 +3,7 @@ class ExternalReservation < ApplicationRecord
   belongs_to :list
   has_one :seller, through: :list, source: :user
   has_one :promo_send_confirmation, -> { external }, foreign_key: :reservation_id
-  belongs_to :buyer_by_email, class_name: ::User, foreign_key: :book_owner_email, primary_key: :email
+  belongs_to :buyer_by_email, class_name: '::User', foreign_key: :book_owner_email, primary_key: :email
   include ConfirmationsConcern
 
   validate :no_script_tags

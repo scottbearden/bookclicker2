@@ -1,7 +1,7 @@
 class Api::ReservationsController < Api::BaseController
 
-  before_filter :require_current_member_user
-  before_filter :ensure_reservation_is_pending_decision, only: [:accept, :decline]
+  before_action :require_current_member_user
+  before_action :ensure_reservation_is_pending_decision, only: [:accept, :decline]
 
   def accept
     if @reservation.update(seller_accepted_at: Time.now, reply_message: params['reply_message'])
@@ -27,7 +27,7 @@ class Api::ReservationsController < Api::BaseController
           message: "Connect with stripe in order to invoice the buyer"
         }
       end
-      HandleSellerReservationAcceptJob.delay.perform(@reservation.id)
+      HandleSellerReservationAcceptJob.perform_async(@reservation.id)
 
       render json: {
         message: accept_or_decline_flash_info,
@@ -45,7 +45,7 @@ class Api::ReservationsController < Api::BaseController
   def decline
     @reservation.update!(seller_declined_at: Time.now, reply_message: params['reply_message'])
     accept_or_decline_flash_info = "You have declined this request"
-    HandleSellerReservationDeclineJob.delay.perform(@reservation.id)
+    HandleSellerReservationDeclineJob.perform_async(@reservation.id)
     if !@reservation.seller_stripe_account.present?
       @stripe_directive = {
         link: StripeAccountManager.connect_account_url(current_member_user),
@@ -79,7 +79,7 @@ class Api::ReservationsController < Api::BaseController
       render_404
     elsif reservation.buyer_can_request_confirmation?
       reservation.update_column(:confirmation_requested_at, Time.now)
-      ConfirmationRequestJob.delay.perform(reservation.id)
+      ConfirmationRequestJob.perform_async(reservation.id)
       return render json: {
         success: true,
         reservation: reservation.as_json(
@@ -95,7 +95,7 @@ class Api::ReservationsController < Api::BaseController
       render_404
     elsif reservation.buyer_can_request_refund?
       reservation.update_column(:refund_requested_at, Time.now)
-      RefundRequestJob.delay.perform(reservation.id)
+      RefundRequestJob.perform_async(reservation.id)
       return render json: {
         success: true,
         reservation: reservation.as_json(
@@ -115,7 +115,7 @@ class Api::ReservationsController < Api::BaseController
       return render json: { success: true }, status: :ok
     elsif @reservation.cancellable_unpaid_promo?
       @reservation.update(buyer_cancelled_at: Time.now)
-      HandleCancelJob.delay.perform(@reservation.id)
+      HandleCancelJob.perform_async(@reservation.id)
       return render json: { success: true }, status: :ok
     else
       return render_422
@@ -131,7 +131,7 @@ class Api::ReservationsController < Api::BaseController
       return render json: { success: true }, status: :ok
     elsif @reservation.cancellable_unpaid_promo?
       @reservation.update(seller_cancelled_at: Time.now)
-      HandleCancelJob.delay.perform(@reservation.id)
+      HandleCancelJob.perform_async(@reservation.id)
       return render json: { success: true }, status: :ok
     else
       return render_422
@@ -152,7 +152,7 @@ class Api::ReservationsController < Api::BaseController
         cancelled_ids << res.id
       elsif res.cancellable_unpaid_promo?
         res.update(seller_cancelled_at: Time.now)
-        HandleCancelJob.delay.perform(res.id)
+        HandleCancelJob.perform_async(res.id)
         cancelled_ids << res.id
       end
     end
@@ -175,7 +175,7 @@ class Api::ReservationsController < Api::BaseController
         cancelled_ids << res.id
       elsif res.cancellable_unpaid_promo?
         res.update(buyer_cancelled_at: Time.now)
-        HandleCancelJob.delay.perform(res.id)
+        HandleCancelJob.perform_async(res.id)
         cancelled_ids << res.id
       end
     end

@@ -32,7 +32,7 @@ class Campaign < ApplicationRecord
   end
 
   def fetch_aweber_preview_url
-    AweberFetchCampaignPreviewUrlJob.delay.perform(id)
+    AweberFetchCampaignPreviewUrlJob.perform_async(id)
   end
 
 end

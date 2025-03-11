@@ -1,8 +1,8 @@
 class ConfirmPromosController < ApplicationController
 
-  before_filter :sign_in_via_auth_token_param, only: [:select]
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :sign_in_via_auth_token_param, only: [:select]
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
   
   def select
     @seller = current_member_user.as_json(methods: [:full_name], only: [])

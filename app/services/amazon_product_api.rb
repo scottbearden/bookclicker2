@@ -50,6 +50,8 @@ module AmazonProductApi
     author_name =  html.xpath('/html/body/div[1]/div[2]/div/div[3]/div/div/div/div/div[1]/text()').to_s.strip
     author_image = html.xpath('/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div/a/img/@src')[0].try(:value)
 
+    #/html/body/div[1]/div[2]/div/div[3]/div/div/div/div/h1
+
     valid = author_name.present? || author_image.present?
     { valid: valid, author_name: author_name, author_image: author_image }
   rescue Exception => e
@@ -58,16 +60,20 @@ module AmazonProductApi
 
 
   def self.get_html_via_proxy(url)
-    if URI.parse(url).scheme.nil?
-      url = "https://#{url}"
-    end
-    proxy = proxies.sample
-    open(
-      url,
-      :proxy_http_basic_authentication => ["http://#{proxy}", Figaro.env.proxy_bonanza_username, Figaro.env.proxy_bonanza_password],
-      "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
-    )
+  if URI.parse(url).scheme.nil?
+    url = "https://#{url}"
   end
+  proxy = proxies.sample
+  open(
+    url,
+    proxy_http_basic_authentication: [
+      "http://#{proxy}",
+      ENV['proxy_bonanza_username'],
+      ENV['proxy_bonanza_password']
+    ],
+    "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
+  )
+end
 
 
   def self.proxies

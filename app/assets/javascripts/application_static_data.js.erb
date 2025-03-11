@@ -1,10 +1,10 @@
 const BookclickerStaticData = {
-  MAX_PAYMENT_SOURCES_PER_CUSTOMER: <%= StripeSharedCustomer::MAX_SOURCES_PER_CUSTOMER %>,
-  allGenres: <%= Genre.all.sort_by(&:genre).map { |gen| { value: gen.id, label: gen.genre, search_only: gen.search_only } }.to_json %>,
+  MAX_PAYMENT_SOURCES_PER_CUSTOMER: "5",
+  allGenres: [],
   connectWithStripeLogo: "<%= CONNECT_WITH_STRIPE_LOGO %>",
   connectWithStripeLogo2x: "<%= CONNECT_WITH_STRIPE_LOGO_2X %>",
   poweredByStripeLogo: "<%= POWERED_BY_STRIPE_LOGO %>",
-  stripePublishableKey: '<%= Figaro.env.stripe_publishable_key %>',
+  stripePublishableKey: '<%= ENV["stripe_publishable_key"] %>',
   mailchimpLogoUrl: '<%= MAILCHIMP_LOGO_URL %>',
   logoWithTextUrl: '<%= LOGO_WITH_TEXT_URL %>',
   aweberLogoUrl: '<%= AWEBER_LOGO_URL %>',
@@ -981,4 +981,14 @@ const BookclickerStaticData = {
       value: "ZW"
     }
   ]
-}
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/genres')
+    .then(response => response.json())
+    .then(data => {
+      BookclickerStaticData.allGenres = data;
+      // Here you can also trigger any updates in the UI that depend on allGenres
+    })
+    .catch(error => console.error('Error loading genres:', error));
+});

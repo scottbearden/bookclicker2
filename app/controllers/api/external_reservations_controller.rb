@@ -1,6 +1,6 @@
 class Api::ExternalReservationsController < Api::BaseController
 
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
 
 
   def create

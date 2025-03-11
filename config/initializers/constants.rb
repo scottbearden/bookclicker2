@@ -1,4 +1,3 @@
-SITE_URL = SITE_SCHEME + '://' + SITE_HOST
 MAILCHIMP_REDIRECT_URI = "#{SITE_URL}/mailchimp/auth/callback"
 AWEBER_CALLBACK_URI = "#{SITE_URL}/aweber/auth/callback"
 
@@ -24,7 +23,7 @@ BUYER_PAYMENT_HOUR_LIMIT = 72
 CAN_DELETE_STUFF_AFTER = 3.weeks
 
 SUPPORT_EMAIL = "no-reply@bookclicker.com"
-MAILGUN_TEST_EMAIL = "michael.herold@toptal.com"
+MAILGUN_TEST_EMAIL = "testbookclicker@gmail.com"
 
 BOOK_COVER_PLACEHOLDER_URL = 'https://s3.ca-central-1.amazonaws.com/bookclicker/book_cover_placeholder.jpg'
 

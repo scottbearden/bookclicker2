@@ -1,7 +1,7 @@
 class LaunchesController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
   
   def show
     book = current_member_user.books.find_by_id(params[:my_book_id])

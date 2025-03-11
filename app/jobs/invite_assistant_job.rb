@@ -1,7 +1,7 @@
 class InviteAssistantJob
+  include Sidekiq::Worker
   
-  
-  def self.perform(invite_id)
+  def perform(invite_id)
     invite = AssistantInvite.find(invite_id)
     
     return nil if Email.banned?(invite.invitee_email)
@@ -15,6 +15,5 @@ class InviteAssistantJob
     })
     
   end
-  
   
 end

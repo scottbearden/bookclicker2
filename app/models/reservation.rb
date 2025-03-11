@@ -2,14 +2,15 @@ class Reservation < ApplicationRecord
 
   belongs_to :book, -> { unscope(where: :deleted) }
   belongs_to :list
-  belongs_to :swap_offer_list, class_name: List, foreign_key: :swap_offer_list_id
-  belongs_to :swap_reservation, class_name: Reservation, foreign_key: :swap_reservation_id
+  belongs_to :swap_offer_list, class_name: 'List', foreign_key: :swap_offer_list_id, optional: true
+  belongs_to :swap_reservation, class_name: 'Reservation', foreign_key: :swap_reservation_id, optional: true
   has_one :buyer, through: :book, source: :user
   has_one :seller, through: :list, source: :user
   has_one :seller_stripe_account, through: :seller, source: :stripe_account
 
   scope :not_cancelled, -> { where(seller_cancelled_at: nil, system_cancelled_at: nil, buyer_cancelled_at: nil) }
-  scope :not_refunded, -> { where("not exists (select 1 from connect_payments pmt_refunded where pmt_refunded.reservation_id = reservations.id and pmt_refunded.refunded)") }
+  scope :not_refunded, -> { where("not exists (select 1 from connect_payments pmt_refunded where pmt_refunded.reservation_id = reservations.id and pmt_refunded.refunded = 1)") }
+
   scope :accepted, -> { where.not(seller_accepted_at: nil).not_cancelled.not_refunded }
   scope :pending, -> { not_cancelled.where(seller_accepted_at: nil, seller_declined_at: nil) }
   scope :accepted_or_pending, -> { accepted.or(pending) }
@@ -374,13 +375,13 @@ class Reservation < ApplicationRecord
   def cancel_swap_as_seller!(seller_cancelled_reason)
     self.update(seller_cancelled_at: Time.now, seller_cancelled_reason: seller_cancelled_reason.presence)
     self.swap_reservation.update(buyer_cancelled_at: Time.now)
-    HandleCancelJob.delay.perform(self.id)
+    HandleCancelJob.perform_async(self.id)
   end
   
   def cancel_swap_as_buyer!
     self.update(buyer_cancelled_at: Time.now)
     self.swap_reservation.update(seller_cancelled_at: Time.now)
-    HandleCancelJob.delay.perform(self.swap_reservation.id)
+    HandleCancelJob.perform_async(self.swap_reservation.id)
   end
   
   def cancellable_unpaid_promo?

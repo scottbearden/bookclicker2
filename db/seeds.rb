@@ -1,70 +1,170 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
-User.where("email regexp 'seller|buyer'").destroy_all
+Reservation.destroy_all # Reservations depend on Books and Lists
+OneDayInventory.destroy_all
+Inventory.destroy_all # Inventories depend on Lists
+Book.destroy_all # Books depend on PenNames
+Campaign.destroy_all # Campaigns depend on Lists
+List.destroy_all # Lists depend on Users and PenNames
+PenName.destroy_all # PenNames depend on Users
+User.destroy_all # Users are the top-level dependency
+Genre.destroy_all
 
-seller1 = User.create!(email: 'seller1@sell.com', role: 'full_member', password: 'seller', first_name: 'Ralph', last_name: 'Christmas')
-seller2 = User.create!(email: 'seller2@sell.com', role: 'full_member', password: 'seller', first_name: 'Dave', last_name: 'Inskeep')
-seller3 = User.create!(email: 'seller3@sell.com', role: 'full_member', password: 'seller', first_name: 'Jared', last_name: 'Scheib')
-seller4 = User.create!(email: 'seller4@sell.com', role: 'full_member', password: 'seller', first_name: 'Matt', last_name: 'Smith')
-seller5 = User.create!(email: 'seller5@sell.com', role: 'full_member', password: 'seller', first_name: 'Suzie', last_name: 'Adams')
-seller6 = User.create!(email: 'seller6@sell.com', role: 'full_member', password: 'seller', first_name: 'Mark', last_name: 'Wahlberg')
-seller7 = User.create!(email: 'seller7@sell.com', role: 'full_member', password: 'seller', last_name: 'Aristotle')
-seller8 = User.create!(email: 'seller8@sell.com', role: 'full_member', password: 'seller')
-seller9 = User.create!(email: 'seller9@sell.com', role: 'full_member', password: 'seller', first_name: 'Dane', last_name: 'Cook')
-seller10 = User.create!(email: 'seller10@sell.com', role: 'full_member', password: 'seller', first_name: 'Louis', last_name: 'C.K.')
-seller11 = User.create!(email: 'seller11@sell.com', role: 'full_member', password: 'seller', first_name: 'Ellen', last_name: 'Degeneres')
-seller12 = User.create!(email: 'seller12@sell.com', role: 'full_member', password: 'seller', first_name: 'Tom', last_name: 'Hanks')
-seller13 = User.create!(email: 'seller13@sell.com', role: 'full_member', password: 'seller', first_name: 'Courtney', last_name: 'Court')
-seller14 = User.create!(email: 'seller14@sell.com', role: 'full_member', password: 'seller', first_name: 'Charles', last_name: 'Dickens')
-seller15 = User.create!(email: 'seller15@sell.com', role: 'full_member', password: 'seller')
-seller16 = User.create!(email: 'seller16@sell.com', role: 'full_member', password: 'seller')
-seller17 = User.create!(email: 'seller17@sell.com', role: 'full_member', password: 'seller', first_name: 'Bill', last_name: 'Shakespeare')
-buyer1 = User.create!(email: 'buyer1@buy.com', role: 'full_member', password: 'buyerr', first_name: 'Carlos', last_name: 'Menjivar')
-buyer2 = User.create!(email: 'buyer2@buy.com', role: 'full_member', password: 'buyerr', first_name: 'Lawrence', last_name: 'Krauss')
-buyer3 = User.create!(email: 'buyer3@buy.com', role: 'full_member', password: 'buyerr', first_name: 'Fareed', last_name: 'Zakariah')
+# Create Genres
+Genre.create([{ genre: 'Comedy' }, { genre: 'Drama' }, { genre: 'Horror' }, { genre: 'Self Help' },
+             { genre: 'Action/Adventure' }, { genre: 'Romance' }, { genre: 'Satire' }, { genre: 'Tragedy' },
+             { genre: 'Fantasy' }, { genre: 'Science Fiction' }])
 
-Genre.create(genre: 'Comedy')
-Genre.create(genre: 'Drama')
-Genre.create(genre: 'Horror')
-Genre.create(genre: 'Self Help')
-Genre.create(genre: 'Action/Adventure')
-Genre.create(genre: 'Romance')
-Genre.create(genre: 'Satire')
-Genre.create(genre: 'Tragedy')
-Genre.create(genre: 'Fantasy')
-Genre.create(genre: 'Science Fiction')
+# Create Users
+seller_emails = (1..17).map { |i| "seller#{i}@sell.com" }
+buyer_emails = (1..3).map { |i| "buyer#{i}@buy.com" }
 
-[ seller1, seller2, seller3, seller4, seller5, 
-  seller6, seller7, seller8, seller9, seller10,
-  seller11, seller12, seller13, seller14, seller15, seller16, seller17].each do |seller| 
-  (rand(3) + 1).times do
-    genre = Genre.all.sample
-    platform = PLATFORMS.sample
-    list_name = ["Promotions", "Sales", "Big list", "My #{genre.genre} list", "Primary", "New Mailing List", "#{platform} list", "Special Promos", "Latest promos", "#{genre.genre} Sales"].sample
-    list_params = {
-      platform: platform, 
-      name: list_name, 
-      active_member_count: rand(1000),
-      open_rate: rand(),
-      click_rate: rand(),
-      feature_price: [rand(95) + 5, nil].sample,
-      solo_price: [rand(95) + 5, nil].sample,
-      mention_price: [rand(95) + 5, nil].sample
-    }
-    created_list = seller.lists.create!(list_params)
-    inv_type = if created_list.feature_price?; "feature"; elsif created_list.solo_price?; "solo" 
-    elsif created_list.mention_price?; "mention"; else; nil; end
-    if inv_type
-      created_list.inventories.create!(inv_type: inv_type, monday: rand(2), tuesday: rand(2), wednesday: rand(2), thursday: rand(2), friday: rand(2))
-    end
-  end
+seller_emails.each do |email|
+  User.create!(email: email, role: 'full_member', password: 'seller', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+end
+
+buyer_emails.each do |email|
+  User.create!(email: email, role: 'full_member', password: 'buyerr', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
 end
 
 User.all.update_all(email_verified_at: Time.now)
 
+
+sellers = User.where(email: seller_emails)
+buyers = User.where(email: buyer_emails)
+
+# Create Pen Names and Books
+sellers.each do |seller|
+  author_name = Faker::Book.author
+  pen_name = seller.pen_names.create!(author_name: author_name)
+  pen_name.update_column(:user_id, seller.id)
+
+  rand(1..3).times do
+    title = Faker::Book.title
+    book = Book.new(title: title, user_id: seller.id, pen_name: pen_name)
+    book.save!
+  end
+end
+
+# Create Lists and Reservations
+sellers.each do |seller|
+  seller.pen_names.each do |pen_name|
+    rand(1..3).times do
+      UsersPenName.find_or_create_by(user_id: seller.id, pen_name_id: pen_name.id)
+
+      list_params = {
+        user_id: seller.id,
+        pen_name: pen_name,
+        platform: PLATFORMS.sample,
+        platform_id: rand(100000000000000000..200000000000000000),
+        name: ["Promotions", "Sales", "Big list", "My #{Genre.all.sample.genre} list", "Primary", "New Mailing List", "#{PLATFORMS.sample} list", "Special Promos", "Latest promos", "#{Genre.all.sample.genre} Sales"].sample,
+        active_member_count: rand(1000..5000),
+        open_rate: rand(0.1..0.5),
+        click_rate: rand(0.01..0.1),
+        feature_price: rand(5..95),
+        solo_price: rand(5..95),
+        mention_price: rand(5..95),
+        status: 'active'
+      }
+
+      list = List.create!(list_params)
+
+      # Create Inventories for the list
+      ["solo", "feature", "mention"].each do |inv_type|
+        ActiveRecord::Base.connection.execute(
+          "INSERT INTO inventories (list_id, inv_type, sunday, monday, tuesday, wednesday, thursday, friday, saturday, created_at, updated_at) 
+           VALUES (#{list.id}, '#{inv_type}', #{rand(10..50)}, #{rand(10..50)}, #{rand(10..50)}, #{rand(10..50)}, #{rand(10..50)}, #{rand(10..50)}, #{rand(10..50)}, NOW(), NOW())"
+        )
+      end
+
+      pen_name.books.each do |book|
+        num_reservations_to_create = 5 # Create 5 reservations per book
+
+        num_reservations_to_create.times do
+          puts "Checking book: #{book.id}, List: #{list.id}"
+
+          inv_type = list.inventories.pluck(:inv_type).sample
+          puts "inv_type: #{inv_type.inspect}"
+
+          if inv_type.present?
+            price = list.send("#{inv_type}_price")
+            puts "price: #{price.inspect}"
+
+            if price.present?
+              puts "Price condition met!"
+              reservation_params = {
+                list_id: list.id,
+                book_id: book.id,
+                inv_type: inv_type,
+                date: Date.today + rand(1..60),
+                price: price,
+                recorded_list_name: list.name,
+                premium: rand(0..10),
+                seller_accepted_at: [Time.now - rand(0..30).days, nil].sample
+              }
+
+              # Randomly choose payment or swap (but not both)
+              if rand(2) == 0
+                reservation_params[:payment_offer] = true
+                reservation_params[:swap_offer] = false
+              else
+                reservation_params[:payment_offer] = false
+                reservation_params[:swap_offer] = true
+
+                # Handle swap offer details
+                if reservation_params[:swap_offer]
+                  swap_list = List.where(user_id: seller.id).sample
+                  if swap_list
+                    reservation_params[:swap_offer_list_id] = swap_list.id
+                    # Set at least one swap_offer_inv_type (e.g., solo)
+                    reservation_params[:swap_offer_solo] = true
+                    reservation_params[:swap_offer_feature] = false
+                    reservation_params[:swap_offer_mention] = false
+                  else
+                    puts "No suitable swap list found for seller #{seller.id}."
+                    reservation_params[:swap_offer] = false # Don't create the swap offer
+                    reservation_params[:payment_offer] = true # Create paid offer instead
+                  end
+                end
+              end
+
+              if !reservation_params[:payment_offer] && !reservation_params[:swap_offer]
+                # If both are false, set one to true. You can choose which one.
+                reservation_params[:payment_offer] = true  # Or reservation_params[:swap_offer] = true
+            end
+
+              reservation = Reservation.create!(reservation_params)
+              puts "Reservation created: #{reservation.inspect}"
+            else
+              puts "Price not found for inv_type: #{inv_type}"
+            end
+          else
+            puts "inv_type not found for list: #{list.id}"
+          end
+        end
+      end
+    end
+  end
+end
+
+# Create Campaigns (for lists)
+List.all.each do |list|
+  rand(1..3).times do
+    campaign_params = {
+      list_id: list.id,
+      platform_id: list.platform_id,
+      sent_on: Date.today - rand(0..30),
+      sent_at: Time.now - rand(0..30).days,
+      emails_sent: rand(100..500),
+      open_rate: rand(0.2..0.6),
+      click_rate: rand(0.02..0.1),
+      subject: Faker::Lorem.sentence,
+      name: Faker::Company.name
+    }
+    Campaign.find_or_create_by(list_id: list.id, platform_id: list.platform_id) do |campaign|
+      campaign.attributes = campaign_params
+    end
+  end
+end
+
+puts "Seeds planted successfully!"

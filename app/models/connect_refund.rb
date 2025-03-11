@@ -7,7 +7,7 @@ class ConnectRefund < ApplicationRecord
 
 
   def notify_buyer
-    HandleRefundJob.delay.perform(connect_payment.reservation_id)
+    HandleRefundJob.perform_async(connect_payment.reservation_id)
   end
   
 end

@@ -53,8 +53,8 @@
             <td class="width-25 overflow-hidden">
               <%= link_to(pen_names.them.try(:author_name), conversation_path(conversation.id)) if pen_names.them %>
             </td>
-            <td class="width-25 overflow-hidden">
-              <%= local_time(last_receipt.created_at) if last_receipt.created_at %>
+            <td class="width-25 overflow-hidden" data-timestamp="<%= last_receipt.created_at.iso8601 %>">
+              <span class="local-time"></span>
             </td>
             <td class="conversation-actions text-center">
               <%= link_to "View", conversation_path(conversation.id), class: 'btn btn-xs btn-default not-phone' %>
@@ -91,3 +91,25 @@
   </div>
   
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const timeCells = document.querySelectorAll('[data-timestamp]');
+    
+    timeCells.forEach(cell => {
+      const timestamp = cell.getAttribute('data-timestamp');
+      const date = new Date(timestamp);
+      const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+      };
+      const localTimeString = date.toLocaleString(undefined, options);
+      cell.querySelector('.local-time').textContent = localTimeString;
+    });
+  });
+</script>

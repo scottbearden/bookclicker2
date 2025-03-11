@@ -1,6 +1,6 @@
 class PenName < ApplicationRecord
   
-  belongs_to :owner, class_name: User, foreign_key: :user_id
+  belongs_to :owner, class_name: 'User', foreign_key: :user_id
   has_many :users_pen_names
   has_many :users, through: :users_pen_names
   has_many :other_users, -> { where () }
@@ -33,7 +33,7 @@ class PenName < ApplicationRecord
     if users_pen_names.count > 1
       errors.add(:base, "More than one user is sharing this pen name.  See who is sharing it <a href='/pen_names/sharing'>here</a>")
       return false
-    elsif lists.active.present?
+    elsif lists.status_active.present?
       errors.add(:base, "You must disassociate all active lists from this pen name <a href='/my_lists/selections'>here</a>")
       return false
     elsif books.present?

@@ -1,6 +1,7 @@
 class NotifyMemberThatAssistantHasDeletedAccountJob
+  include Sidekiq::Worker
   
-  def self.perform(member_id, assistant_name, assistant_email)
+  def perform(member_id, assistant_name, assistant_email)
     
     recipient = member = User.find(member_id)
     

@@ -1,6 +1,7 @@
 class EmailVerifiedJob
+  include Sidekiq::Worker
   
-  def self.perform(user_id)
+  def perform(user_id)
     user = User.find(user_id)
     mail = UserMailer.launcher_email_verified(user)
     

@@ -1,8 +1,8 @@
 class MyBooksController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
-  before_filter :withFlash_component, only: [:show, :new]
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
+  before_action :withFlash_component, only: [:show, :new]
   
   def show
     book = current_member_user.books.find_by_id(params[:id])
@@ -29,7 +29,7 @@ class MyBooksController < ApplicationController
       end
     else
       flash[:notice] = book.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -40,7 +40,7 @@ class MyBooksController < ApplicationController
       redirect_to pen_names_path
     else
       flash[:error] = book.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   

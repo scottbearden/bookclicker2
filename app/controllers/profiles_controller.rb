@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   
-  before_filter :require_current_assistant_or_member_user
+  before_action :require_current_assistant_or_member_user
 
   FIELDS_FOR_USER = [:id, :role, :email, :email_verified_at, :bookings_subscribed, :confirmations_subscribed, :messages_subscribed, :first_name, :last_name, 
                 :auto_subscribe_on_booking, :auto_subscribe_email]
@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
         
     @pen_names = current_assistant_or_member_user.pen_names_used.order(:author_name).as_json
     
-    @all_assistants = User.assistant.order(User.order_by_first_name_sql).as_json({
+    @all_assistants = User.assistant.order(Arel.sql(User.order_by_first_name_sql)).as_json({
       only: [:id], methods: [:full_name_or_email]
     })
     

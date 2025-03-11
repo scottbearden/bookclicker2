@@ -1,84 +1,85 @@
-import React from 'react';
-import MessagerLink from '../../components/messages/MessagerLink';
-
+import React from "react";
+import MessagerLink from "../../components/messages/MessagerLink";
 
 export default class DashboardSellerPendingPromosSection extends React.Component {
-  
-  
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
-  
+
   componentDidMount() {
-    $('.seller-pending-promo-tooltip').tooltip({position: top})
+    $(".seller-pending-promo-tooltip").tooltip({ position: top });
   }
 
   listsAndTheirPromos() {
-    let lists = this.props.lists.filter(list => (list.reservations_pending.length) )
+    let lists = this.props.lists.filter(
+      (list) => list.reservations_pending.length
+    );
     if (!lists.length) {
       return (
-          <div className="todays-promos-list">
-            <div className="todays-promos-list-header">
-              You have no pending reservations
-            </div>
+        <div className="todays-promos-list">
+          <div className="todays-promos-list-header">
+            You have no pending reservations
           </div>
-      )
+        </div>
+      );
     }
     let result = [];
     lists.forEach((list, idx) => {
       result.push(
         <div key={idx} className="todays-promos-list">
           <div className="todays-promos-list-header">
-            {list.adopted_pen_name || 'Your list'} has the following booking requests pending:
+            {list.adopted_pen_name || "Your list"} has the following booking
+            requests pending:
           </div>
 
           <div className="todays-promos-list-promos">
             {this.expandPendingRequests(list)}
           </div>
-
         </div>
-
-      )
-    })
+      );
+    });
     return result;
   }
-  
+
   actionTd(reservation) {
     let acceptLink = !reservation["payment_offer"] ? null : (
-      <a 
+      <a
         href={"/reservations/" + reservation.id + "/accept"}
         target="_blank"
-        className="bclick-button bclick-hollow-teal-button">
+        className="bclick-button bclick-hollow-teal-button"
+      >
         Accept
       </a>
-    )
-    
+    );
+
     let swapLink = !reservation["swap_offer"] ? null : (
-      <a 
+      <a
         href={"/swap_calendar/" + reservation.id}
         target="_blank"
-        className="bclick-button bclick-hollow-black-button">
+        className="bclick-button bclick-hollow-black-button"
+      >
         See Swaps
       </a>
-    )
-  
+    );
+
     let declineLink = (
-      <a 
+      <a
         href={"/reservations/" + reservation.id + "/decline"}
         target="_blank"
-        className="bclick-button bclick-hollow-dark-red-button">
+        className="bclick-button bclick-hollow-dark-red-button"
+      >
         Decline
       </a>
-    )
-    
+    );
+
     return (
       <td className="pending-promo-link">
         {acceptLink}
         {swapLink}
         {declineLink}
       </td>
-    )
+    );
   }
 
   expandPendingRequests(list) {
@@ -101,8 +102,9 @@ export default class DashboardSellerPendingPromosSection extends React.Component
             <tbody>
               <tr className="todays-promos-list-promo">
                 <td className="no-text-shadow name-only">
-                  {reservation.book.author} requesting a <u>{reservation.inv_type}</u>{" "}
-                  on <strong>{reservation.date_pretty}</strong> for{" "}
+                  {reservation.book.author} requesting a{" "}
+                  <u>{reservation.inv_type}</u> on{" "}
+                  <strong>{reservation.date_pretty}</strong> for{" "}
                   {reservation.recorded_list_name}.
                 </td>
 
@@ -147,7 +149,7 @@ export default class DashboardSellerPendingPromosSection extends React.Component
       );
     });
   }
-  
+
   render() {
     return (
       <div className="dashboard-activity-section extra-20">
@@ -158,8 +160,7 @@ export default class DashboardSellerPendingPromosSection extends React.Component
         <div className="dashboard-activity-section-content">
           {this.listsAndTheirPromos()}
         </div>
-      
       </div>
-    )
+    );
   }
 }

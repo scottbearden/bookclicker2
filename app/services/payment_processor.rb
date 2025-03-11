@@ -38,7 +38,7 @@ class PaymentProcessor
         if payment_request.can_terminate_subscription?
           payment_request.terminate_active_subscription
         else
-          HandlePaymentPlanAcceptJob.delay.perform(payment_request.id)
+          HandlePaymentPlanAcceptJob.perform_async(payment_request.id)
         end
         payment_request.update({
           accepted_at: Time.now,

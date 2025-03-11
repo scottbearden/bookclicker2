@@ -1,6 +1,7 @@
 class MessageNotificationsJob
+  include Sidekiq::Worker
 
-  def self.perform
+  def perform
 
     mailboxer_receipts_by_receiver = Mailboxer::Receipt
                          .where(is_read: 0, trashed: 0, deleted: 0, mailbox_type: :inbox, is_delivered: false)

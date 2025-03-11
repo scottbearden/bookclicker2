@@ -1,9 +1,9 @@
 class PenNamesController < ApplicationController
   
-  before_filter :sign_in_via_auth_token_param
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
-  before_filter :withFlash_component, only: [:index]
+  before_action :sign_in_via_auth_token_param
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
+  before_action :withFlash_component, only: [:index]
   
   def index
     @pen_names = PenName.users_pen_names_includes_books_json(current_member_user)

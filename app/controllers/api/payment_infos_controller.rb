@@ -1,7 +1,7 @@
 class Api::PaymentInfosController < Api::BaseController
   
-  before_filter :require_current_member_user
-  before_filter :block_assistant, except: [:default_source]
+  before_action :require_current_member_user
+  before_action :block_assistant, except: [:default_source]
   
   def destroy
     bc_customer = current_member_user.bc_customer

@@ -1,7 +1,7 @@
 class PaymentInfosController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :block_assistant
+  before_action :require_current_member_user
+  before_action :block_assistant
   
   def index
     bc_customer = current_member_user.bc_customer
@@ -64,7 +64,7 @@ class PaymentInfosController < ApplicationController
     rescue => e
       payment_source.set_deleted
       flash[:error] = "Payment method could not be retrieved: #{e.message}.  Card ending in #{payment_source.last4} is being deleted."
-      return redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
     payment_method.billing_details.name = payment_source.name = params[:name].presence
     payment_method.billing_details.address.line1 = payment_source.address_line1 = params[:address_line1].presence
@@ -81,7 +81,7 @@ class PaymentInfosController < ApplicationController
   rescue => e
     flash[:error] = e.message
   ensure
-    return redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
   
 end

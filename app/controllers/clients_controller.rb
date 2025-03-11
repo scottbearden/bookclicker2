@@ -1,8 +1,8 @@
 class ClientsController < ApplicationController
   
   
-  before_filter :sign_assistant_in_via_auth_token_param
-  before_filter :require_current_assistant_user
+  before_action :sign_assistant_in_via_auth_token_param
+  before_action :require_current_assistant_user
   
   def index
     @client_connections = current_assistant_user.assistants_users

@@ -1,6 +1,7 @@
 class RefundRequestJob
+  include Sidekiq::Worker
   
-  def self.perform(reservation_id)
+  def perform(reservation_id)
     
     reservation = Reservation.find(reservation_id)
     

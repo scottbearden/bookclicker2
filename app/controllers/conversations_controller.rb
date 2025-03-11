@@ -2,10 +2,10 @@ class ConversationsController < ApplicationController
   
 
   include ConversationsConcern
-  before_filter :sign_in_via_auth_token_param, only: [:index, :show]
-  before_filter :require_current_member_user
-  before_filter :get_mailbox, :get_box
-  before_filter :check_current_member_user_in_conversation, :except => [:index]
+  before_action :sign_in_via_auth_token_param, only: [:index, :show]
+  before_action :require_current_member_user
+  before_action :get_mailbox, :get_box
+  before_action :check_current_member_user_in_conversation, :except => [:index]
 
   def index
     if @box.eql? "inbox"

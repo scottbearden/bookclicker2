@@ -1,14 +1,11 @@
 class UsersAssistant < ApplicationRecord
   
   belongs_to :user, -> { full_member }
-  belongs_to :assistant, -> { assistant }, class_name: User
+  belongs_to :assistant, -> { assistant }, class_name: 'User'
 
   has_many :assistant_payment_requests
   
-  validates :assistant_id, :uniqueness => {:scope => :user_id}, allow_nil: false
-  
-  has_paper_trail
-  
+  validates :assistant_id, :uniqueness => {:scope => :user_id}, allow_nil: false  
   
   def has_interaction?
     assistant_payment_requests.any?(&:ongoing?)

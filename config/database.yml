@@ -1,22 +1,30 @@
 default: &default
-    adapter: mysql2
-    encoding: utf8
-    database: bookclicker
-    pool: 10
-    username: root
-    password:
-    port: 3306
-    timeout: 5000
-    strict: false
+  adapter: mysql2
+  encoding: utf8
+  database: bookclicker
+  pool: 10
+  username: root
+  port: 3306
+  timeout: 5000
+  strict: false
+
+container:
+  <<: *default
+  host: db
+  password: password
 
 development:
   <<: *default
   host: localhost
-  
+
 production:
   <<: *default
-  host: <%= Figaro.env.database_host %>
-  username: <%= Figaro.env.database_username %>
-  password: <%= Figaro.env.database_password %>
-  
+  host: <%= ENV['database_host'] %>
+  username: <%= ENV['database_username'] %>
+  password: <%= ENV['database_password'] %>
 
+heroku:
+  <<: *default
+  host: <%= ENV['external_db_host'] %>
+  username: <%= ENV['external_db_username'] %>
+  password: <%= ENV['external_db_password'] %>

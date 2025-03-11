@@ -1,0 +1,182 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Update Launch Template for Ruby on Rails application deployment.
+
+Parameters:
+  AMIId:
+    Type: AWS::EC2::Image::Id
+    Description: The AMI ID for the EC2 instances.
+    Default: ami-080e1f13689e07408
+  InstanceType:
+    Type: String
+    Description: EC2 instance type.
+    Default: t3.medium
+  MinSize:
+    Type: Number
+    Description: Minimum number of instances in the Auto Scaling group.
+    Default: "1"
+  MaxSize:
+    Type: Number
+    Description: Maximum number of instances in the Auto Scaling group.
+    Default: "1"
+  DesiredCapacity:
+    Type: Number
+    Description: The number of EC2 instances that should be running in the Auto Scaling group.
+    Default: "1"
+  VPCSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: List of VPC subnet IDs for the Auto Scaling group instances.
+    Default: subnet-2d5cf475,subnet-077a0362
+  TargetGroupARN:
+    Type: String
+    Description: The ARN of the target group to which Auto Scaling instances will be added.
+    Default: arn:aws:elasticloadbalancing:us-east-1:797978255323:targetgroup/bookclicker-test-http-tg/c51dfb6737587bcb
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances.
+    Default: kbkp
+  S3BucketName:
+    Type: String
+    Description: S3 bucket name for configuration files.
+    Default: bookclicker-test-infra
+  ApplicationConfigS3Key:
+    Type: String
+    Description: S3 key for application.yml.
+    Default: app-files/application.yml
+  SecretsConfigS3Key:
+    Type: String
+    Description: S3 key for secrets.yml.
+    Default: app-files/secrets.yml
+  NginxConfigS3Key:
+    Type: String
+    Default: app-files/default.conf
+    Description: S3 key for nginx default.conf file.
+  GitHubPrivateKeyS3Key:
+    Type: String
+    Default: certs/gh_id_rsa
+    Description: S3 key for GitHub private keypair file.
+  SecurityGroupIds:
+    Description: "Security Group ID"
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Default: sg-0e5d40b34f9ec61ea, sg-0091d1dc1802df658
+  IAMInstanceProfileArn:
+    Description: "ARN of the IAM instance profile"
+    Type: String
+    Default: arn:aws:iam::797978255323:instance-profile/bc_prod_iam_instance_role
+Resources:
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: MyLaunchTemplate
+      LaunchTemplateData:
+        ImageId: !Ref AMIId
+        InstanceType: !Ref InstanceType
+        KeyName: !Ref KeyName
+        SecurityGroupIds: !Ref SecurityGroupIds
+        IamInstanceProfile:
+          Arn: !Ref IAMInstanceProfileArn
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+
+            # Update and install necessary packages
+            apt-get update
+            apt-get install -y dirmngr gnupg apt-transport-https ca-certificates curl software-properties-common build-essential libssl-dev libreadline-dev zlib1g-dev unzip autoconf bison libyaml-dev libreadline-dev libncurses5-dev libgdbm-dev libdb-dev libffi-dev libmysqlclient-dev
+
+
+            # Install Node.js
+            # installs NVM (Node Version Manager)
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+            # download and install Node.js
+            nvm install 20
+            # verifies the right Node.js version is in the environment
+            node -v # should print `v20.12.1`
+            # verifies the right NPM version is in the environment
+            npm -v # should print `10.5.0`
+
+            # Install Yarn
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+            apt-get update && apt-get install -y yarn
+
+            # Install rbenv and Ruby
+            git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+            echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+            echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
+            export PATH="$HOME/.rbenv/bin:$PATH"
+            eval "$(rbenv init - bash)"
+            git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+            /root/.rbenv/bin/rbenv init
+            /root/.rbenv/bin/rbenv install 2.6.5
+            /root/.rbenv/bin/rbenv local 2.6.5
+            /root/.rbenv/bin/rbenv global 2.6.5
+            ruby -v
+
+            # Install Bundler
+            gem install bundler -v 2.1.4
+
+            # Install AWS CLI v2
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+            # Install Passenger and Nginx
+            apt-get install -y dirmngr gnupg apt-transport-https ca-certificates curl
+            gem install passenger
+            /root/.rbenv/bin/rbenv rehash
+            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+            sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger $(lsb_release -sc) main > /etc/apt/sources.list.d/passenger.list'
+            sudo apt-get update
+            sudo apt-get install -y nginx-extras libnginx-mod-http-passenger
+
+            # Start and enable Nginx
+            systemctl start nginx
+            systemctl enable nginx
+
+            # Fetch and apply Nginx configuration from S3
+            aws s3 cp s3://${S3BucketName}/${NginxConfigS3Key} /etc/nginx/sites-enabled/default
+            systemctl restart nginx
+
+            # Fetch and apply GitHub private keypair file from S3
+            aws s3 cp s3://${S3BucketName}/${GitHubPrivateKeyS3Key} ~/.ssh/${GitHubPrivateKeyS3Key}
+            chmod 600 ~/.ssh/${GitHubPrivateKeyS3Key} # Ensure proper permissions
+            eval `ssh-agent`
+            ssh-add ~/.ssh/${GitHubPrivateKeyS3Key}
+
+            # Clone and set up the application
+            git clone git@github.com:behrk2/bookclicker.git /repo
+            cd /repo
+            git checkout develop
+            git pull
+            bundle install
+            yarn install
+
+            # Fetch application and secrets configuration from S3
+            aws s3 cp s3://${S3BucketName}/${ApplicationConfigS3Key} /repo/config/application.yml
+            aws s3 cp s3://${S3BucketName}/${SecretsConfigS3Key} /repo/config/secrets.yml
+
+            # Precompile assets
+            RAILS_ENV=production bundle exec rake assets:precompile
+
+            # Ensure Nginx picks up all changes
+            systemctl restart nginx
+
+  MyAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchTemplate:
+        LaunchTemplateId: !Ref MyLaunchTemplate
+        Version: !GetAtt MyLaunchTemplate.LatestVersionNumber
+      MinSize: !Ref MinSize
+      MaxSize: !Ref MaxSize
+      DesiredCapacity: !Ref DesiredCapacity
+      VPCZoneIdentifier: !Ref VPCSubnets
+      TargetGroupARNs:
+        - !Ref TargetGroupARN
+
+Outputs:
+  AutoScalingGroupName:
+    Description: "Auto Scaling Group Name"
+    Value: !Ref MyAutoScalingGroup
+  LaunchTemplateId:
+    Description: "Launch Template ID"
+    Value: !Ref MyLaunchTemplate

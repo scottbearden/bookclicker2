@@ -15,15 +15,16 @@
 //= require js.cookie
 //= require browser_timezone_rails/set_time_zone
 //= require zabuto_calendar.min
-//= require local-time
 //= require_tree .
 
-$(function() {
-  $('a#go-pro-link').tooltip({placement: 'bottom', html: true});
-})
-
-$(".modal").on("show", function () {
-  $("body").addClass("modal-open");
-}).on("hidden", function () {
-  $("body").removeClass("modal-open");
+$(function () {
+  $("a#go-pro-link").tooltip({ placement: "bottom", html: true });
 });
+
+$(".modal")
+  .on("show", function () {
+    $("body").addClass("modal-open");
+  })
+  .on("hidden", function () {
+    $("body").removeClass("modal-open");
+  });

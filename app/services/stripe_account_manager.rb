@@ -5,8 +5,8 @@ class StripeAccountManager
   OAUTH_PATH = "https://connect.stripe.com/oauth/"
   
   def self.connect_account_url(user)
-    OAUTH_PATH + "authorize?response_type=code&client_id=#{Figaro.env.stripe_client_id}&scope=read_write&state=#{user.session_token}"
-  end
+    OAUTH_PATH + "authorize?response_type=code&client_id=#{ENV['stripe_client_id']}&scope=read_write&state=#{user.session_token}"
+  end  
   
   def self.create_shared_customer_with_default_source(user, stripe_customer)
     bc_customer = StripeSharedCustomer.create!(
@@ -64,7 +64,7 @@ class StripeAccountManager
   end
   
   def self.deferred_account_activation_link(acct_id)
-    "https://dashboard.stripe.com/account/activate?client_id=#{Figaro.env.stripe_client_id}&user_id=#{acct_id}"
+    "https://dashboard.stripe.com/account/activate?client_id=#{ENV['stripe_client_id']}&user_id=#{acct_id}"
   end
   
   def self.get_access_token(code)
@@ -72,7 +72,7 @@ class StripeAccountManager
       body: {
         grant_type: "authorization_code",
         code: code,
-        client_secret: Figaro.env.stripe_secret_key
+        client_secret: ENV['stripe_secret_key']
       }
     }
     HTTParty.post(OAUTH_PATH + "token", options)

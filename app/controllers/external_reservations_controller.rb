@@ -1,13 +1,13 @@
 class ExternalReservationsController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
   
   def destroy
     @external_reservation = current_member_user.external_reservations.find_by_id(params[:id])
     @external_reservation.destroy
     flash[:success] = "Your reservation was removed from your calendar"
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
   
   def create
@@ -18,7 +18,7 @@ class ExternalReservationsController < ApplicationController
     else
       flash[:error] = @external_reservation.errors.full_messages.first
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
       
   end
   

@@ -1,13 +1,13 @@
 class Api::MyListsController < Api::BaseController
   
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
   
   def index(all: false)
     if refresh?
-      MailingListsUpdatorJob.perform(current_member_user.id)
+      MailingListsUpdatorJob.perform_for_user(current_member_user.id)
     end
     query_base = current_member_user.lists.includes(:genres, :inventories).order(:id)
-    query_base = query_base.active unless params[:all].present? || all
+    query_base = query_base.status_active unless params[:all].present? || all
     render json: {
       lists: query_base.as_json(except: [:user_id], methods: [:inv_types, :Platform, :active_member_count_delimited]),
       pen_names: current_member_user.pen_names_used.as_json(except: [:user_id])

@@ -1,33 +1,39 @@
 class MailingListsUpdatorJob
-  
-  def self.perform(user_id)
-    User.find(user_id).api_keys.each do |api_key|
-      perform_for_single_api_key(api_key.id)
+  include Sidekiq::Worker
+
+  def perform(method_name, *args)
+    self.class.send(method_name, *args)
+  end
+
+  def self.perform_for_user(user_id)
+    user = User.find(user_id)
+    user.api_keys.each do |api_key|
+      MailingListsUpdatorJob.perform_async('perform_for_single_api_key', api_key.id)
     end
   end
-  
+
   def self.perform_for_all
     puts "\nBegan MailingListsUpdatorJob.perform_for_all at #{Time.now}"
     User.full_member.each do |u|
       begin
-        MailingListsUpdatorJob.perform(u.id)
+        MailingListsUpdatorJob.perform_async('perform_for_user', u.id)
       rescue => e
         puts "Error for #{u.id}: #{e.message}"
       end
     end
     puts "Ended MailingListsUpdatorJob.perform_for_all at #{Time.now}\n\n\n"
   end
-  
+
   def self.perform_for_single_api_key(api_key_id, pull_all_stats = false)
     api_key = ApiKey.find_by_id(api_key_id)
     return if api_key.nil?
-    
+
     send("update_#{api_key.platform}_lists", api_key)
     if pull_all_stats && api_key.aweber?
-      MailingListsUpdatorJob.delay.update_aweber_lists(api_key, true)
+      MailingListsUpdatorJob.perform_async('update_aweber_lists', api_key.id, true)
     end
   end
-  
+
   def self.update_mailchimp_lists(api_key)
     api = api_key.init_api
     return nil unless api.status == "Good"
@@ -36,7 +42,7 @@ class MailingListsUpdatorJob
      
     api_lists = api.get_lists
     puts api_lists
-    for li in api_lists
+    api_lists.each do |li|
       list = api_key.user.lists.where(platform: api.platform, platform_id: li["id"]).first_or_initialize
       list.update(
         api_key_id: api.api_key_id,
@@ -48,7 +54,7 @@ class MailingListsUpdatorJob
       )
     end
   end
-  
+
   def self.update_mailerlite_lists(api_key)
     api = api_key.init_api
     return nil unless api.status == "Good"
@@ -56,7 +62,7 @@ class MailingListsUpdatorJob
     #####################################
     
     groups = api.get_groups
-    for group in groups
+    groups.each do |group|
       list = api_key.user.lists.where(platform: api.platform, platform_id: group["id"]).first_or_initialize
       if group["sent"].to_i > 0
         open_rate = group["opened"].to_f/group["sent"]
@@ -71,16 +77,14 @@ class MailingListsUpdatorJob
         click_rate: click_rate,
         last_refreshed_at: Time.now
       )
-
     end
   end
-  
+
   def self.update_convertkit_lists(api_key)
     api = api_key.init_api
     return nil unless api.status == "Good"
     orig_lists = api_key.lists.includes(:reservations)
-    #####################################
-    
+  
     forms = api.get_forms
     puts forms
     forms.each do |form|
@@ -94,8 +98,11 @@ class MailingListsUpdatorJob
       )
     end
   end
-  
-  def self.update_aweber_lists(api_key, with_stats = false)
+
+  def self.update_aweber_lists(api_key_id, with_stats = false)
+    api_key = ApiKey.find_by_id(api_key_id)
+    return if api_key.nil?
+
     api = api_key.init_api
     return nil unless api.status == "Good"
     orig_lists = api_key.lists.includes(:reservations)
@@ -110,14 +117,13 @@ class MailingListsUpdatorJob
         list.active_member_count = list_attrs[:active_member_count]
       end
       if list_attrs[:sent].to_i > 0 && list_attrs[:opens].to_i > 0 && list_attrs[:opens] <= list_attrs[:sent]
-        list.open_rate = list_attrs[:opens].to_f/list_attrs[:sent].to_f
+        list.open_rate = list_attrs[:opens].to_f / list_attrs[:sent].to_f
       end
       if list_attrs[:sent].to_i > 0 && list_attrs[:clicks].to_i > 0 && list_attrs[:clicks] <= list_attrs[:sent]
-        list.click_rate = list_attrs[:clicks].to_f/list_attrs[:sent].to_f
+        list.click_rate = list_attrs[:clicks].to_f / list_attrs[:sent].to_f
       end
       list.last_refreshed_at = Time.now
       list.save
     end
   end
-  
 end

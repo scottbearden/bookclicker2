@@ -1,8 +1,8 @@
 class CalendarsController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
-  before_filter :make_modal_wide
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
+  before_action :make_modal_wide
   
   def show
     @list = current_member_user.lists.find(params[:id]).as_json(except: [:user_id], methods: [:active_member_count_delimited])

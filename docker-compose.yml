@@ -1,0 +1,94 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/repo
+      - /repo/node_modules
+    environment:
+      RAILS_ENV: container
+      REDIS_URL: redis://redis:6379
+      SITE_HOST: 127.0.0.1:3000
+      SITE_SCHEME: http
+      mailgun_domain: ${mailgun_domain}
+      mailgun_api_key: ${mailgun_api_key}
+      mailchimp_client_id: ${mailchimp_client_id}
+      mailchimp_client_secret: ${mailchimp_client_secret}
+      stripe_client_id: ${stripe_client_id}
+      stripe_secret_key: ${stripe_secret_key}
+      stripe_publishable_key: ${stripe_publishable_key}
+      stripe_pi_webhook_secret: ${stripe_pi_webhook_secret}
+      aweber_consumer_key: ${aweber_consumer_key}
+      aweber_consumer_secret: ${aweber_consumer_secret}
+      sentry_dsn: ${sentry_dsn}
+    depends_on:
+      - db
+      - redis
+      - sidekiq
+    platform: linux/x86_64
+
+  db:
+    image: mysql:8.4.0
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/structure.sql:/docker-entrypoint-initdb.d/structure.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bookclicker
+    platform: linux/x86_64
+
+  # db:
+  #   image: postgres:13
+  #   ports:
+  #     - "5433:5432"
+  #   volumes:
+  #     - pg_data:/var/lib/postgresql/data
+  #     - ./db/bc-test-psql-dump.sql:/docker-entrypoint-initdb.d/bc-test-psql-dump.sql
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: bookclicker
+  #   platform: linux/x86_64
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    platform: linux/x86_64
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.sidekiq
+    depends_on:
+      - redis
+    environment:
+      RAILS_ENV: container
+      REDIS_URL: redis://redis:6379
+      SITE_HOST: 127.0.0.1:3000
+      SITE_SCHEME: http
+      mailgun_domain: ${mailgun_domain}
+      mailgun_api_key: ${mailgun_api_key}
+      mailchimp_client_id: ${mailchimp_client_id}
+      mailchimp_client_secret: ${mailchimp_client_secret}
+      stripe_client_id: ${stripe_client_id}
+      stripe_secret_key: ${stripe_secret_key}
+      stripe_publishable_key: ${stripe_publishable_key}
+      stripe_pi_webhook_secret: ${stripe_pi_webhook_secret}
+      aweber_consumer_key: ${aweber_consumer_key}
+      aweber_consumer_secret: ${aweber_consumer_secret}
+      sentry_dsn: ${sentry_dsn}
+    volumes:
+      - .:/repo
+    platform: linux/x86_64
+
+volumes:
+  mysql_data:
+  #pg_data:
+  redis_data:

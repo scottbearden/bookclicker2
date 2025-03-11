@@ -1,6 +1,7 @@
 class HandleCancelJob
+  include Sidekiq::Worker
   
-  def self.perform(reservation_id)
+  def perform(reservation_id)
     reservation = Reservation.find(reservation_id)
     if reservation.swap_reservation.present? && reservation.cancelled?
       reservation.buyer_recipients(:bookings).each do |recipient|

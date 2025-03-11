@@ -1,7 +1,7 @@
 class MarketplacesController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
     
   def show
     if current_member_user.lists.blank? && cookies[:viewed_integrations_warning].blank?

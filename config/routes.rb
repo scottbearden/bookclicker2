@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   
   require 'sidekiq/web'
-  Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-  mount Sidekiq::Web => '/sidekiq'
-  
+
+  mount Sidekiq::Web => '/sidekiq'  
   
   root to: 'homepages#root'
   get '/benefits', to: 'homepages#landing'
@@ -18,6 +17,8 @@ Rails.application.routes.draw do
   post '/stripe/external_account_deauthorized', 'stripe#external_account_deauthorized'
   post '/stripe/external_account_updated', 'stripe#external_account_updated'
   post '/stripe/payment_intent_callback', 'stripe#payment_intent_callback'
+
+  get 'genres', to: 'genres#index'
   
   resource :dashboard, only: [:show]
   
@@ -27,6 +28,10 @@ Rails.application.routes.draw do
     collection do
       get :confirmed
     end
+  end
+
+  resources :terms_of_service, only: [:new, :create] do
+    post :accept, on: :collection
   end
   
   namespace :policies do 

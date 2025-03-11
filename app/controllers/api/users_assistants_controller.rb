@@ -1,6 +1,6 @@
 class Api::UsersAssistantsController < Api::BaseController
   
-  before_filter :block_assistant
+  before_action :block_assistant
   
   def create
     users_assistant = current_member_user.users_assistants.new(assistant_id: params[:assistant_id])

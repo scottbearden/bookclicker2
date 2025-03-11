@@ -1,6 +1,6 @@
 class Api::MyBooksController < Api::BaseController
   
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
   
   def index
     render json: books_json, status: :ok

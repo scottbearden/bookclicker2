@@ -5,22 +5,44 @@ module.exports = {
   entry: "./frontend/app.jsx",
   devtool: "source-map",
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx"],
   },
   output: {
-    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: "bundle.js"
+    path: path.join(__dirname, "app", "assets", "javascripts"),
+    filename: "bundle.js",
+    sourceMapFilename: "[file].map",
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: [/\.jsx?$/, /\.js?$/],
+        test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  }
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-proposal-optional-chaining"],
+          },
+        },
+      },
+      {
+        test: /\.js$/,
+        include: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
 };

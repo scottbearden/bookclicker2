@@ -1,10 +1,10 @@
 class StripeController < ApplicationController
   
   skip_before_action :verify_authenticity_token, only: [:external_account_deleted, :external_account_deauthorized, :external_account_updated, :payment_intent_callback]
-  before_filter :record_stripe_webhook_event, only: [:external_account_deleted, :external_account_deauthorized, :external_account_updated]
+  before_action :record_stripe_webhook_event, only: [:external_account_deleted, :external_account_deauthorized, :external_account_updated]
   
-  before_filter :require_current_member_user, only: [:create_card, :charge_buyer]
-  before_filter :block_assistant, only: [:create_card]
+  before_action :require_current_member_user, only: [:create_card, :charge_buyer]
+  before_action :block_assistant, only: [:create_card]
   
   def callback
     if params[:error].present?
@@ -26,7 +26,7 @@ class StripeController < ApplicationController
     event = nil
     begin
       event = Stripe::Webhook.construct_event(
-        payload, sig_header, Figaro.env.stripe_pi_webhook_secret
+        payload, sig_header, ENV['stripe_pi_webhook_secret']
       )
     rescue JSON::ParserError => e
       # Invalid payload

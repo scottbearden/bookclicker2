@@ -1,6 +1,7 @@
 class HandleNewReservationJob
+  include Sidekiq::Worker
 
-  def self.perform(reservation_id)
+  def perform(reservation_id)
     reservation = Reservation.find(reservation_id)
     reservation.seller_recipients(:bookings).each do |recipient|
       ReservationMailer.notify_seller_of_reservation(reservation, recipient).deliver

@@ -5,27 +5,28 @@ class MailchimpApi
   
   attr_accessor :api_key_id
   
-  def self.authorize_url(redirect_uri: )
+  def self.authorize_url(redirect_uri:)
     result = AUTHORIZE_URI
     result += "?response_type=code"
-    result += "&client_id=#{Figaro.env.mailchimp_client_id}"
+    result += "&client_id=#{ENV['mailchimp_client_id']}"
     result += "&redirect_uri=#{redirect_uri}"
     result
   end
   
   def self.get_access_token(code:, redirect_uri:)
     options = { 
-      :body => {
-        :grant_type => "authorization_code",
-        :client_id => Figaro.env.mailchimp_client_id,
-        :client_secret => Figaro.env.mailchimp_client_secret,
-        :code => code,
-        :redirect_uri => redirect_uri
+      body: {
+        grant_type: "authorization_code",
+        client_id: ENV['mailchimp_client_id'],
+        client_secret: ENV['mailchimp_client_secret'],
+        code: code,
+        redirect_uri: redirect_uri
       }
     }
     res = HTTParty.post(ACCESS_TOKEN_URI, options)
     res["access_token"] if res.success?
   end
+  
   
   def initialize(api_key: nil, token: nil, api_data_center: nil)
     @api_key = api_key
@@ -46,7 +47,7 @@ class MailchimpApi
   
   def get_lists
     res = HTTParty.get(api_endpoint + "/3.0/lists?count=#{100000}", headers_and_auth)
-    Raven.extra_context(mailchimp_res: res.parsed_response)
+    Sentry.set_context("mailchimp_res", res.parsed_response)
     JSON.parse(res.body)["lists"] || []
   rescue
     []
@@ -74,12 +75,16 @@ class MailchimpApi
   
   def get_merge_fields(list_id)
     res = HTTParty.get(api_endpoint + "/3.0/lists/#{list_id}/merge-fields", headers_and_auth)
-    Raven.extra_context(mailchimp_res: res.parsed_response)
+    Sentry.set_context("mailchimp_res", res.parsed_response)
+  
     if res.code.between?(200, 209)
       JSON.parse(res.body)["merge_fields"].select { |field| field["required"] }.map { |field| field["name"] }
     else
       []
     end
+  rescue => e
+    Sentry.capture_exception(e)
+    []
   end
   
   def create_segment(list_id, segment_name)

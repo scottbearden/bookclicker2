@@ -2,7 +2,8 @@ class List < ApplicationRecord
   
   include ActionView::Helpers::NumberHelper
   
-  enum status: { "active" => 1, "inactive" => 0 }
+  include StatusEnum
+
   validate :valid_platform
   validate :valid_prices
   validate :has_pen_name_if_active
@@ -19,25 +20,25 @@ class List < ApplicationRecord
   has_many :one_day_inventories, dependent: :destroy
   
   has_many :reservations
-  has_many :reservations_today, -> { accepted.where(date: Date.today_in_local_timezone) }, class_name: Reservation, foreign_key: :list_id
-  has_many :recent_reservations, -> { accepted.where("reservations.date between ? and ?", Date.today_in_local_timezone - 5.days, Date.today_in_local_timezone - 2.day) }, class_name: Reservation, foreign_key: :list_id
-  has_many :reservations_pending, -> { pending.order(date: :asc) }, class_name: Reservation, foreign_key: :list_id
-  has_many :reservations_unconcluded, -> { accepted.unconfirmed.in_last_months(6) }, class_name: Reservation, foreign_key: :list_id
+  has_many :reservations_today, -> { accepted.where(date: Date.today_in_local_timezone) }, class_name: 'Reservation', foreign_key: :list_id
+  has_many :recent_reservations, -> { accepted.where("reservations.date between ? and ?", Date.today_in_local_timezone - 5.days, Date.today_in_local_timezone - 2.day) }, class_name: 'Reservation', foreign_key: :list_id
+  has_many :reservations_pending, -> { pending.order(date: :asc) }, class_name: 'Reservation', foreign_key: :list_id
+  has_many :reservations_unconcluded, -> { accepted.unconfirmed.in_last_months(6) }, class_name: 'Reservation', foreign_key: :list_id
   
   has_many :external_reservations
-  has_many :external_reservations_today, -> { where(date: Date.today_in_local_timezone) }, class_name: ExternalReservation, foreign_key: :list_id
-  has_many :recent_external_reservations, -> { where("external_reservations.date between ? and ?", Date.today_in_local_timezone - 5.days, Date.today_in_local_timezone - 2.day) }, class_name: ExternalReservation, foreign_key: :list_id
+  has_many :external_reservations_today, -> { where(date: Date.today_in_local_timezone) }, class_name: 'ExternalReservation', foreign_key: :list_id
+  has_many :recent_external_reservations, -> { where("external_reservations.date between ? and ?", Date.today_in_local_timezone - 5.days, Date.today_in_local_timezone - 2.day) }, class_name: 'ExternalReservation', foreign_key: :list_id
   
   has_many :campaigns
   
-  has_many :reservations_for_send_confirmation, -> { accepted.campaigns_fetched }, class_name: Reservation, foreign_key: :list_id
-  has_many :external_reservations_for_send_confirmation, -> { campaigns_fetched }, class_name: ExternalReservation, foreign_key: :list_id
+  has_many :reservations_for_send_confirmation, -> { accepted.campaigns_fetched }, class_name: 'Reservation', foreign_key: :list_id
+  has_many :external_reservations_for_send_confirmation, -> { campaigns_fetched }, class_name: 'ExternalReservation', foreign_key: :list_id
   
   has_many :lists_genres
   has_many :genres, through: :lists_genres
   
-  belongs_to :pen_name, -> { unscope(where: :deleted) }
-  belongs_to :api_key
+  belongs_to :pen_name, -> { unscope(where: :deleted) }, optional: true
+  belongs_to :api_key, optional: true
   
   has_many :payments, through: :reservations, source: :connect_payments
 
@@ -59,7 +60,7 @@ class List < ApplicationRecord
   end
   
   def has_pen_name_if_active
-    if active? && pen_name.blank?
+    if status_active? && pen_name.blank?
       errors.add(:base, "A pen name or promo service must be selected for all active lists")
     end
   end
@@ -71,13 +72,13 @@ class List < ApplicationRecord
   end
 
   def not_deactivating_with_activity
-    if status_was == "active" && status == "inactive" && reservations_unconcluded.count > 0
+    if status_was == self.class.statuses[:active] && status_inactive? && reservations_unconcluded.count > 0
       errors.add(:base, "You cannot deactivate a list with active or unconcluded bookings.")
     end
   end
   
   def list_found_in_api_results
-    if status_changed? && active? && not_found_recently_in_api?
+    if status_changed? && status_active? && not_found_recently_in_api?
       errors.add(:base, "We cannot show this list in the marketplace. List not found in #{self.Platform} Api.  Please confirm your Api Integration is active.")
     end
   end
@@ -94,7 +95,8 @@ class List < ApplicationRecord
   
   def self.refresh_completed_recently?
     PLATFORMS.all? do |pform|
-      List.where(platform: pform).maximum(:last_refreshed_at) > Time.now - 24.hours
+      last_refreshed_at = List.where(platform: pform).maximum(:last_refreshed_at)
+      last_refreshed_at.present? && last_refreshed_at > Time.now - 24.hours
     end
   end
   
@@ -305,7 +307,7 @@ class List < ApplicationRecord
     List.distinct
     .references(*joins)
     .includes(*joins)
-    .active
+    .status_active
   end
   
   def self.marketplace_search(search_text)

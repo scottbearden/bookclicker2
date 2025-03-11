@@ -1,10 +1,7 @@
-
 .modal {
-  
-  
   .calendar-day-bookings-container {
     min-height: 100px;
-    
+
     .loading-calendar {
       text-align: center;
       padding: 40px;
@@ -22,25 +19,25 @@
         text-align: center;
       }
     }
-    
+
     $cal-day-bookings-padding: 8px;
-    
+
     .calendar-day-bookings-inv-type-header {
-      padding: $cal-day-bookings-padding $cal-day-bookings-padding 4px $cal-day-bookings-padding;
+      padding: $cal-day-bookings-padding $cal-day-bookings-padding 4px
+        $cal-day-bookings-padding;
       font-size: 15px;
     }
-    
+
     .calendar-day-bookings-error {
       color: red;
       width: 80%;
       text-align: center;
       padding: $cal-day-bookings-padding $cal-day-bookings-padding 0;
     }
-    
+
     .calendar-day-bookings-form {
       @include clearfix();
-      
-      
+
       .calendar-day-bookings-form-link-wrapper {
         float: left;
         width: 20%;
@@ -49,35 +46,34 @@
           padding-left: 4px;
           padding-right: 4px;
         }
-        
-//        text-align: center;
+
+        //        text-align: center;
         a {
           min-width: 0;
           width: 100%;
-          
-          border-radius:4px;
+
+          border-radius: 4px;
           @include respond-to(extra-small) {
             width: 70px;
             font-size: 10px;
           }
-          
+
           @include respond-to(tiny) {
             width: 50px;
           }
-          
+
           padding: 0;
           line-height: 36px;
           box-shadow: 2px 2px 8px #888888;
         }
-        
+
         a[disabled] {
           color: lightgrey;
           cursor: default;
           border-color: lightgrey;
         }
-        
       }
-      
+
       .calendar-day-bookings-form-input-wrapper {
         float: left;
         width: 40%;
@@ -87,7 +83,7 @@
           padding-left: 4px;
           padding-right: 4px;
         }
-        
+
         input {
           width: 100%;
           height: 100%;
@@ -95,29 +91,28 @@
           background-color: $ultra-light-gray-alt;
           @include placeholder() {
             color: $semi-light-gray-color;
-          };
+          }
           border: none;
           @include respond-to(extra-small) {
             font-size: 11px;
           }
-          
+
           @include respond-to(tiny) {
             font-size: 10px;
           }
-          
         }
-        
+
         &.email-error {
           input {
             outline: none !important;
-            border:1px solid red;
+            border: 1px solid red;
             box-shadow: 0 0 5px darkred;
             @include placeholder() {
               color: grey;
             }
           }
         }
-        
+
         &.external {
           input {
             color: $mailchimp-gray;
@@ -131,7 +126,7 @@
               color: $ultra-light-gray-alt;
             }
           }
-          
+
           &.send-confirmed input[disabled] {
             color: $mailchimp-gray !important;
             -webkit-text-fill-color: $mailchimp-gray;
@@ -168,22 +163,14 @@
             -webkit-text-fill-color: lightgrey;
           }
         }
-        
-      
       }
-      
     }
-    
-    
-  
   }
-  
-  
-  
+
   .modal-header {
     text-align: center;
     button.close {
-      position:relative;
+      position: relative;
       z-index: 130;
       margin-top: 5px;
       display: inline-block;
@@ -194,38 +181,39 @@
     }
   }
 
-  a.external-reservation-form-link[disabled], a.one-day-inventory-form-link[disabled] {
+  a.external-reservation-form-link[disabled],
+  a.one-day-inventory-form-link[disabled] {
     cursor: default;
     color: $cool-gray;
     border-color: $cool-gray;
-    &:hover, &:active {
+    &:hover,
+    &:active {
       border-color: $cool-gray;
       color: $cool-gray;
       background-color: white;
-    };
+    }
   }
 
   a.one-day-inventory-form-link {
     margin-left: 12px;
   }
-  
+
   .one-day-inventory-input {
     .mention-input {
       border: 1px solid lightgrey;
       width: 50px;
       height: 33px;
     }
-    
+
     input[type="checkbox"] {
       margin-top: 10px;
     }
-    
+
     .react-numeric-input {
       margin-top: 3px;
     }
-    
   }
-  
+
   .inventory-change-error {
     color: red;
     margin: 7px 0 4px;
@@ -238,10 +226,8 @@
       font-size: 10px;
     }
   }
-  
-  
+
   .modal-body {
-    
     .calendar-date-info-block {
       text-align: center;
       .calendar-date-header {
@@ -252,20 +238,20 @@
       .lightgrey {
         color: lightgrey;
       }
-      
+
       &.calendar-date-info-block-left {
         text-align: left;
       }
-            
+
       p {
         text-align: left;
         padding: 0 10px;
       }
-      
+
       &:not(:last-child) {
         margin-bottom: 31px;
       }
-      
+
       &.booking {
         margin-bottom: 2px;
         @include respond-to(extra-small) {
@@ -278,7 +264,7 @@
       &.just-header {
         margin-bottom: 10px;
       }
-      
+
       .calendar-date-reservation-button {
         margin: 10px 10px 0 10px;
         box-shadow: 3px 3px 10px #888888;
@@ -288,9 +274,7 @@
           line-height: 14px;
         }
       }
-      
     }
-    
   }
 
   .modal-footer {
@@ -313,16 +297,13 @@
     border-radius: 2px;
     box-shadow: 3px 3px 10px #888888;
   }
-  
 }
-
 
 .zabuto-calendar-container {
 }
 
-#calendar-page, #booking-calendar-page {
-  
-
+#calendar-page,
+#booking-calendar-page {
   .loading-calendar {
     width: 80%;
     margin: 40px auto;
@@ -336,16 +317,16 @@
     color: black !important;
     font-size: 16px !important;
   }
-  
+
   td.dow-clickable:not(.event-styled) {
     cursor: default !important;
   }
-  
+
   .calendar-legend-container {
     margin: 35px auto 40px;
     width: 700px;
     text-align: center;
-    
+
     .calendar-legend {
       @include clearfix();
       .calendar-legend-item-container {
@@ -360,7 +341,7 @@
         }
       }
     }
-    
+
     .calendar-legend-2 {
       .calendar-legend-item-container {
         display: inline-block;
@@ -396,25 +377,26 @@
   }
 }
 
-#booking-calendar-page, #calendar-page {
-  
+#booking-calendar-page,
+#calendar-page {
   .calendar-dow-header {
     height: 40px;
   }
-  
-  .calendar-month-header, .calendar-dow-header {
+
+  .calendar-month-header,
+  .calendar-dow-header {
     th {
       vertical-align: middle;
     }
   }
-  
+
   .calendar-dow td {
     padding: 7px;
     @include respond-not-to(extra-small) {
       padding: 9px 7px;
     }
   }
-  
+
   .set-your-inventory-wrapper {
     text-align: center;
     margin: 5px auto 23px;
@@ -424,7 +406,7 @@
   }
   td.dow-clickable {
     cursor: default !important;
-    
+
     .day {
       width: 84%;
       margin: 0 auto;
@@ -436,7 +418,7 @@
       }
     }
   }
-  
+
   .badge-today {
     padding: 3px 4px;
     border-radius: 4px;
@@ -452,7 +434,6 @@
   }
 
   .tooltip {
-    
     .zabuto-day-tooltip-list-item {
       margin-bottom: 12px;
       font-size: 11px;
@@ -465,7 +446,6 @@
       margin: 10px 0 20px 0;
       font-size: 12px;
     }
-
   }
 }
 
@@ -483,10 +463,8 @@
 
 #reusableModal {
   top: 100px;
-  
-  
+
   .modal-title {
-    
     .calendar-modal-title-date {
       display: inline-block;
       min-width: 300px;
@@ -495,7 +473,7 @@
         font-size: 14px;
       }
     }
-    
+
     span.next-previous-day-icon {
       font-size: 20px;
       @include respond-to(extra-small) {
@@ -510,7 +488,6 @@
       cursor: pointer;
       margin-right: 20px;
     }
-    
   }
   .calendar-available-inventory-modal {
     text-align: left;
@@ -518,7 +495,7 @@
       display: inline-block;
     }
   }
-  
+
   .booking-form {
     .booking-form-title {
       margin-top: 15px;
@@ -535,43 +512,41 @@
           font-size: 14px;
         }
       }
-
     }
-    
+
     &.respond-booking-form {
       text-align: center;
       .booking-form-title {
         font-size: 20px;
         margin-bottom: 20px;
-        
       }
-      
+
       .respond-button-edit-button {
         width: 155px;
       }
-      
+
       .payment-or-swap-container {
         height: auto !important;
         .offer-container {
-          
           .react-datepicker__input-container input {
             text-align: center;
             margin: 8px auto;
           }
-          
+
           input[type="date"] {
             width: 55%;
             margin: 8px auto;
           }
-          
+
           .offer-type.big {
             font-size: 20px;
           }
-          
-          input[type='checkbox'], input[type='checkbox']:after {
+
+          input[type="checkbox"],
+          input[type="checkbox"]:after {
             cursor: default !important;
           }
-          
+
           &.not-offered {
             @include respond-to(extra-small) {
               display: none;
@@ -579,15 +554,14 @@
             .offer-type {
               color: lightgrey;
             }
-            
           }
         }
       }
-      
+
       .respond-error {
         margin: 2px auto 10px;
       }
-      
+
       .respond-buttons {
         position: relative;
         @include clearfix();
@@ -603,24 +577,23 @@
           .bclick-button {
           }
         }
-        
+
         &.phone {
           .respond-button {
             width: 100%;
           }
         }
-        
+
         .respond-button.disabled {
-          a, input {
+          a,
+          input {
             background-color: lighten($mailchimp-gray, 37%);
             cursor: default;
           }
         }
       }
-      
     }
-    
-    
+
     .book-add-container {
       width: 100%;
       @include respond-to(extra-small) {
@@ -633,28 +606,29 @@
 
         .book-add-input {
           float: left;
-          
+
           .Select-control {
             text-align: left;
           }
-          
+
           .Select-value-label {
             position: relative;
             top: 2px;
           }
-        
-          input, a, .Select-control {
+
+          input,
+          a,
+          .Select-control {
             width: 100%;
             background-color: $cool-gray;
             @include placeholder() {
               color: $semi-light-gray-color;
-            };
+            }
             border: none;
             font-size: 13px;
           }
-        
         }
-        
+
         .book-add-input.book-name {
           width: 55%;
           @include respond-to(extra-small) {
@@ -662,18 +636,18 @@
             margin-bottom: 11px;
           }
         }
-        
+
         .book-add-input.pen-name {
           width: 25%;
           @include respond-to(extra-small) {
             width: 68%;
           }
         }
-        
+
         .book-add-input.space {
           width: 2%;
         }
-        
+
         .book-add-input.submit {
           width: 16%;
           @include respond-to(extra-small) {
@@ -692,9 +666,7 @@
         }
       }
     }
-    
-    
-    
+
     .book-select-container {
       margin: 25px auto 15px;
       width: 100%;
@@ -713,24 +685,23 @@
       @include clearfix();
 
       .offer-container {
-        
         float: left;
         width: 50%;
         &.width-100 {
           width: 100%;
         }
-        
+
         input[type="checkbox"] {
           margin: 8px auto !important;
         }
-        
+
         @include respond-to(extra-small) {
           width: 100%;
           margin: 20px 0;
           &:not(:first-child) {
             border-top: 1px solid lightgrey;
             padding-top: 40px;
-          };
+          }
         }
         text-align: center;
 
@@ -741,7 +712,8 @@
         @include grey-checkbox(18px);
       }
 
-      &.just-swap-open, &.just-swap {
+      &.just-swap-open,
+      &.just-swap {
         .offer-container {
           width: 100%;
           padding-top: 4px;
@@ -760,11 +732,9 @@
             }
           }
         }
-        
       }
 
       .payment-offer-content {
-        
         .rc-slider {
           width: 84%;
           margin: 35px auto 10px;
@@ -776,7 +746,7 @@
             }
           }
         }
-        
+
         .base-price {
           margin-top: 18px;
           @include respond-to(extra-small) {
@@ -785,20 +755,18 @@
           cursor: pointer;
           color: lightgrey;
         }
-        
+
         .payment-offer-slider-total {
           margin-top: 20px;
           display: block;
           font-size: 24px;
         }
-        
+
         &.disabled {
           .payment-offer-slider-total {
             color: lightgrey;
           }
         }
-        
-
       }
 
       .Select {
@@ -809,25 +777,25 @@
         .buyer-swap-list-message {
           margin-top: 5px;
         }
-        
+
         textarea {
           resize: none;
         }
-        
+
         .react-datepicker__input-container {
           width: 200px;
         }
-        
+
         .swap-cancel-note {
           padding: 2px 8px 6px;
           font-size: 12px;
         }
-        
+
         &.fixed-100 {
           height: 148px;
           padding: 20px 0;
         }
-        
+
         .refund-amount {
           display: block;
           font-size: 20px;
@@ -851,10 +819,7 @@
             }
           }
         }
-
       }
-      
-
     }
 
     .reservation-message-container {
@@ -874,7 +839,8 @@
 
     .submit-container {
       margin: 47px 0 30px;
-      input, a {
+      input,
+      a {
         border-radius: 4px;
       }
       .submit-error {
@@ -883,23 +849,19 @@
         @include respond-to(extra-small) {
           font-size: 11px;
         }
-        
+
         @include respond-to(tiny) {
           font-size: 10px;
         }
       }
       .submit-error:after {
-        opacity: 0.0;
-        content: '-';
+        opacity: 0;
+        content: "-";
       }
     }
   }
-  
+
   .booking-form-title-stats {
     font-size: 14px;
   }
-
-  
 }
-
-

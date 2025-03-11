@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Mail
   class Message
     

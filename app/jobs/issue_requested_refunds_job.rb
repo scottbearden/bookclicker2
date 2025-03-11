@@ -1,6 +1,7 @@
 class IssueRequestedRefundsJob
+  include Sidekiq::Worker
 
-  def self.perform
+  def perform
     puts "began IssueRequestedRefundsJob at #{Time.now}"
     reservations = Reservation
                    .includes(:promo_send_confirmation, :connect_payments)

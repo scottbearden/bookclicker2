@@ -15,13 +15,19 @@ class ConvertkitApi
   end
   
   def get_forms
-    #res = HTTParty.get("https://api.convertkit.com/forms?k=#{@api_key}&v=2", {})
-    #https://api.convertkit.com/v3/forms?api_secret=SyKalMHlXqoTZ9_qun23P5HTe3YlfOzlpkFRkIGxVDA
-    #res = HTTParty.get("https://api.convertkit.com/v3/forms?api_secret=#{@api_key}&v=2", {})
-    puts "in get_forms"
-    res = HTTParty.get("https://9yafyo0616.execute-api.us-east-1.amazonaws.com/prod/lists/convertkit/forms?api_secret=#{@api_key}", {})
-    #puts res
-    res.success? ? res : []
+    url = "https://api.convertkit.com/v3/forms?api_secret=#{@api_key}"
+    res = HTTParty.get(url, {})
+    forms = res.success? ? res.parsed_response["forms"] : []
+    forms.each do |form|
+      form_url = "https://api.convertkit.com/v3/forms/#{form['id']}/subscriptions?api_secret=#{@api_key}"
+      form_res = HTTParty.get(form_url, {})
+      if form_res.success?
+        form['total_subscriptions'] = form_res.parsed_response['total_subscriptions']
+      else
+        form['total_subscriptions'] = 0
+      end
+    end
+    forms
   rescue
     []
   end

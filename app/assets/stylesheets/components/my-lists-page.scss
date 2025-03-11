@@ -2,10 +2,9 @@ $desktop-price-width: 69px;
 $mobile-price-width: 65px;
 
 #my-lists-page {
-  
   margin: 0 auto;
   margin-bottom: 33px;
-  
+
   .page-title {
     margin-bottom: 10px;
     .page-title-subtitle {
@@ -14,12 +13,12 @@ $mobile-price-width: 65px;
       }
     }
   }
-  
+
   #my-lists-page-content {
     padding-top: 30px;
     width: 100%;
     text-align: center;
-    
+
     table {
       td {
         vertical-align: middle;
@@ -34,7 +33,7 @@ $mobile-price-width: 65px;
         background-color: $mailchimp-gray;
       }
     }
-    
+
     tbody {
       tr {
         min-height: 40px;
@@ -42,7 +41,6 @@ $mobile-price-width: 65px;
         font-size: 18px;
         span.not-phone {
           font-size: 18px;
-          
         }
         .list-name {
           @include respond-to(extra-small) {
@@ -55,10 +53,9 @@ $mobile-price-width: 65px;
       }
       tr:hover {
         background-color: $light-gray-color;
-      };
+      }
     }
     #my-lists-index {
-      
       .my-lists-index-link-to-selections {
         text-align: center;
         padding-bottom: 10px;
@@ -71,7 +68,7 @@ $mobile-price-width: 65px;
           text-align: center;
         }
       }
-      
+
       .my-lists-select-submit {
         input[type="submit"] {
           border-radius: 3px;
@@ -80,27 +77,26 @@ $mobile-price-width: 65px;
           }
         }
       }
-      
+
       .my-lists-row {
-        
         td {
           word-wrap: break-word;
         }
-        
+
         td.my-list-row-platform {
           width: 125px;
           @include respond-to(extra-small) {
             width: 80px;
           }
         }
-        
+
         td.my-list-row-narrow {
           width: 95px;
           @include respond-to(extra-small) {
             width: 70px;
           }
         }
-        
+
         td.my-list-row-squinch {
           @include respond-to(tiny) {
             width: 94px;
@@ -109,14 +105,13 @@ $mobile-price-width: 65px;
             width: 82px;
           }
         }
-        
+
         td.my-lists-select-checkbox-container {
           @include grey-checkbox(20px);
           width: 90px;
           @include respond-to(extra-small) {
             width: 50px;
             @include grey-checkbox(14px);
-            
           }
         }
 
@@ -124,7 +119,7 @@ $mobile-price-width: 65px;
           // .my-lists-row-action-td {
           //   display: none;
           // }
-          
+
           .list-select-pen-name-input {
             padding: 4px;
             text-align: center;
@@ -144,13 +139,16 @@ $mobile-price-width: 65px;
           @include respond-to(extra-small) {
             width: 70px;
           }
-          padding-left:0;
-          padding-right:0;
+          padding-left: 0;
+          padding-right: 0;
         }
-        
+
         .Select {
           cursor: pointer;
-          .Select-value, .Select-placeholder, .Select-option, .Select-value-label {
+          .Select-value,
+          .Select-placeholder,
+          .Select-option,
+          .Select-value-label {
             text-align: left;
             padding-left: 15px;
             font-size: 11px;
@@ -159,7 +157,7 @@ $mobile-price-width: 65px;
             padding-left: 0px;
           }
         }
-        
+
         .my-lists-row-link {
           min-width: 93px;
           width: 70px;
@@ -167,9 +165,9 @@ $mobile-price-width: 65px;
           span.not-phone {
             font-size: 16px;
           }
-          
+
           border-radius: 5px;
-          
+
           @include respond-to(extra-small) {
             min-width: 37px;
             width: 34px;
@@ -178,9 +176,8 @@ $mobile-price-width: 65px;
         }
       }
     }
-    
+
     .my-lists-show {
-      
       .my-lists-show-cutoff-date {
         input[type="text"] {
           text-align: center;
@@ -190,25 +187,29 @@ $mobile-price-width: 65px;
           color: $youtube-red;
           margin-top: 8px;
         }
+        .date-input {
+          width: auto;
+        }
+        .my-lists-show-cutoff-date-input {
+          display: flex;
+          justify-content: center;
+        }
       }
-      
+
       .my-lists-show-container {
         margin-top: 30px;
-        
+
         .my-lists-show-content {
-          
           .my-lists-show-inventory {
-            
-            
-            .inventory-checkboxes-inv-type, .inventory-day-box {
+            .inventory-checkboxes-inv-type,
+            .inventory-day-box {
               vertical-align: middle;
               @include respond-to(extra-small) {
                 font-size: 10px;
                 padding: 3px 2px;
               }
-              
             }
-            
+
             .inventory-day-box {
               @include grey-checkbox(20px);
               @include respond-to(extra-small) {
@@ -221,7 +222,7 @@ $mobile-price-width: 65px;
                 }
               }
             }
-            
+
             .inventory-day-header {
               @include respond-to(extra-small) {
                 font-size: 9px;
@@ -247,9 +248,8 @@ $mobile-price-width: 65px;
               height: 33px;
               text-align: center;
               font-weight: 700;
-
             }
-            
+
             .react-numeric-input {
               @include respond-to(extra-small) {
                 b {
@@ -257,36 +257,37 @@ $mobile-price-width: 65px;
                   font-size: 6px;
                 }
               }
-              
+
               @include respond-to(tiny-mobile) {
                 b {
                   width: 12px !important;
                   font-size: 6px;
                 }
               }
-              
             }
             .mention-input[disabled] {
               color: lightgrey;
             }
           }
-          
+
           .my-lists-show-submit {
             text-align: left;
             @include respond-to(extra-small) {
               text-align: center;
             }
-            input, button, a {
+            input,
+            button,
+            a {
               border-radius: 1px;
               margin-right: 10px;
             }
           }
-          
+
           .my-lists-show-header {
             position: relative;
             height: 58px;
             width: 100%;
-            
+
             .my-lists-show-name {
               @include align-center();
               font-size: 30px;
@@ -298,10 +299,10 @@ $mobile-price-width: 65px;
               }
               color: $gray-color;
             }
-          
           }
-          
-          .my-lists-show-set-up, .my-lists-show-cutoff-date {
+
+          .my-lists-show-set-up,
+          .my-lists-show-cutoff-date {
             margin: 10px auto;
             .my-lists-show-cutoff-date-input {
               text-align: center;
@@ -309,22 +310,21 @@ $mobile-price-width: 65px;
               input.mobile-device {
                 width: 200px;
                 margin: 0 auto;
-                text-align: center
+                text-align: center;
               }
             }
-            
-            label { 
-              font-size: 28px; 
+
+            label {
+              font-size: 28px;
               @include respond-to(extra-small) {
                 font-size: 19px;
               }
               margin-bottom: 12px;
             }
-            
+
             .my-lists-show-genres {
               margin: 35px auto 35px;
               .genre-select-wrapper {
-                
                 .Select {
                   width: 840px;
                   @include respond-to(small) {
@@ -332,12 +332,11 @@ $mobile-price-width: 65px;
                   }
                   margin: 0 auto;
                 }
-                
+
                 .genre-select-warning {
                   margin-bottom: 2px;
                   color: red;
                 }
-                
               }
             }
 
@@ -352,26 +351,25 @@ $mobile-price-width: 65px;
                 width: 100%;
               }
               @include clearfix();
-              
+
               .my-lists-show-price-container {
                 float: left;
                 width: 33%;
-                
+
                 .my-lists-show-price-content {
                   margin: 30px auto;
-                  
+
                   .my-lists-show-price-title {
                     font-size: 18px;
                     margin-bottom: 8px;
                     @include respond-to(extra-small) {
                       font-size: 11px;
                     }
-                    
                   }
-                  
+
                   .my-lists-show-price-input {
                     position: relative;
-                    
+
                     .price-dollar-sign {
                       position: absolute;
                       left: -15px;
@@ -382,7 +380,7 @@ $mobile-price-width: 65px;
                         top: 5px;
                       }
                     }
-                    
+
                     width: $desktop-price-width;
                     @include respond-to(extra-small) {
                       width: $mobile-price-width;
@@ -403,11 +401,11 @@ $mobile-price-width: 65px;
                     }
                     margin: 0 auto;
                   }
-                                    
+
                   .my-lists-show-price-clear {
                     width: $desktop-price-width;
                     margin: 3px auto;
-                    
+
                     @include grey-checkbox(17px);
                     input[type="checkbox"] {
                       margin-top: 15px;
@@ -434,7 +432,6 @@ $mobile-price-width: 65px;
 }
 
 #pen-name-form-wrapper {
-
   #pen-name-form-instructions {
     margin: 10px 0 24px;
     font-size: 20px;
@@ -459,11 +456,10 @@ $mobile-price-width: 65px;
   }
 
   .pen-name-submit-wrapper {
-    text-align:center;
+    text-align: center;
     margin: 25px 0 25px;
     input[type="submit"] {
       border-radius: 3px;
     }
-   }
-
+  }
 }

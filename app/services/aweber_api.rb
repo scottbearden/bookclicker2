@@ -13,8 +13,9 @@ class AweberApi
   
   def self.init_oauth
     AWeber::OAuth.new(
-      Figaro.env.aweber_consumer_key, 
-      Figaro.env.aweber_consumer_secret)
+      ENV['aweber_consumer_key'], 
+      ENV['aweber_consumer_secret']
+    )
   end
   
   def account_id

@@ -1,0 +1,15 @@
+.git
+.gitignore
+.byebug_history
+log/*
+tmp/*
+public/system
+spec/tmp
+.bundle
+.ruby-version
+.ruby-gemset
+.bundle/*
+.capistrano/*
+.bundle/*
+node_modules/**/*
+package-lock.json

@@ -1,6 +1,7 @@
 class RemoveObsoleteListsJob
+  include Sidekiq::Worker
   
-  def self.perform
+  def perform
     
     puts "Running RemoveObsoleteListsJob at #{Time.now}"
     return nil unless List.refresh_completed_recently?

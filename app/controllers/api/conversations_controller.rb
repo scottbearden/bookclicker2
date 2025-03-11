@@ -1,9 +1,9 @@
 class Api::ConversationsController < Api::BaseController
 
   include ConversationsConcern
-  before_filter :require_current_member_user
-  before_filter :get_mailbox
-  before_filter :check_current_member_user_in_conversation, except: [:create]
+  before_action :require_current_member_user
+  before_action :get_mailbox
+  before_action :check_current_member_user_in_conversation, except: [:create]
 
   def reply
     if message_params[:message_body].blank?

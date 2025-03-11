@@ -1,6 +1,7 @@
 class AssistantPaymentRequestJob
+  include Sidekiq::Worker
   
-  def self.perform(request_id)
+  def perform(request_id)
     payment_request = AssistantPaymentRequest.find(request_id)
     recipient = payment_request.payer_member
     

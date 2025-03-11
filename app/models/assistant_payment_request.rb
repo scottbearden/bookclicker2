@@ -9,9 +9,7 @@ class AssistantPaymentRequest < ApplicationRecord
   validate :assistant_can_get_paid, on: :create #must be last validation
   
   after_create :notify_account_member_of_request
-  
-  has_paper_trail
-  
+    
   def assistant_can_get_paid
     return nil if self.errors.messages.present?
     if !assistant.stripe_account.present?
@@ -39,7 +37,7 @@ class AssistantPaymentRequest < ApplicationRecord
   
   def decline!
     self.update({declined_at: Time.now})
-    HandlePaymentPlanDeclineJob.delay.perform(self.id)
+    HandlePaymentPlanDeclineJob.perform_async(self.id)
   end
   
   def cancelled?
@@ -64,7 +62,7 @@ class AssistantPaymentRequest < ApplicationRecord
   end
   
   def notify_account_member_of_request
-    AssistantPaymentRequestJob.delay.perform(self.id)
+    AssistantPaymentRequestJob.perform_async(self.id)
   end
   
   def self.empty_ui_json

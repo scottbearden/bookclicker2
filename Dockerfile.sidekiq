@@ -1,0 +1,19 @@
+FROM ruby:3.3.1
+
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+
+# Setup work directory
+RUN mkdir /repo
+WORKDIR /repo
+
+# Copy Gemfile and install gems
+COPY Gemfile /repo/Gemfile
+COPY Gemfile.lock /repo/Gemfile.lock
+RUN bundle install
+
+# Copy the rest of the application
+COPY . /repo
+
+# Start Sidekiq
+CMD ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]

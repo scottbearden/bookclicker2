@@ -1,7 +1,7 @@
 class MyListsController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
   
   def index
     render :index
@@ -20,8 +20,8 @@ class MyListsController < ApplicationController
       flash[:success] = "Your list selections have been saved"
       redirect_to "/my_lists"
     else
-      flash[:error] = current_member_user.errors.values.first.try(:first)
-      redirect_to :back
+      flash[:error] = current_member_user.errors.full_messages.first
+      redirect_back(fallback_location: root_path)
     end
   end
   

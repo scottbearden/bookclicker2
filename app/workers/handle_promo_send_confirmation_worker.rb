@@ -3,9 +3,7 @@ class HandlePromoSendConfirmationWorker
 
   def perform(reservation_id, reservation_type)
     reservation = reservation_type.constantize.find(reservation_id)
-    
-    # Resque.remove_delayed_selection(self){ |obj| obj == [reservation_id, reservation_type]  }
-    
+        
     campaign = reservation.get_confirmed_campaign
     
     raise "Could not find campaign for #{self} - Res ##{reservation.id}" unless campaign.present?

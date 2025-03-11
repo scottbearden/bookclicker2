@@ -1,18 +1,18 @@
 class ReservationsController < ApplicationController
-  before_filter :restrict_booking_access, only: [:create, :swap]
+  before_action :restrict_booking_access, only: [:create, :swap]
   
-  before_filter :sign_in_via_auth_token_param, only: [:accept, :decline, :pay]
-  before_filter :ensure_reservation_is_pending_decision, only: [:accept, :decline]
+  before_action :sign_in_via_auth_token_param, only: [:accept, :decline, :pay]
+  before_action :ensure_reservation_is_pending_decision, only: [:accept, :decline]
 
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
   
   def accept
-    #just a gateway, lets me apply before_filter
+    #just a gateway, lets me apply before_action
     redirect_to info_reservation_path(@reservation)
   end
   
   def decline
-    #just a gateway, lets me apply before_filter
+    #just a gateway, lets me apply before_action
     redirect_to info_reservation_path(@reservation)
   end
   
@@ -21,19 +21,19 @@ class ReservationsController < ApplicationController
     if reservation.payment_offer? && !reservation.zero_dollar_offer? && !current_member_user.bc_customer.try(:default_source).present?
       if current_assistant_user.present?
         flash[:error] = "The account owner must add a credit or debit card in order to request a paid booking.  This can be done on the account owner's Payment Info page."
-        return redirect_to :back
+        redirect_back(fallback_location: root_path) 
       else
         flash[:error] = "You must add a credit or debit card in order to request a paid booking"
         return redirect_to payment_infos_path
       end
     elsif reservation.save
       reservation.list.update(last_action_at: Time.now)
-      HandleNewReservationJob.delay.perform(reservation.id)
+      HandleNewReservationJob.perform_async(reservation.id)
       flash[:success] = "Your request has been sent.  The seller has been notified.  We will notify you when the seller accepts or declines this booking."
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       flash[:error] = reservation.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -58,7 +58,7 @@ class ReservationsController < ApplicationController
       @first_reservation.update!(seller_accepted_at: Time.now, swap_reservation_id: @reservation.id)
       @first_reservation.list.update(last_action_at: Time.now)
       
-      HandleSellerReservationAcceptJob.delay.perform(@first_reservation.id)
+      HandleSellerReservationAcceptJob.perform_async(@first_reservation.id)
       ListSubscription.handle_paid_reservation(@first_reservation)
       ListSubscription.handle_paid_reservation(@reservation)
       
@@ -66,7 +66,7 @@ class ReservationsController < ApplicationController
       return redirect_to info_reservation_path(@reservation)
     else
       flash[:error] = @reservation.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -96,7 +96,7 @@ class ReservationsController < ApplicationController
       return render_422
     end
     @reservation.update(buyer_cancelled_at: Time.now)
-    HandleCancelJob.delay.perform(@reservation.id)
+    HandleCancelJob.perform_async(@reservation.id)
     flash[:info] = "You have cancelled this booking and the seller has been notified"
     return redirect_to info_reservation_path(@reservation)
   end
@@ -109,9 +109,9 @@ class ReservationsController < ApplicationController
     end
     
     @reservation.update_column(:refund_requested_at, Time.now)
-    RefundRequestJob.delay.perform(@reservation.id)
+    RefundRequestJob.perform_async(@reservation.id)
     flash[:info] = "Your refund request has been sent"
-    return redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
   
   def info
@@ -180,24 +180,24 @@ class ReservationsController < ApplicationController
     return render_404 unless @reservation.present?
     if !@reservation.present? || !@reservation.accepted?
       flash[:error] = "This action is not allowed [Booking #{@reservation.id}]"
-      return redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
     
     if reschedule_date.present?
       if reschedule_date == @reservation.date || reschedule_date <= Date.today_in_local_timezone
         flash[:error] = "Please select a different date [#{@reservation.id}]"
-        return redirect_to :back
+        redirect_back(fallback_location: root_path)
       else
         @reservation.date = reschedule_date
         @reservation.save!
         date_was = @reservation.previous_changes["date"].try(:first).try(:pretty)
-        SellerRescheduleJob.delay.perform(@reservation.id, date_was)
+        SellerRescheduleJob.perform_async(@reservation.id, date_was)
         flash[:success] = "This booking has been rescheduled to #{@reservation.date.pretty}"
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       end
     else
       flash[:error] = "The date you submitted was not recognized"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -208,7 +208,7 @@ class ReservationsController < ApplicationController
     ref_payment = @reservation.refundable_payment
     if !ref_payment.present?
       flash[:error] = "Booking #{@reservation.id} cannot be refunded."
-      return redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       res = PaymentProcessor.refund(ref_payment)
       if res.success
@@ -274,7 +274,7 @@ class ReservationsController < ApplicationController
   def restrict_booking_access
     if !book || !list
       flash[:error] = "This list is unavailable for booking"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -283,7 +283,7 @@ class ReservationsController < ApplicationController
   end
   
   def list
-    @list ||= List.active.find_by_id(params[:list_id])
+    @list ||= List.status_active.find_by_id(params[:list_id])
   end
   
   def reschedule_date

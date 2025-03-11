@@ -1,6 +1,7 @@
 class NotifyPenNameOwnerOfRequestJob
+  include Sidekiq::Worker
   
-  def self.perform(pen_name_request_id)
+  def perform(pen_name_request_id)
     pen_name_request = PenNameRequest.find(pen_name_request_id)
     recipient = pen_name_request.pen_name_owner
     mail = PenNameMailer.notify_owner_of_request(pen_name_request, recipient)

@@ -9,7 +9,7 @@ class Api::OneDayInventoriesController < Api::BaseController
     methods: [:send_confirmed?, :needs_confirm?, :uid]
   }
   
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
   
   def index
     if list.present? && params[:date].present?

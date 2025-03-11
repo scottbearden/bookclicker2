@@ -1,6 +1,6 @@
 class Api::ListsController < Api::BaseController
   
-  before_filter :require_current_member_user
+  before_action :require_current_member_user
   
   def index
     query_base = List.marketplace_base_query(:genres, :inventories, :pen_name, :user)
@@ -12,7 +12,7 @@ class Api::ListsController < Api::BaseController
     
     if list_params[:sort].present?
       order_by_clause = handle_sort_param(list_params[:sort])
-      query_base = query_base.order(order_by_clause)
+      query_base = query_base.order(Arel.sql(order_by_clause))
     else
       query_base = query_base.order(sponsored_tier: :desc, last_action_at: :desc)
     end

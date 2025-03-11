@@ -65,7 +65,7 @@ class User < ApplicationRecord
   
   has_many :assistant_invites, foreign_key: :member_user_id
   
-  has_many :assistants_users, class_name: UsersAssistant, foreign_key: :assistant_id
+  has_many :assistants_users, class_name: 'UsersAssistant', foreign_key: :assistant_id
   has_many :assisted_users, through: :assistants_users, source: :user
   
   before_save :set_email_unverified, if: Proc.new { |u| !u.skip_email_verification && u.email_changed? }
@@ -74,10 +74,14 @@ class User < ApplicationRecord
 
   attr_accessor :skip_email_verification, :auth_token
   accepts_nested_attributes_for :lists
+
+  def accepted_tos?
+    self.accepted_tos_at.present? && self.accepted_tos_at > TermsOfService.most_recent.created_at
+  end
   
   def unique_assistant_name
     if self.assistant? && full_name.present? 
-      if User.assistant.where(last_name: self.last_name, first_name: self.first_name).where("id != '#{self.id}'").present?
+      if User.assistant.where(last_name: self.last_name, first_name: self.first_name).where.not(id: self.id).exists?
         errors.add(:base, "This assistant name is already taken.  If this name belongs to you, please send a message to disputes@bookclicker.com")
       end
     end
@@ -118,7 +122,7 @@ class User < ApplicationRecord
   def verify_email!
     self.email_verified_at = Time.now
     self.save!
-    EmailVerifiedJob.delay.perform(self.id)
+    EmailVerifiedJob.perform_async(self.id)
   end
   
   def default_book
@@ -185,7 +189,7 @@ class User < ApplicationRecord
     num_invoices_scheduled = 0
     reservations_as_seller.select(&:buyer_yet_to_be_invoiced?).each do |reservation|
       num_invoices_scheduled += 1
-      InvoiceBuyerJob.delay.perform(reservation.id)
+      InvoiceBuyerJob.perform_async(reservation.id)
     end
     num_invoices_scheduled
   end
@@ -226,7 +230,7 @@ class User < ApplicationRecord
   def handle_email_changed
     previous_email = self.email_verified_at_was ? self.email_was : nil
     #we only care if the email was previously verified
-    EmailVerificationJob.delay.perform(self.id, previous_email)
+    EmailVerificationJob.perform_async(self.id, previous_email)
   end
   
   def set_email_unverified
@@ -247,7 +251,7 @@ class User < ApplicationRecord
       
       member = u_to_a_record.user
       if member.present?
-        NotifyMemberThatAssistantHasDeletedAccountJob.delay.perform(member.id, self.full_name, self.email)
+        NotifyMemberThatAssistantHasDeletedAccountJob.perform_async(member.id, self.full_name, self.email)
       end
       u_to_a_record.destroy
     end

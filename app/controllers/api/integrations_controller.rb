@@ -1,7 +1,7 @@
 class Api::IntegrationsController < Api::BaseController
   
-  before_filter :require_current_member_user
-  before_filter :block_assistant
+  before_action :require_current_member_user
+  before_action :block_assistant
   
   def index
     #deprecated

@@ -147,7 +147,7 @@ class Api::BookingCalendarsController < Api::BaseController
   end
 
   def list
-    @list ||= List.active.find_by_id(params[:list_id])
+    @list ||= List.status_active.find_by_id(params[:list_id])
   end
 
   def swap_reservation

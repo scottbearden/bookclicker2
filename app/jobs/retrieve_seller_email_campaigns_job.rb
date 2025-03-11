@@ -1,6 +1,7 @@
 class RetrieveSellerEmailCampaignsJob
+  include Sidekiq::Worker
 
-  def self.perform
+  def perform
     puts "#{Time.now}: -------- start RetrieveSellerEmailCampaignsJob -----------"
     lists_seen = {}
     List.distinct.joins(:recent_reservations).includes(:recent_reservations).each do |list|

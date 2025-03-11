@@ -1,15 +1,14 @@
 class UsersController < ApplicationController
   
-  before_filter :require_current_assistant_or_member_user, only: [:update_password, :unverified]
-  before_filter :require_current_assistant_user, only: [:destroy_assistant]
+  before_action :require_current_assistant_or_member_user, only: [:update_password, :unverified]
+  before_action :require_current_assistant_user, only: [:destroy_assistant]
   
-  before_filter :handle_reset_password_token, only: [:reset_password_page, :reset_password_submit]
+  before_action :handle_reset_password_token, only: [:reset_password_page, :reset_password_submit]
   
   def new
     if current_assistant_or_member_user.present?
       redirect_to root_path
     else
-      return redirect_to "/sign_up" unless valid_provider?
       render :new
     end
   end
@@ -18,12 +17,11 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       login!(user)
-      api_key = user.api_keys.create(api_key_params) if api_key_params.present?
       flash[:success] = "Welcome to Bookclicker"
       redirect_to "/profile?welcome=true"
     else
       flash[:error] = user.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -73,7 +71,7 @@ class UsersController < ApplicationController
   def reset_password_request_submit
     flash.clear
     if user = User.find_by_email(params[:email])
-      ResetPasswordEmailJob.delay.perform(user.id)
+      ResetPasswordEmailJob.perform_async(user.id)
       flash.now[:success] = "An email to reset your password is on its way"
       return render :reset_password_request_submit
     else
@@ -98,7 +96,7 @@ class UsersController < ApplicationController
       return redirect_to ('/dashboard')
     else
       flash[:error] = @user.errors.full_messages.first
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -109,7 +107,7 @@ class UsersController < ApplicationController
       redirect_to "/dashboard"
     else
       flash[:error] = "There was an error with your request"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
   
@@ -133,17 +131,10 @@ class UsersController < ApplicationController
     params.fetch(:book, {}).permit(:title, :author, :blurb)
   end
   
-  def api_key_params
-    params.fetch(:api_key, {}).permit(:key, :platform)
-  end
-  
   def user_password_params
     params.fetch(:user, {}).permit(:password, :password_confirmation)
   end
-  
-  def valid_provider?
-    PLATFORMS.include?(params[:provider]) ||  params[:provider] == "assistant"
-  end
+
   
   def handle_reset_password_token
     res = PasswordToken.valid?(params['token'])

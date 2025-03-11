@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
   
-  before_filter :require_current_member_user
-  before_filter :redirect_prohibited_users
+  before_action :require_current_member_user
+  before_action :redirect_prohibited_users
   
   PROMOS_FOR_SEND_CONFIRMATION_AS_JSON = {
     :methods => [:id, :book_title, :book_author, :date_pretty, :refundable?]
@@ -26,7 +26,7 @@ class DashboardsController < ApplicationController
     @today_in_local_timezone = Date.today_in_local_timezone.pretty_with_year
     @greeting = greeting
     @user = current_member_user.as_json(only: [:first_name])
-    @lists = current_member_user.lists.active
+    @lists = current_member_user.lists.status_active
              .includes(
                :pen_name,
                :payments, 

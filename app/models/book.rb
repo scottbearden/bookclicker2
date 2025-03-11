@@ -7,9 +7,9 @@ class Book < ApplicationRecord
 
   has_many :book_links, dependent: :destroy, inverse_of: :book
   has_many :reservations
-  has_many :reservations_unconcluded, -> { accepted.unconfirmed.in_last_months(6) }, class_name: Reservation, foreign_key: :book_id
-  has_many :reservations_not_cancelled, -> { not_cancelled }, class_name: Reservation, foreign_key: :book_id
-  has_many :recent_reservations_feed, -> { where("reservations.date > ?", Date.today_in_local_timezone - 30.days).order(:date) }, class_name: Reservation, foreign_key: :book_id
+  has_many :reservations_unconcluded, -> { accepted.unconfirmed.in_last_months(6) }, class_name: 'Reservation', foreign_key: :book_id
+  has_many :reservations_not_cancelled, -> { not_cancelled }, class_name: 'Reservation', foreign_key: :book_id
+  has_many :recent_reservations_feed, -> { where("reservations.date > ?", Date.today_in_local_timezone - 30.days).order(:date) }, class_name: 'Reservation', foreign_key: :book_id
   has_many :promos, -> { order(:date) }, dependent: :destroy
   accepts_nested_attributes_for :book_links, allow_destroy: true, reject_if: Proc.new { |bl| bl['link_url'].blank? }
   accepts_nested_attributes_for :promos, allow_destroy: true, reject_if: Proc.new { |pr| ["list_size", "date"].any? { |pr_attr| pr[pr_attr].blank? } }
@@ -21,7 +21,7 @@ class Book < ApplicationRecord
 
   scope :active, -> { where(deleted: false) }
 
-  default_scope { active.order(launch_order_sql) }
+  default_scope { active.order(Arel.sql(launch_order_sql)) }
 
   JSON_WITH_LINKS = {
     include: [:book_links],
@@ -65,8 +65,14 @@ class Book < ApplicationRecord
     book_links.reject(&:amazon?).reject(&:google_play?).reject(&:itunes?).map(&:link_url)
   end
 
+  # def valid_pen_name
+  #   if !pen_name.present? || pen_name.promo_service_only? || !pen_name.users_pen_names.pluck(:user_id).include?(self.user_id)
+  #     errors.add(:base, "Books must have valid pen name")
+  #   end
+  # end
+
   def valid_pen_name
-    if !pen_name.present? || pen_name.promo_service_only? || !pen_name.users_pen_names.pluck(:user_id).include?(self.user_id)
+    if !pen_name_id.present? || pen_name.try(:promo_service_only?) || pen_name.try(:user_id) != self.user_id # Check IDs directly
       errors.add(:base, "Books must have valid pen name")
     end
   end

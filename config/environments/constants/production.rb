@@ -1,3 +1,3 @@
-SITE_HOST = 'www.bookclicker.com'
-SITE_SCHEME = 'https'
-
+SITE_HOST = ENV.fetch('SITE_HOST', '127.0.0.1:3000')
+SITE_SCHEME = ENV.fetch('SITE_SCHEME', 'http')
+SITE_URL = "#{SITE_SCHEME}://#{SITE_HOST}"

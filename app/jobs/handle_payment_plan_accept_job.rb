@@ -1,6 +1,7 @@
 class HandlePaymentPlanAcceptJob
+  include Sidekiq::Worker
   
-  def self.perform(pay_request_id)
+  def perform(pay_request_id)
     pay_request = AssistantPaymentRequest.find(pay_request_id)
     recipient = pay_request.users_assistant.assistant
     member = pay_request.users_assistant.user

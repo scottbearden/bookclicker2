@@ -2,11 +2,11 @@ class Api::AssistantPaymentRequestsController < Api::BaseController
   
   
   
-  before_filter :require_current_assistant_user, only: [:create]
+  before_action :require_current_assistant_user, only: [:create]
   
   
-  before_filter :sign_in_via_auth_token_param, only: [:pay_and_accept]
-  before_filter :require_current_member_user, only: [:pay_and_accept, :accept, :decline, :terminate]
+  before_action :sign_in_via_auth_token_param, only: [:pay_and_accept]
+  before_action :require_current_member_user, only: [:pay_and_accept, :accept, :decline, :terminate]
   
   def create
     @as_assistant = true
@@ -91,7 +91,7 @@ class Api::AssistantPaymentRequestsController < Api::BaseController
       if payment_request.present?
         if payment_request.cancelled?
           flash[:error] == "This request has already been cancelled"
-          return redirect_to :back
+          redirect_back(fallback_location: root_path)
         else
           #@users_assistant already retrieved
           @payment_request = payment_request.as_ui_json

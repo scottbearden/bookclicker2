@@ -1,6 +1,6 @@
 class Api::ConfirmPromosController < Api::BaseController
 
-  before_filter :require_current_member_user, only: [:create]
+  before_action :require_current_member_user, only: [:create]
 
 
   def create

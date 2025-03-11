@@ -1,6 +1,7 @@
 class ProcessListSubscriptionsJob
+  include Sidekiq::Worker
 
-  def self.perform
+  def perform
     puts "#{Time.now}: -------- start ProcessListSubscriptionsJob -----------"
     ListSubscription.all.select(&:unprocessed?).each do |list_subscription|
       begin
