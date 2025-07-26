@@ -13,9 +13,9 @@ class ApiKey < ApplicationRecord
     end
   end
   
-  attr_encrypted :key, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
-  attr_encrypted :token, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
-  attr_encrypted :secret, key: Digest::MD5.hexdigest(Rails.application.secret_key_base)
+  attr_encrypted :key, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
+  attr_encrypted :token, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
+  attr_encrypted :secret, key: Digest::MD5.hexdigest(Rails.application.secrets.secret_key_base)
 
   validate :valid_platform
   validate :not_duplicate
