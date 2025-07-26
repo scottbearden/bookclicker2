@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.3.1'
+ruby '3.4.5'
 
 gem 'attr_encrypted'
 gem 'aweber'
